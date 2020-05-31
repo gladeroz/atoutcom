@@ -1,0 +1,8 @@
+.remember_me > input{
+    float: left;
+}
+
+.afterClick >input{
+	cursor: default;
+    background-color: grey;
+}
