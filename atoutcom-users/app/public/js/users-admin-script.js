@@ -65,10 +65,10 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ inscrits)",
-					"infoEmpty": "0 à 0 (0 inscription)",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ inscrits)",
+					"infoEmpty": "0 Ã  0 (0 inscription)",
 				},
 		    });
             
@@ -112,9 +112,9 @@ jQuery( document ).ready(function() {
 	    function(response){
 
             var data_ret = JSON.parse(response);
-            //console.log(response);
+            //console.log(data_ret);
 
-            if(data_ret.length != 0){
+            if(data_ret && data_ret.length != 0){
             	for (var i = 0; i < data_ret.length; i++) {
             		var organisateur = data_ret[i]['organisateur'];
             		var titre = data_ret[i]['titre'];
@@ -151,15 +151,15 @@ jQuery( document ).ready(function() {
 				 	"search":"_INPUT_",
 					"searchPlaceholder": "Rechercher...",
 					"lengthMenu": "_MENU_",
-					"zeroRecords": "Aucun évenement",
+					"zeroRecords": "Aucun Ã©venement",
 					"emptyTable": "",
 					"paginate": {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ évenement(s))",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ Ã©venement(s))",
 					"infoEmpty": " 0 ( Evenement )",
 				},
 		    });
@@ -203,7 +203,7 @@ jQuery( document ).ready(function() {
 	    function(response){
             
             var data_ret = JSON.parse(response);
-            if(data_ret.length != 0){
+            if(data_ret && data_ret.length != 0){
             	for(var i in data_ret){
             		var evenement = data_ret[i]['evenement'];
             		var nom = data_ret[i]['nom'];
@@ -255,11 +255,11 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ participant(s))",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ participant(s))",
 					"infoEmpty": " 0 ( Participant )",
-					"sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+					"sInfoFiltered":   "(filtrÃ© Ã  partir de _MAX_ Ã©lÃ©ments au total)",
 				},
 		    });
             
@@ -366,7 +366,7 @@ jQuery( document ).ready(function() {
 	            	}
 	            }	    		
 	    	}
-            // On stocke les colonnes dans un champs caché
+            // On stocke les colonnes dans un champs cachÃ©
             setColumns('columnParticipant');
 
             var tableParticipant = jQuery('#factureParticipant').DataTable({
@@ -385,16 +385,16 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ facture(s)",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ facture(s)",
 					"infoEmpty": " 0 ( Facture(s) )",
 				},
 		    });
 
 		    jQuery('a.toggle-vis-participant').on( 'click', function (e) {
 		        e.preventDefault();
-		        // Mise à jour des colonnes
+		        // Mise Ã  jour des colonnes
 		        addRemoveColumns(jQuery(this).text(), 'columnParticipant');
 		        // Get the column API object
 		        var column = tableParticipant.column( jQuery(this).attr('data-column') );
@@ -421,9 +421,9 @@ jQuery( document ).ready(function() {
 
     jQuery('#formBonDeCommande').submit( function(event) {
         event.preventDefault();
-        // On change le libéllé du bouton pendant la création de la facture
+        // On change le libÃ©llÃ© du bouton pendant la crÃ©ation de la facture
         jQuery( "#btnBC" ).attr("disabled", true);
-    	jQuery( "#btnBC" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> Création Bon de Commande ");
+    	jQuery( "#btnBC" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> CrÃ©ation Bon de Commande ");
         // On serialize le formulaire
     	var data = jQuery( "#formBonDeCommande" ).serialize();
     	jQuery.post(
@@ -438,24 +438,24 @@ jQuery( document ).ready(function() {
 		    	jQuery( "#btnBC" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
 		    	
                 if(response==="success"){
-                    jQuery(".successBC").html("Facture créée avec succès et transmis par mail au participant.").show().delay(5000).fadeOut();
+                    jQuery(".successBC").html("Facture crÃ©Ã©e avec succÃ¨s et transmis par mail au participant.").show().delay(5000).fadeOut();
                     setTimeout(document.location.reload(),5000);
                 }
                 
                 if(response==="errorDB"){
-                    jQuery(".errorBC").html("Erreur lors de la création de la facture dans la Base.").show().delay(8000).fadeOut();
+                    jQuery(".errorBC").html("Erreur lors de la crÃ©ation de la facture dans la Base.").show().delay(8000).fadeOut();
                 }
 
                 if(response==="errorMail"){
-                    jQuery(".infoBC").html("La facture a été générée, mais n'a pas été envoyée par mail : Une erreur sur le serveur de mail").show().delay(8000).fadeOut();
+                    jQuery(".infoBC").html("La facture a Ã©tÃ© gÃ©nÃ©rÃ©e, mais n'a pas Ã©tÃ© envoyÃ©e par mail : Une erreur sur le serveur de mail").show().delay(8000).fadeOut();
                 }
 
                 if(response==="error"){
-                    jQuery(".infoBC").html("La facture a été créé en base, mais n'a pas été générée en PDF.").show().delay(8000).fadeOut();
+                    jQuery(".infoBC").html("La facture a Ã©tÃ© crÃ©Ã© en base, mais n'a pas Ã©tÃ© gÃ©nÃ©rÃ©e en PDF.").show().delay(8000).fadeOut();
                 }
 
                 if(response==="errorData"){
-                    jQuery(".errorBC").html("Facture non générée, aucune insertion en base. Problème de données.").show().delay(8000).fadeOut();
+                    jQuery(".errorBC").html("Facture non gÃ©nÃ©rÃ©e, aucune insertion en base. ProblÃ¨me de donnÃ©es.").show().delay(8000).fadeOut();
                 }
 		    }
 		);
@@ -480,7 +480,7 @@ jQuery( document ).ready(function() {
     });
     
 
-    // Affichage du formulaire de création du sponsor
+    // Affichage du formulaire de crÃ©ation du sponsor
     jQuery('#createSponsor').click( function(event) {
     	jQuery('.showSponsor').hide();
 
@@ -492,10 +492,10 @@ jQuery( document ).ready(function() {
     	jQuery('.createSponsor').show();
     });
 
-    // Appel ajax pour la création du sponsor
+    // Appel ajax pour la crÃ©ation du sponsor
     jQuery( "#target-createSponsor" ).submit(function( event ) {
     	jQuery( "#enregistrerSponsor" ).attr("disabled", true);
-    	jQuery( "#enregistrerSponsor" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> Création sponsor ");
+    	jQuery( "#enregistrerSponsor" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> CrÃ©ation sponsor ");
     	var data = jQuery( "#target-createSponsor" ).serialize();
     	jQuery.post(
 		    ajaxurl,
@@ -510,21 +510,21 @@ jQuery( document ).ready(function() {
 		    	jQuery( "#enregistrerSponsor" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
 		    	
                 if(response==="success"){
-                    jQuery(".successSponsor").html("Sponsor créé avec succès").show().delay(5000).fadeOut();
+                    jQuery(".successSponsor").html("Sponsor crÃ©Ã© avec succÃ¨s").show().delay(5000).fadeOut();
                     setTimeout(document.location.reload(),5000);
 
                 }
                 
                 if(response==="errorDB"){
-                    jQuery(".errorSponsor").html("Erreur lors de la création du sponsor dans la Base.").show().delay(8000).fadeOut();
+                    jQuery(".errorSponsor").html("Erreur lors de la crÃ©ation du sponsor dans la Base.").show().delay(8000).fadeOut();
                 }
 
                 if(response==="errorMail"){
-                    jQuery(".errorSponsor").html("Le sponsor a été créé, sa facture a aussi été générée, mais la facture n'a pas été envoyée par mail.").show().delay(8000).fadeOut();
+                    jQuery(".errorSponsor").html("Le sponsor a Ã©tÃ© crÃ©Ã©, sa facture a aussi Ã©tÃ© gÃ©nÃ©rÃ©e, mais la facture n'a pas Ã©tÃ© envoyÃ©e par mail.").show().delay(8000).fadeOut();
                 }
 
                 if(response==="errorFacture"){
-                    jQuery(".errorSponsor").html("Le sponsor a été créé, mais la facture n'a pas été générée.").show().delay(8000).fadeOut();
+                    jQuery(".errorSponsor").html("Le sponsor a Ã©tÃ© crÃ©Ã©, mais la facture n'a pas Ã©tÃ© gÃ©nÃ©rÃ©e.").show().delay(8000).fadeOut();
                 }
 		    }
 		);
@@ -536,7 +536,7 @@ jQuery( document ).ready(function() {
     *                                                                           *
     *****************************************************************************/
 
-        // Selection d'un évenement de la liste
+        // Selection d'un Ã©venement de la liste
     jQuery( "#evenementList" ).change(function() {
         var valueEvent = jQuery( "#evenementList" ).val(); 
         var n = valueEvent.indexOf(",");
@@ -625,9 +625,9 @@ jQuery( document ).ready(function() {
 	            		jQuery('#bodyFactureSponsor').append(dataTable);
 	            	}
 	            }
-	            // On indique que les données ont été chargées   		
+	            // On indique que les donnÃ©es ont Ã©tÃ© chargÃ©es   		
 	    	}
-            // On stocke les colonnes dans un champs caché
+            // On stocke les colonnes dans un champs cachÃ©
             setColumns('columnSponsor');
 
             var tableSponsor = jQuery('#manage_factureSponsor').DataTable({
@@ -646,9 +646,9 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ facture(s)",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ facture(s)",
 					"infoEmpty": " 0 ( Facture(s) )",
 				},
 		    });
@@ -685,7 +685,7 @@ jQuery( document ).ready(function() {
     	jQuery('#creerIntervenant').show();
     });
     
-    // Créer un intervenant
+    // CrÃ©er un intervenant
     jQuery('#creerIntervenant').click( function(event) {
     	jQuery('.afficherIntervenant').hide();
     	jQuery('.creerIntervenant').show();
@@ -693,11 +693,11 @@ jQuery( document ).ready(function() {
     	jQuery('#afficherIntervenant').show();
     });
 
-    //Création d'un intervenant
+    //CrÃ©ation d'un intervenant
     jQuery( "#target-creerIntervenant" ).submit(function( event ) {
     	event.preventDefault();
     	jQuery( "#enregistrerIntervenant" ).attr("disabled", true);
-    	jQuery( "#enregistrerIntervenant" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> Création Intervenant ");
+    	jQuery( "#enregistrerIntervenant" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> CrÃ©ation Intervenant ");
     	var data = jQuery( "#target-creerIntervenant" ).serialize();
     	jQuery.post(
 		    ajaxurl,
@@ -711,17 +711,17 @@ jQuery( document ).ready(function() {
 		    	jQuery( "#enregistrerIntervenant" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
 		    	
                 if(response==="success"){
-                    jQuery(".success").html("Intervenant créé avec succès").show().delay(8000).fadeOut();
+                    jQuery(".success").html("Intervenant crÃ©Ã© avec succÃ¨s").show().delay(8000).fadeOut();
                     setTimeout(document.location.reload(),5000);
 
                 }
 
                 if(response==="errorDB"){
-                    jQuery(".erreur").html("Erreur lors de la création de l'intervenant.").show().delay(8000).fadeOut();
+                    jQuery(".erreur").html("Erreur lors de la crÃ©ation de l'intervenant.").show().delay(8000).fadeOut();
                 }
 
                 if(response==="exist"){
-                    jQuery(".erreur").html("L'intervenant a déjà été créé.").show().delay(8000).fadeOut();
+                    jQuery(".erreur").html("L'intervenant a dÃ©jÃ  Ã©tÃ© crÃ©Ã©.").show().delay(8000).fadeOut();
                 }
 		    }
 		);
@@ -758,7 +758,7 @@ jQuery( document ).ready(function() {
             		jQuery('#bodyTableIntervenant').append(dataTable);
             	}
             }
-	        // On indique que les données ont été chargées   		
+	        // On indique que les donnÃ©es ont Ã©tÃ© chargÃ©es   		
 
 
             var tableIntervenant = jQuery('#tableIntervenant').DataTable({
@@ -777,9 +777,9 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ intervenant(s)",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ intervenant(s)",
 					"infoEmpty": " 0 ( Intervenant(s) )",
 				},
 		    });
@@ -852,10 +852,10 @@ jQuery( document ).ready(function() {
 	            		jQuery('#bodyFactureGlobale').append(dataTable);
 	            	}
 	            }
-	            // On indique que les données ont été chargées   		
+	            // On indique que les donnÃ©es ont Ã©tÃ© chargÃ©es   		
 	    	}
             
-            // On stocke les colonnes dans un champs caché
+            // On stocke les colonnes dans un champs cachÃ©
             setColumns("columnGlobal");
 
             var tableGlobal = jQuery('#manage_factureGloable').DataTable({
@@ -874,16 +874,16 @@ jQuery( document ).ready(function() {
 						"first":    "Premier",
 						"last":     "Dernier",
 						"next":     "Suivant",
-						"previous": "Précédent"
+						"previous": "PrÃ©cÃ©dent"
 					},
-					"info":      "_START_ à _END_ (_TOTAL_ facture(s)",
+					"info":      "_START_ Ã  _END_ (_TOTAL_ facture(s)",
 					"infoEmpty": " 0 ( Facture(s) )",
 				},
 		    });
 
 		    jQuery('a.toggle-vis-global').on( 'click', function (e) {
 		        e.preventDefault();
-		        // Mise à jour des colonnes
+		        // Mise Ã  jour des colonnes
 		        addRemoveColumns(jQuery(this).text(), 'columnGlobal');
 		        // Get the column API object
 		        var column = tableGlobal.column( jQuery(this).attr('data-column') );
@@ -899,7 +899,7 @@ jQuery( document ).ready(function() {
     });
 });
 
-// Affichage du tableau supplémentaire lors du dépliage
+// Affichage du tableau supplÃ©mentaire lors du dÃ©pliage
 function user_format(d){
 	var data_file = JSON.parse(d[12]);
 
@@ -949,7 +949,7 @@ function user_format(d){
     return data;
 }
 
-// Dérouler du tableau affichage miniature evement
+// DÃ©rouler du tableau affichage miniature evement
 function event_format(d){
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         '<tr>' +
@@ -964,13 +964,13 @@ function event_format(d){
 }
 
 
-// Dérouler du tableau affichage miniature evement
+// DÃ©rouler du tableau affichage miniature evement
 function user_event_format(d){
     //if( d[9] ==="" || d[10] === ""){
 	//	var optionDisable = "disabled";
 	//}
     var status = d[13];
-	if( status === "Validé" && d[9] ==="" ){
+	if( status === "ValidÃ©" && d[9] ==="" ){
 		var optionDisable = "none";
 	}else{
 		var optionDisable = "block";
@@ -982,25 +982,25 @@ function user_event_format(d){
 	if(status ==="En attente"){
 		var optionData =       
         '<option value="En attente" selected>En attente</option>'+
-        '<option value="Annulé">Annulé</option>'+
-        '<option value="Validé">Validé</option>';
+        '<option value="AnnulÃ©">AnnulÃ©</option>'+
+        '<option value="ValidÃ©">ValidÃ©</option>';
 	}
-	else if(status ==="Validé"){
+	else if(status ==="ValidÃ©"){
 		var optionData =       
         '<option value="En attente">En attente</option>'+
-        '<option value="Annulé">Annulé</option>'+
-        '<option value="Validé" selected>Validé</option>';
+        '<option value="AnnulÃ©">AnnulÃ©</option>'+
+        '<option value="ValidÃ©" selected>ValidÃ©</option>';
 	}
-	else if(status ==="Annulé"){
+	else if(status ==="AnnulÃ©"){
 		var optionData =       
         '<option value="En attente">En attente</option>'+
-        '<option value="Annulé" selected>Annulé</option>'+
-        '<option value="Validé">Validé</option>';
+        '<option value="AnnulÃ©" selected>AnnulÃ©</option>'+
+        '<option value="ValidÃ©">ValidÃ©</option>';
 	}else {
 		var optionData =       
         '<option value="En attente">En attente</option>'+
-        '<option value="Annulé">Annulé</option>'+
-        '<option value="Validé">Validé</option>';
+        '<option value="AnnulÃ©">AnnulÃ©</option>'+
+        '<option value="ValidÃ©">ValidÃ©</option>';
 	}
     
     var dataForm = 
@@ -1028,7 +1028,7 @@ function user_event_format(d){
 	                '<img id="loading" src="'+chemin+'" style="display: none;">'+
 			    '</div>'+
 			    '<div class="col-sm-6" style="margin-top:5px; display :'+optionDisable+'">'+
-			        '<input type="number" class="form-control" placeholder="montant reçu" id="montantRecu">'+
+			        '<input type="number" class="form-control" placeholder="montant reÃ§u" id="montantRecu">'+
 			    '</div>'+
 	        '</div>'+
         '</div>'+
@@ -1106,31 +1106,31 @@ function changeStatus(){
         	var response = JSON.parse(response);
             jQuery('#loading').hide();
             
-            // Statut ok (différent de validé)
+            // Statut ok (diffÃ©rent de validÃ©)
             if(response==="successStatus"){
-                jQuery('.successStatus').html("Statut mis à jour avec success").show().delay(15000).fadeOut();
+                jQuery('.successStatus').html("Statut mis Ã  jour avec success").show().delay(15000).fadeOut();
                 setTimeout(document.location.reload(),15000);
             }
             
-            // Statut Ok, facture générée et envoyée par mail
+            // Statut Ok, facture gÃ©nÃ©rÃ©e et envoyÃ©e par mail
             if(response==="successFactureMail"){
-                jQuery('.successStatus').html("Statut mis à jour avec success. La facture a aussi été envoyée au participant.").show().delay(15000).fadeOut();
+                jQuery('.successStatus').html("Statut mis Ã  jour avec success. La facture a aussi Ã©tÃ© envoyÃ©e au participant.").show().delay(15000).fadeOut();
                 setTimeout(document.location.reload(),15000);
             }
             
-            // Statut Ok, facture générée mais pas envoyée par mail
+            // Statut Ok, facture gÃ©nÃ©rÃ©e mais pas envoyÃ©e par mail
             if(response==="errorMail"){
-                jQuery('.infoStatus').html("Statut mis à jour avec succes. La facture a été générée mais n'a pas été envoyée").show().delay(15000).fadeOut();
+                jQuery('.infoStatus').html("Statut mis Ã  jour avec succes. La facture a Ã©tÃ© gÃ©nÃ©rÃ©e mais n'a pas Ã©tÃ© envoyÃ©e").show().delay(15000).fadeOut();
             }
             
-            // Statut Ok mais facture non générée
+            // Statut Ok mais facture non gÃ©nÃ©rÃ©e
             if(response==="error" || response==="errorUserNotFoundEmail" || response==="errorUserNotFoundEvent"){
-                jQuery('.infoStatus').html("Statut mis à jour avec succes. Mais la facture n'a pas été générée").show().delay(15000).fadeOut();
+                jQuery('.infoStatus').html("Statut mis Ã  jour avec succes. Mais la facture n'a pas Ã©tÃ© gÃ©nÃ©rÃ©e").show().delay(15000).fadeOut();
             }
             
             //
             if(response==="errorDBStatus"){
-                jQuery('.error').html("Une erreur s'est produite lors de la mise à jour du statut. Veuillez ressayer.").show().delay(15000).fadeOut();
+                jQuery('.error').html("Une erreur s'est produite lors de la mise Ã  jour du statut. Veuillez ressayer.").show().delay(15000).fadeOut();
             }
 	    }
 	});
@@ -1139,7 +1139,7 @@ function changeStatus(){
 }
 
 
-// Fonction qui permet de transmettre un document à un utilisateur
+// Fonction qui permet de transmettre un document Ã  un utilisateur
 function sendFileToUser(){
 	jQuery('#loadingFileUser').show();
 	var dataStatus = jQuery('.statut').val();
@@ -1164,7 +1164,7 @@ function sendFileToUser(){
         	var response = JSON.parse(response);
             jQuery('#loadingFileUser').hide();
             if(response==="success"){
-                jQuery('.successUserFile').html("Statut mis à jour avec success").show().delay(5000).fadeOut();
+                jQuery('.successUserFile').html("Statut mis Ã  jour avec success").show().delay(5000).fadeOut();
                 setTimeout(document.location.reload(),5000);
             }
 
@@ -1181,26 +1181,26 @@ function sendFileToUser(){
 	return false;
 }
 
-// Mettre le taleau des colonnes dans un champs caché
+// Mettre le taleau des colonnes dans un champs cachÃ©
 function setColumns(param){
     var cols = [
 		"PERIODE", 
-		"NUMÉRO", 
+		"NUMÃ‰RO", 
 		"DATE_CREATION", 
 		"DESTINATAIRE", 
-		"INTITULÉ",
-		"SPECIALITÉ", 
-		"ANNÉE", 
+		"INTITULÃ‰",
+		"SPECIALITÃ‰", 
+		"ANNÃ‰E", 
 		"MontantHT", 
 		"Ak_TauxTVA", 
 		"MontantTVA", 
 		"MontantTTC", 
-		"MontantNet€", 
+		"MontantNetâ‚¬", 
 		"TOTAL", 
 		"ACCOMPTE", 
-		"RESTEDÛ", 
-		"PAYÉ", 
-		"ENCAISSÉ", 
+		"RESTEDÃ›", 
+		"PAYÃ‰", 
+		"ENCAISSÃ‰", 
 		"Ak_DateReglement", 
 		"COMMENTAIRE", 
 		"CONCERNE"
