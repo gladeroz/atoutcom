@@ -21,7 +21,7 @@ class AtoutcomEventsLoader extends MvcPluginLoader
      *
      * Variable to store the tables to create
      */
-    private $tables = ["wp_atoutcom_events"];
+    private $tables = [$wpdb->prefix."_atoutcom_events"];
 
     public function init()
     {

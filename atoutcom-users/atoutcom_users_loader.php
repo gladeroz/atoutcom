@@ -21,7 +21,11 @@ class AtoutcomUsersLoader extends MvcPluginLoader
      *
      * Variable to store the tables to create
      */
-    private $tables = [$wpdb->base_prefix ."atoutcom_users"];
+    private $tables = ['users' => $wpdb->base_prefix .'atoutcom_users',
+            'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
+            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
+            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'
+	];
 
     public function init()
     {
@@ -133,14 +137,6 @@ class AtoutcomUsersLoader extends MvcPluginLoader
     private function create_tables()
     {
         global $wpdb;
-        // this needs to occur at this level, and not in the
-        // constructor/init since we are switching blogs for multisite
-        $this->tables = [
-            'users' => $wpdb->base_prefix .'atoutcom_users',
-            'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
-            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
-            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'
-        ];
 
         /* http://wiip.fr/content/choisir-le-type-de-colonne-de-ses-tables-mysql */
         $sql = '
