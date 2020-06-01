@@ -26,7 +26,7 @@ class AtoutcomEventsLoader extends MvcPluginLoader
     public function init()
     {
 		global $wpdb;
-		this.$tables = ['events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'];
+		$this -> tables = ['events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'];
     }
 
     public function activate($network_wide = false)

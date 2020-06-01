@@ -26,7 +26,7 @@ class AtoutcomUsersLoader extends MvcPluginLoader
     public function init()
     {
 		global $wpdb;
-		this.$tables = ['users' => $wpdb->base_prefix .'atoutcom_users',
+		$this -> tables = = ['users' => $wpdb->base_prefix .'atoutcom_users',
             'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
             'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
             'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'];
