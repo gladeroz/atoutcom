@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS wp_atoutcom_users (
+CREATE TABLE IF NOT EXISTS atoa_atoutcom_users (
 	id int(11) NOT NULL auto_increment,
 	PRIMARY KEY (id),
 	nom VARCHAR(255) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS wp_atoutcom_users (
 	
 );
 
-CREATE TABLE IF NOT EXISTS wp_atoutcom_users_file (
+CREATE TABLE IF NOT EXISTS atoa_atoutcom_users_file (
 	id int(11) NOT NULL auto_increment,
 	PRIMARY KEY (id),
 	email VARCHAR(320) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS wp_atoutcom_users_file (
 	
 );
 
-CREATE TABLE IF NOT EXISTS wp_atoutcom_events (
+CREATE TABLE IF NOT EXISTS atoa_atoutcom_events (
 	id int(11) NOT NULL auto_increment,
 	PRIMARY KEY (id),
 	evenement VARCHAR(255),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS wp_atoutcom_events (
 	
 );
 
-CREATE TABLE IF NOT EXISTS wp_atoutcom_users_events_status (
+CREATE TABLE IF NOT EXISTS atoa_atoutcom_users_events_status (
 	id int(11) NOT NULL auto_increment,
 	PRIMARY KEY (id),
 	email VARCHAR(320) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS wp_atoutcom_users_events_status (
 	
 );
 
-CREATE TABLE IF NOT EXISTS wp_atoutcom_users_events_facture (
+CREATE TABLE IF NOT EXISTS atoa_atoutcom_users_events_facture (
 	id int(11) NOT NULL auto_increment,
 	PRIMARY KEY (id),
 	periode CHAR(50),
