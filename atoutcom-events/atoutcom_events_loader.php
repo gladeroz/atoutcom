@@ -138,7 +138,7 @@ class AtoutcomEventsLoader extends MvcPluginLoader
 
         /* http://wiip.fr/content/choisir-le-type-de-colonne-de-ses-tables-mysql */
         $sql = '
-            CREATE TABLE IF NOT EXISTS'.$this->tables['events_intervenants'].'(
+            CREATE TABLE IF NOT EXISTS '.$this->tables['events_intervenants'].'(
             id int(11) NOT NULL auto_increment,
             PRIMARY KEY (id),
             evenement VARCHAR(255),
