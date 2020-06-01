@@ -44,73 +44,6 @@ function atoutcom_events_on_delete_blog($blog_id)
     $loader->deactivate_blog($blog_id);
 }
 
-//Events
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// Add JS Scripts to admin               -=
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-/*define( 'CHILD_THEME_VERSION', '2.3.0' );
-add_action( 'admin_enqueue_scripts', 'events_script_admin_method' );
-function events_script_admin_method() {
-    wp_enqueue_script( 'script', plugins_url().'/atoutcom-events/app/public/js/events_admin_script.js', array('jquery'), '1.0', true );
-    //wp_enqueue_script( 'script', plugins_url().'/atoutcom-events/app/public/js/events_admin_script.js', array('jquery'), '1.0', true );
-    wp_enqueue_style( 'bootstrap-css', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css' );
-    wp_enqueue_script( 'proper-js', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js', array( 'jquery' ), "1.0.4", true );
-    wp_enqueue_script( 'bootstrap-js', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
-    
-    // pass Ajax Url to script.js
-    wp_localize_script('script', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
-}*/
-
-function createEvent() {
-    global $wpdb;
-    $params = array();
-    parse_str($_POST['data'], $params);
-    $organisateur = $params["organisateur"];
-    $titre = $params["titre"];
-    $specialite = $params["specialite"];
-    $documents = $params["documents"];
-    $adresse = $params["adresse"];
-    $ville = $params["ville"];
-    $codepostal = $params["codepostal"];
-    $date_evenement = $params["date_evenement"];
-    
-    $dataEvent = $wpdb->get_row( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_events WHERE titre ='".$titre."' AND date_evenement='".$date_evenement."' ");
-    if($dataEvent !=null){
-        wp_die(json_encode("errorEventExist"));
-    }else{
-        $insertDataEvents =  $wpdb->insert( 
-            $wpdb->base_prefix."atoutcom_events",
-            array( 
-                'organisateur' => $organisateur,
-                'titre' => $titre,
-                'specialite' => $specialite,
-                'documents'  => $documents,
-                'adresse'  => $adresse,
-                'ville'  => $ville,
-                'codepostal'  => $codepostal,
-                'date_evenement'  => $date_evenement,
-            ), 
-            array( 
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-            ) 
-        );
-
-        if($insertDataEvents){
-            wp_die(json_encode("success"));
-        }else{
-            wp_die(json_encode("errorDB"));
-        } 
-    } 
-}
-add_action( 'wp_ajax_createEvent', 'createEvent' );
-add_action( 'wp_ajax_nopriv_createEvent', 'createEvent' );
 
 
 // Affichage des évenements
@@ -121,20 +54,39 @@ function events_manage() {
     $datas = array();
     //$dataEvent = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."atoutcom_events", ARRAY_A);
     $dataEvent = atoutcomUser::formsEvents("listeEventsForUsers", "");
+    $listEvt = array();
+    // Filtré les évenements pour ne pas chopper des doublons
+    foreach ($dataEvent as $data) {
+        $event = $data["evenement"];
+        if(empty($listEvt)){
+            array_push($listEvt, $data);
+        }else{
+            foreach ($listEvt as $value) {
+                if( !in_array($event, $value) ){
+                    array_push($listEvt, $data);
+                }
+            }
+        }
+    }
 
-    if( $dataEvent===NULL ){
+    if( $listEvt === NULL || empty($listEvt) ){
         wp_die(json_encode(""));
     }else{
-        foreach ($dataEvent as $value) {
-            $dataEvt = $value["data"][0];
-            $data["organisateur"] = $dataEvt["Organisateur Evenement"];
+        foreach ($listEvt as $value) {
+            $listEvt = $value["data"][0];
+            $data["organisateur"] = $listEvt["Organisateur Evenement"];
             $data["titre"] = $value["evenement"];
-            $data["specialite"] = $dataEvt["Specialite Evenement"];
-            $data["adresse"] = $dataEvt["Adresse Evenement"];
-            $data["codepostal"] = $dataEvt["Code postal Evenement"];
-            $data["ville"] = $dataEvt["Ville Evenement"];
-            $data["pays"] = $dataEvt["Pays Evenement"];
-            $data["date_evenement"] = $dataEvt["Date Debut Evenement"]." - ".$dataEvt["Date Fin Evenement"];
+            $data["specialite"] = $listEvt["Specialite Evenement"];
+            $data["adresse"] = $listEvt["Adresse Evenement"];
+            $data["codepostal"] = $listEvt["Code postal Evenement"];
+            $data["ville"] = $listEvt["Ville Evenement"];
+            $data["pays"] = $listEvt["Pays Evenement"];
+            if( $listEvt["Date Debut Evenement"] === $listEvt["Date Fin Evenement"]){
+                $data["date_evenement"] = $listEvt["Date Debut Evenement"];
+            }else{
+                $data["date_evenement"] = $listEvt["Date Debut Evenement"]." - ".$listEvt["Date Fin Evenement"];
+            }
+            
             $datas[]=$data;
         }
 
@@ -152,8 +104,8 @@ function user_events() {
     $data = array();
     $datas = array();
 
-    $datauUserEvents = atoutcomUser::formsEvents("listeEventsForUsers", "");
-    
+    $datauUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
+
     if( $datauUserEvents===NULL ){
         wp_die(wp_json_encode(""));
     }else{
@@ -171,11 +123,10 @@ function user_events() {
             $data["telephone"] = $dataUsr["Telephone Professionnel"];
             $data["payment_status"] = $dataUsr["payment_status"];
             $data["transaction_id"] = $dataUsr["transaction_id"];
-            $data["status"] = events::getUsersEventsStatus($datauUserEvent["form_id"],  $dataUsr["Email"]);
+            $data["status"] = events::getUsersEventsStatus($data["form_id"],  $data["email"]);
             $datas[]=$data;
         }
         
-
         wp_die(wp_json_encode($datas));
     }
     wp_die();
@@ -192,10 +143,28 @@ function updateUserStatus() {
     $userEmail = $_POST["userId"];
     $statut = $_POST["dataStatus"];
     $form_id = $_POST["formId"];
-    
-    //$entry_id = $_POST["formId"];
-    if( !empty($form_id)  || !empty($userEmail) ){
-	    $updateStatus = $wpdb->update( 
+    $transactionID = $_POST["transactionID"];
+    $participation = (int)$_POST["participation"];
+    //var_dump($transactionID, $statut);wp_die();
+
+	$rowcount = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->base_prefix."atoutcom_users_events_status WHERE id_event = '".$form_id."' AND email = '".$userEmail."'");
+
+    if( $rowcount == 0 ){
+	    $updateStatus = $wpdb->insert( 
+	        $wpdb->base_prefix."atoutcom_users_events_status",
+            array( 
+                'email'  => $userEmail,
+                'id_event' => $form_id,
+                'status'  => $statut,
+            ), 
+            array( 
+                '%s',
+                '%s',
+                '%s',
+            ) 
+	    );
+	}else{
+		$updateStatus = $wpdb->update( 
 	        $wpdb->base_prefix."atoutcom_users_events_status",
 	        array( 
 	            'status'  => $statut,
@@ -205,17 +174,216 @@ function updateUserStatus() {
 	            'email' => $userEmail,
 	        )
 	    );
+	}
+	
+	if( $updateStatus ){
+        // On verifie le statut : S'il vaut valide, on envoie la facture
+        if($statut==="Validé" && $transactionID ===NULL ){
+        	$dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
+		    //retourner uniquement le tableau contenant les info du user connecté
+		    
+		    if( sizeof($dataUserEvents) != 0 ){
+		    	//$conference = true;
 
-	    if( $updateStatus ){
-	        wp_die(wp_json_encode("success"));
-	    }else{
-	        wp_die(wp_json_encode("errorDB"));
-	    }
-    }else{
-        wp_die(wp_json_encode("error"));
-    }
+		        foreach ($dataUserEvents as $dataUserEvent) {
+		        	$tabUser = array();
+		        	$tab = $dataUserEvent["data"][0];
+		            if( $tab["Email Professionnel"] === $userEmail ){
+			            $tabUser = 
+			            array(
+			            	"evenement" => $dataUserEvent["evenement"],
+			            	"specialite" => $tab["Specialite Evenement"],
+			                "participant" => $tab["Nom"]." ".$tab["Prenom"],
+			                "adresse" => $tab["Adresse"],
+			                "adresseEvt" => $tab["Adresse Evenement"],
+			                "villeEvt" => $tab["Ville Evenement"],
+			                "codepostalEvt" => $tab["Code postal Evenement"],
+			                "paysEvt" => $tab["Pays Evenement"],
+			                "codepostal" => $tab["Code postal"],
+			                "ville" => $tab["Ville"],
+			                "dateDebut"=>$tab["Date Debut Evenement"],
+			                "dateFin"=>$tab["Date Fin Evenement"],
+			                "contact_nom"=>$tab["Contact Nom"],
+			                "contact_adresse"=>$tab["Contact Adresse"]
+			            );
+			            break; 
+		            } 
+		        }
+                
+                if( sizeof($tabUser) !=0 ){
+                	// On insère les données de la facture dans la table
+                	$maxID = atoutcomUser::getMaxIdFacture();
+				    if($maxID === NULL || $maxID === ""){
+				        $maxID = 0;
+				    }
+				    $numero = $maxID +1;
+				    $jourEvenement = substr($tabUser["dateDebut"], 0, 2);
+				    $moisEvenement = substr($tabUser["dateDebut"], 3, -5);
+				    $periode = substr($tabUser["dateDebut"], 6);
+				    $numeroFacture = $numero."".$periode."/".$jourEvenement."".$moisEvenement;
+                    $quantite = "1";
+				    $montantHT = round($participation/1.2, 2, PHP_ROUND_HALF_DOWN);
+				    $aka_tauxTVA = 10;
+				    $montantTVA = round($participation*0.1, 2, PHP_ROUND_HALF_DOWN);
+				    $montantTTC = $participation;
+				    $montantNET = $participation;
+				    $total = $participation;
+				    $accompte = 0;
+				    $restedu = 0;
+				    $paye = $participation;
+				    $encaisse = $participation;
+
+                	$insertDataFacture =  $wpdb->insert( 
+			        $wpdb->base_prefix."atoutcom_users_events_facture",
+				        array( 
+				            'periode'  => $periode,
+				            'numero' => $numeroFacture,
+				            'date_facture' => date("d/m/Y"),
+				            'destinataire' => $tabUser["participant"],
+				            'intitule' => $tabUser["evenement"],
+				            'specialite' => $tabUser["specialite"],
+				            'annee' => $periode,
+				            'montantHT' => $montantHT,
+				            'aka_tauxTVA' => $aka_tauxTVA,
+				            'montantTVA' => $montantTVA,
+				            'montantTTC' => $montantTTC,
+				            'montantNET' => $montantNET,
+				            'total' => $participation,
+				            'accompte' => $accompte,
+				            'restedu' => $restedu,
+				            'paye' => $paye,
+				            'encaisse' => $encaisse,
+				            'date_reglement' => date("d/m/Y"),
+				            'commentaire' => '',
+				            'concerne' => 'participant',
+				        ), 
+				        array( 
+				            '%s',
+				            '%s',
+				            '%s',
+				            '%s',
+				            '%s',
+				            '%s',
+				            '%s',
+				            '%f',
+				            '%d',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%f',
+				            '%s',
+				            '%s',
+				            '%s',
+				        )
+				    );
+				    // Si données insérées dans la table facture
+				    if($insertDataFacture){
+				    	//participant & adresse facturation
+				    	$userInfo = atoutcomUser::adresseFacturation($userEmail, "participant");
+
+						if($userInfo->organisme_facturation === "" || $userInfo->organisme_facturation === NULL){
+							$emailContact = $userEmail;
+							$destinataire = $tabUser["participant"];
+							$adresseFacturation = $tabUser["adresse"];
+							$codepostalFacturation = $tabUser["codepostal"];
+							$villeFacturation = $tabUser["ville"];
+							$paysFacturation =  $userInfo->pays;
+						}else{
+					        $emailContact = $userInfo->email_facturation;
+							$destinataire = $userInfo->organisme_facturation;
+							$adresseFacturation = $userInfo->adresse_facturation;
+							$codepostalFacturation = $userInfo->codepostal_facturation;
+							$villeFacturation =  $userInfo->ville_facturation;
+							$paysFacturation =  $userInfo->pays_facturation; 
+						}
+						// Date Evenement
+						if($tabUser["dateDebut"] === $tabUser["dateFin"]){
+				            $dateEvenement = atoutcomUser::dateFr($tabUser["dateDebut"], "");
+				        }else{
+				            $jrDebut = substr($tabUser["dateDebut"], 0, 2);
+				            $moisDebut = atoutcomUser::dateFr("", substr($tabUser["dateFin"], 3, -5));
+				            $anneeDebut = substr($tabUser["dateDebut"], 6);
+
+				            
+				            $jrFin = substr($tabUser["dateFin"], 0, 2);
+				            $moisFin = atoutcomUser::dateFr("", substr($tabUser["dateFin"], 3, -5));
+				            $anneeFin = substr($tabUser["dateFin"], 6);
+
+				            //si les années sont identiques
+				            if($anneeDebut === $anneeFin){
+				                if( $moisDebut === $moisFin ){
+				                    $dateEvenement = $jrDebut." - ".$jrFin." ".$moisDebut." ".$anneeDebut;
+				                }else{
+				                    $dateEvenement = $jrDebut." ".$moisDebut." - ".$jrFin." ".$moisFin." ".$anneeDebut;
+				                }
+				            }else{
+				                $dateEvenement = atoutcomUser::dateFr($tabUser["dateDebut"], "")." - ".atoutcomUser::dateFr($tabUser["dateFin"], "");
+				            }
+				        }
+				    	// On génère la facture en Fr
+				    	$langue = "fr";
+				    	$numBonDeCommande = "/"; 
+				    	$descriptionDetail = "";
+				    	$genererFacture = genererFacture(
+						    $langue,
+						    $destinataire, 
+						    $adresseFacturation,
+						    $codepostalFacturation.", ".$villeFacturation.", ".$paysFacturation,
+						    $numeroFacture,
+						    date("d/m/Y"),
+						    $tabUser["evenement"],
+						    $dateEvenement."<br>".$tabUser["adresseEvt"]." à ".$tabUser["villeEvt"],
+						    $descriptionDetail,
+						    $quantite,
+						    $montantHT,
+						    $montantTVA,
+						    $montantTTC,
+						    date("d/m/Y"),
+						    $emailContact,
+						    $tabUser["contact_nom"],
+						    $tabUser["contact_adresse"],
+						    $aka_tauxTVA,
+						    $numBonDeCommande
+						);
+
+						// Traitement des retours
+						if( $genererFacture === "success" ){
+                            wp_die(wp_json_encode("successFactureMail"));
+						}
+
+						// Traitement des retours
+						if( $genererFacture === "errorMail" ){
+							wp_die(wp_json_encode("errorMail"));
+						}
+
+						// Traitement des retours
+						if( $genererFacture === "error"){
+							wp_die(wp_json_encode("errorGenFacture"));
+						}
+				    }else{
+				    	// Erreur base de données Facture
+				    	wp_die(wp_json_encode("errorDBFacture"));
+				    }
+
+                }else{
+                    //User not found in events
+                    wp_die(wp_json_encode("errorUserNotFoundEmail"));
+                }
+		    }else{
+		    	wp_die(wp_json_encode("errorUserNotFoundEvent"));
+		    }             
+        }else{
+           wp_die(wp_json_encode("successStatus")); 
+       }	
+	}else{
+		wp_die(wp_json_encode("errorDBStatus"));
+	}
     
-    wp_die();
+    //wp_die();
 }
 add_action( 'wp_ajax_updateUserStatus', 'updateUserStatus' );
 add_action( 'wp_ajax_nopriv_updateUserStatus', 'updateUserStatus' );

@@ -1,6 +1,51 @@
 <?php 
     global $wpdb;
-    var_dump(atoutcomUser::formsEvents("listeEventsForUsers")); die;
+    var_dump(atoutcomUser::getUsersEventsFacture("all"));die();
+    $dataEvent = atoutcomUser::formsEvents("listeEventsForSponsors");
+    $listEvents = array();
+    foreach ($dataEvent as $data) {
+        $event = $data["evenement"];
+        if(empty($listEvents)){
+            array_push($listEvents, $data);
+        }else{
+            foreach ($listEvents as $value) {
+                if( !in_array($event, $value) ){
+                    array_push($listEvents, $data);
+                }
+            }
+        }
+    }
+    var_dump($listEvents);die();
+    foreach ($dataUserEvents as $dataUserEvent) {
+        $tabUser = array();
+        $tab = $dataUserEvent["data"][0];
+        if( $tab["Email Professionnel"] === 'giga4ce@hotmail.com' ){
+            $tabUser =
+            array(
+                "evenement" => $dataUserEvent["evenement"],
+                "specialite" => $tab["Specialite Evenement"],
+                "participant" => $tab["Nom"]." ".$tab["Prenom"],
+                "adresse" => $tab["Adresse"],
+                "adresseEvt" => $tab["Adresse Evenement"],
+                "villeEvt" => $tab["Ville Evenement"],
+                "codepostalEvt" => $tab["Code postal Evenement"],
+                "codepostal" => $tab["Code postal"],
+                "ville" => $tab["Ville"],
+                "dateDebut"=>$tab["Date Debut Evenement"],
+                "dateFin"=>$tab["Date Fin Evenement"],
+                "contact_nom"=>$tab["Contact Nom"],
+                "contact_adresse"=>$tab["Contact Adresse"]
+            );
+            break; 
+        } 
+    }
+	var_dump( $tabUser );
+    
+    echo "<br><br><br><br><br><br>";
+
+    $wpdb->prefix = 'atoa_88_';
+    var_dump( GFAPI::get_entries(1) );
+	die();
     
 //$subsites = get_sites();
 //var_dump($subsites);die();

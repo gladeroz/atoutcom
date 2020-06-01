@@ -21,7 +21,7 @@
         height: 50px;
         font-size:20px;
     }
-
+    
     .listParticipant{
     	text-align: center;
     	margin-bottom: 60px;
@@ -50,13 +50,12 @@
 
 <input type="hidden" class="facture_type" value="Liste_Participant">
 
-<div class="row list_participant" style="margin-bottom: 10px;">
-    <div class="col-sm-3">
-        <button type="submit" id="exportExcelListeParticipant" class="btn btn-light btn-lg">
-            <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export Excel
-        </button>
-    </div>
-</div>
+
+<div class="list_participant" style="margin-bottom: 10px; margin-top: 25px;">
+    <button type="submit" id="exportExcelListeParticipant" class="btn btn-light btn-lg">
+        <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export Excel
+    </button>
+</div>   
 
 <table class="table list_participant" id="tableParticipant" style="width: 100%;">
     <thead>

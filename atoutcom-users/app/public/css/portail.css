@@ -406,17 +406,6 @@
         background-color: none!important;
     }
     
-    /*[class*=" icon-"], [class^=icon-] {
-	    font-family: PSF!important;
-	    speak: none;
-	    font-style: normal;
-	    font-weight: 400;
-	    font-variant: normal;
-	    text-transform: none;
-	    line-height: 1;
-	    -webkit-font-smoothing: antialiased;
-	    -moz-osx-font-smoothing: grayscale;
-    }*/
 	.conf_row_w .conf_expend_w {
 	    background-color: #fff;
 	    padding: 0;
@@ -439,4 +428,43 @@
 
 	.conf_row_w .conf_expend_w.justificatif .conf_expend_row .conf_decompte_w .conf_decompte .decompte_table {
 	    width: 100%;
+	}
+
+	input[type=text], textarea, input[type=email], input[type=password], input[type=tel], input[type=url], input[type=search], input[type=date] {
+	    padding: .375rem .75rem;
+	    font-size: 1rem;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #ced4da;
+	    border-radius: .25rem;
+	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+
+	input[type=text]:focus, textarea:focus, input[type=email]:focus, input[type=search]:focus, input[type=password]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=date]:focus {
+		border-color: #3f9cde;
+        box-shadow: 0 0 0 0.2rem rgba(50, 146, 228, 0.25);
+	}
+
+	#submit-update{
+	    padding: .375rem .75rem!important;
+	    font-size: large!important;
+	    color: white!important;
+	    background-color: green!important;
+	    width: 150px!important;
+	    height: 40px!important;
+	}
+
+	#submit-update:focus {
+		border-color: #3f9cde!important;
+        box-shadow: 0 0 0 0.2rem rgba(50, 146, 228, 0.25);
+	}
+
+	#submit-update:hover {
+		background-color: #0cc50c!important;
+	}
+
+	.label{
+		margin-bottom: 5px;
 	}

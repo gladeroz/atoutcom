@@ -1,5 +1,19 @@
 <?php
-    $listEvents = atoutcomUser::formsEvents("listeEventsForSponsors", "");
+    $dataEvent = atoutcomUser::formsEvents("listeEventsForSponsors");
+    $listEvents = array();
+    // Filtré les évenements pour ne pas chopper des doublons
+    foreach ($dataEvent as $data) {
+        $event = $data["evenement"];
+        if(empty($listEvents)){
+            array_push($listEvents, $data);
+        }else{
+            foreach ($listEvents as $value) {
+                if( !in_array($event, $value) ){
+                    array_push($listEvents, $data);
+                }
+            }
+        }
+    }
 ?>
 
 <style type="text/css">

@@ -12,7 +12,29 @@
 	    	$dataUserInfo = $wpdb->get_row( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users WHERE email ='".$email."' and categorie='".$categorie."' ");
 	    	return $dataUserInfo;
 	    }
-        
+        // Récupérer l'adresse de facturation
+        public function adresseFacturation($email, $categorie)
+	    {
+	    	global $wpdb;
+	    	$userFacturation = $wpdb->get_row( "
+				SELECT
+				    pays,
+				    organisme_facturation,
+				    email_facturation,
+				    adresse_facturation,
+				    ville_facturation,
+		            codepostal_facturation,
+		            pays_facturation
+			    FROM 
+			        ".$wpdb->base_prefix."atoutcom_users 
+			    WHERE 
+			        email ='".$email."' 
+			    AND
+			        categorie ='".$categorie."'
+			");
+	    	return $userFacturation;
+	    }
+
         public function getAllUsers()
         {
         	global $wpdb;
@@ -61,7 +83,7 @@
 	    	if ($parametre === "all") {
 	    		$dataUsersEventsFacture = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users_events_facture", ARRAY_A);
 	    	}else{
-	    		$dataUsersEventsFacture = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users_events_facture where concerne='".$parametre."' ", ARRAY_A);
+	    		$dataUsersEventsFacture = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users_events_facture where concerne like '%".$parametre."%' ", ARRAY_A);
 	    	}
             
             return $dataUsersEventsFacture;
@@ -135,14 +157,15 @@
 				$form = GFAPI::get_form( $formid );
 				$entries = GFAPI::get_entries($formid);
 
+
 				foreach ($entries as $entrie) {
 					$tabLabel=array();
+					$transaction_id = $entrie['transaction_id'];
+					$payment_status = $entrie['payment_status']; 
 					foreach ($form['fields'] as $field) {
 						$label = $field['label'];
 						$meta_key = $field['id'];
 						$form_id = $field['formId'];
-						$transaction_id = $field['transaction_id'];
-						$payment_status = $field['payment_status']; 
 
 						if( $label != NULL){
 							array_push(
@@ -189,12 +212,13 @@
 					
 					foreach ($entries as $entrie) {
 						$tabLabel=array();
+						$transaction_id = $entrie['transaction_id'];
+						$payment_status = $entrie['payment_status'];
+						 
 						foreach ($form['fields'] as $field) {
 							$label = $field['label'];
 							$meta_key = $field['id'];
 							$form_id = $field['formId'];
-							$transaction_id = $field['transaction_id'];
-							$payment_status = $field['payment_status']; 
 
 							if( $label != NULL){
 								array_push(
@@ -206,7 +230,7 @@
 										"entry_id" =>$entrie["id"], 
 										"form_id" => $form_id,
 										"payment_status" => $payment_status,
-										"transaction_id" => $transaction_id
+										"transaction_id" => $transaction_id,
 									)
 								);
 							}
@@ -226,17 +250,19 @@
 		    	$listEvents = array();
 				foreach ($blogs as $blog) {
 					foreach ($blog as $form) {
+						$listEvent=array();
 						foreach ($form as $entries) {
-							$listEvent=array();
 							foreach ($entries as  $entry) {
 								$dataEvt = array();
-
 								// evenement titre
 								if($entry["Titre Evenement"]!=NULL){
 									$evenement = $entry["Titre Evenement"];
 									$form_id = $entry["form_id"];
 									$entry_id = $entry["entry_id"];
 									$blog_id = $entry["blog_id"];
+									$total = $entry["total"];
+									$payment_status = $entry["payment_status"];  
+									$transaction_id = $entry["transaction_id"];        									
 								}
 
                                 // Organisateur
@@ -278,6 +304,16 @@
 								if($entry["Pays Evenement"] != NULL){
 									$pays = $entry["Pays Evenement"];
 								}
+
+								// Contact Nom
+								if($entry["Contact Nom"] != NULL){
+									$contact_nom = $entry["Contact Nom"];
+								}
+
+								// Contact Adresse
+								if($entry["Contact Adresse"] != NULL){
+									$contact_adresse = $entry["Contact Adresse"];
+								}
 								
 								//Users
 								// Nom
@@ -315,20 +351,6 @@
 									$telFixe = $entry["Telephone Professionnel"];                   
 								}
 
-								// Transaction_id
-								if($entry["transaction_id"]!=NULL){
-									$transaction_id = $entry["transaction_id"];                   
-								}
-
-								// Transaction_id
-								if($entry["transaction_id"]!=NULL){
-									$transaction_id = $entry["transaction_id"];                   
-								}
-
-								//payment_status
-								if($entry["payment_status"]!=NULL){
-									$payment_status = $entry["payment_status"];                   
-								}
 								// Stockage des datas  
 								$dataEvt[] = 
 								array(
@@ -338,6 +360,8 @@
 									"Adresse Evenement" => $adresse,
 									"Ville Evenement" => $ville,
 									"Pays Evenement" => $pays,
+									"Contact Nom" => $contact_nom,
+									"Contact Adresse" => $contact_adresse,
 									"Organisateur Evenement" => $organisateur,
 									"Specialite Evenement" => $specialite,
 									"Nom" => $nom,
@@ -362,25 +386,32 @@
 								// Ici nous sommes sur une liste des evenements pour sponsors ou participants
 								
 								//pas de doublons
-								if( empty($listEvents) ){
+								$listEvent = array( 
+									"evenement"=>$evenement, 
+									"form_id"=>$form_id, 
+									"entry_id"=>$entry_id, 
+									"blog_id"=>$blog_id,
+									"data"=>$dataEvtFinal 
+								);
+								/*if( empty($listEvents) ){
 									$listEvent = array( "evenement"=>$evenement, "form_id"=>$form_id, "entry_id"=>$entry_id, "blog_id"=>$blog_id, "data"=>$dataEvtFinal );
 								}else{
 									foreach ($listEvents as $data){
 										if ($data['evenement'] != $evenement){
 											$listEvent = array( "evenement"=>$evenement, "form_id"=>$form_id, "entry_id"=>$entry_id, "blog_id"=>$blog_id, "data"=>$dataEvtFinal );
-											break;
+											//break;
 										}
 									}
-								} 					
+								} */					
 								
-							}
+							} // Fin foreach entries
 						    //si par de données dans le tableau $listEvent
 							if( !empty($listEvent) ){
 								array_push($listEvents, $listEvent);
-								continue;
+								//continue;
 							}
-						}
-					}
+						} // Fin foreach form
+					} // Fin foreach blog
 				}
 		    	return $listEvents;
 		    }else{
@@ -392,7 +423,16 @@
 		* Fonction dateFr
 		* Sert à retourner le mois ou la date en français
 		*/
-
+		
+		public function dateFrFacture($_date, $full){
+			return DateTime::createFromFormat((($full == false) ? 'd/m/Y' :'Y-m-d H:m:s'), $_date);
+		}
+		
+	    /*
+		* Fonction dateFr
+		* Sert à retourner le mois ou la date en français
+		*/
+		
 		public function dateFr($_date, $mois){
 		    $moisFr = "";
 		    $dateFr = "";

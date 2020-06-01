@@ -161,6 +161,7 @@ function login() {
 add_action( 'wp_ajax_login', 'login' );
 add_action( 'wp_ajax_nopriv_login', 'login' );
 
+// Mise à jour des données utilisateur
 function updateUserInfo() {
     session_start();
     global $wpdb; 
@@ -178,6 +179,13 @@ function updateUserInfo() {
     $telephone_fixe = $params["telephone_fixe"];
     $telephone_mobile = $params["telephone_mobile"];
     $specialite = $params["specialite"];
+
+    $organismeFact = $params["organismeFact"];
+    $emailFact = $params["emailFact"];
+    $adresseFact = $params["adresseFact"];
+    $villeFact = $params["villeFact"];
+    $codepostalFact = $params["codepostalFact"];
+    $paysFact = $params["paysFact"];
     //$prospection = $params["prospection"];
 
     //$dataUser = $wpdb->get_row( "SELECT password, email FROM wp_atoutcom_users WHERE email ='".$email."' ");
@@ -195,12 +203,18 @@ function updateUserInfo() {
             'telephone_mobile'  => $telephone_mobile,
             'specialite'  => $specialite,
             'isUpdate'  => "yes",
+            'organisme_facturation'  => $organismeFact,
+            'email_facturation'  => $emailFact,
+            'adresse_facturation'  => $adresseFact,
+            'ville_facturation'  => $villeFact,
+            'codepostal_facturation'  => $codepostalFact,
+            'pays_facturation'  => $paysFact,
         ), 
         array(
             'id' => $id,
         )
     );
-
+    
     if( $updateUser ){
         wp_die(json_encode("success"));
     }else{
@@ -346,7 +360,10 @@ function users_script_admin_method() {
 }
 
 
-// Source datatable events
+/****************************CHARGEMENT LISTE DES UTILIATEURS*****************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function users_manage() {
     global $wpdb;
     $data = array();
@@ -378,7 +395,10 @@ function users_manage() {
 add_action( 'wp_ajax_users_manage', 'users_manage' );
 add_action( 'wp_ajax_nopriv_users_manage', 'users_manage' );
 
-// Upluoad des fichiers utilisateurs
+/****************************UPLOAD DES FICHIERS ****************************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function form_file() {
     global $wpdb;
     $data = array();
@@ -452,7 +472,10 @@ add_action( 'wp_ajax_form_file', 'form_file' );
 add_action( 'wp_ajax_nopriv_form_file', 'form_file' );
 
 
-// Get UserFiles Ajax
+/****************************SUPPRESSION DE FICHIERS ************************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function deleteUserFiles() {
     global $wpdb;
     
@@ -478,7 +501,10 @@ function deleteUserFiles() {
 add_action( 'wp_ajax_deleteUserFiles', 'deleteUserFiles' );
 add_action( 'wp_ajax_nopriv_deleteUserFiles', 'deleteUserFiles' );
 
-// Get Data Facture
+/****************************RECUPERATION DES FACTURES***********************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function getFacture() {
     global $wpdb;
     $data = array();
@@ -519,7 +545,10 @@ function getFacture() {
 add_action( 'wp_ajax_getFacture', 'getFacture' );
 add_action( 'wp_ajax_nopriv_getFacture', 'getFacture' );
 
-// Create Intervenant
+/****************************CREATION D'UN INTERVENANT***********************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function createIntervenant() {
     global $wpdb;
     $data = array();
@@ -570,7 +599,10 @@ function createIntervenant() {
 add_action( 'wp_ajax_createIntervenant', 'createIntervenant' );
 add_action( 'wp_ajax_nopriv_createIntervenant', 'createIntervenant' );
 
-// Récupérer les intervenants
+/****************************AFFICHAGE DES INTERVENANTS**********************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function getIntervenants() {
     global $wpdb;
     $data = array();
@@ -586,7 +618,10 @@ function getIntervenants() {
 add_action( 'wp_ajax_getIntervenants', 'getIntervenants' );
 add_action( 'wp_ajax_nopriv_getIntervenants', 'getIntervenants' );
 
-// Create Sponsor
+/****************************CREATION D'UN SPONSOR***************************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function createSponsor() {
     global $wpdb;
     $data = array();
@@ -625,7 +660,11 @@ function createSponsor() {
 
             //si les années sont identiques
             if($anneeDebut === $anneeFin){
-                $dateEvenement = $jrDebut."/".$moisDebut." - ".$jrFin."/".$moisFin." ".$anneeDebut;
+                if( $moisDebut === $moisFin ){
+                    $dateEvenement = $jrDebut." - ".$jrFin." ".$moisDebut." ".$anneeDebut;
+                }else{
+                    $dateEvenement = $jrDebut." ".$moisDebut." - ".$jrFin." ".$moisFin." ".$anneeDebut;
+                }
             }else{
                 $dateEvenement = atoutcomUser::dateFr($params["dateDebut"], "")." - ".atoutcomUser::dateFr($params["dateFin"], "");
             }
@@ -658,6 +697,8 @@ function createSponsor() {
     $codepostalEvenement = $params["codepostalEvent"];
     $villeEvenement = $params["villeEvent"];
     $paysEvenement = $params["paysEvent"];
+    $contact_nom = $params["contactNom"];
+    $contact_adresse = $params["contactAdresse"];
     $descriptionDetail = $params["detailDesc"];
 
     
@@ -668,7 +709,8 @@ function createSponsor() {
 
     $annee = $periode;
     $quantite = "1";
-    $patricipation = str_replace ( "," , "." , $params["participation"] );
+    $montant = str_replace ( "," , "." , $params["participation"] );
+    $patricipation = (int)$montant;
     $montantHT = round($patricipation/1.2, 2, PHP_ROUND_HALF_DOWN);
     $aka_tauxTVA = 20;
     $montantTVA = round($patricipation*0.2, 2, PHP_ROUND_HALF_DOWN);
@@ -683,6 +725,7 @@ function createSponsor() {
     $commentaire = "";
     $concerne = "sponsor";
     $emailContact = $params["emailContact"];
+    $numBonDeCommande = "/"; 
     
     $insertDataFacture =  $wpdb->insert( 
         $wpdb->base_prefix."atoutcom_users_events_facture",
@@ -743,14 +786,18 @@ function createSponsor() {
             $numeroFacture,
             $date_facture,
             $intitule,
-            $dateEvenement." ".$adresseEvenement." à ".$villeEvenement,
+            $dateEvenement."<br>".$adresseEvenement." à ".$villeEvenement,
             $descriptionDetail,
             $quantite,
             $montantHT,
             $montantTVA,
             $montantTTC,
             $datePaiement,
-            $emailContact
+            $emailContact,
+            $contact_nom,
+            $contact_adresse,
+            $aka_tauxTVA,
+            $numBonDeCommande
         );
         
         wp_die(json_encode($retour));
@@ -773,7 +820,208 @@ function setDataValueSponsor() {
 add_action( 'wp_ajax_setDataValueSponsor', 'setDataValueSponsor' );
 add_action( 'wp_ajax_nopriv_setDataValueSponsor', 'setDataValueSponsor' );
 
-// Fonction d'export excel des sponsors
+/*********************CREATION D'UNE FACTURE VIA BON DE COMMANDE*************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
+
+function createFactureViaBC() {
+    global $wpdb;
+    $params = array();
+    parse_str($_POST['data'], $params);
+    //var_dump($params);wp_die();
+    if ( sizeof($params) > 0 ) {
+        $maxID = atoutcomUser::getMaxIdFacture();
+        if($maxID === NULL || $maxID === ""){
+            $maxID = 0;
+        }
+        
+        $langue = $params["bcLangue"]; 
+        $numero = $maxID +1;
+        $date_facture = date("d/m/Y");
+        $numBonDeCommande = $params["commande"];
+        $destinataire = $params["nom"]." ".$params["prenom"];
+        $adresseFacturation = $params["adresse"];
+        $codepostalFacturation = $params["codepostal"];
+        $villeFacturation = $params["ville"];
+        $paysFacturation = $params["pays"];
+        $intitule = substr($params["evenement"], 0, strpos($params["evenement"],","));
+        $specialite = $params["specialiteEvent"];
+        
+        //Date de l'evenement en fonction de la langue
+        if($langue==="fr"){
+            if($params["dateDebut"] === $params["dateFin"]){
+                $dateEvenement = atoutcomUser::dateFr($params["dateDebut"], "");
+            }else{
+                $jrDebut = substr($params["dateDebut"], 0, 2);
+                $moisDebut = atoutcomUser::dateFr("", substr($params["dateFin"], 3, -5));
+                $anneeDebut = substr($params["dateDebut"], 6);
+
+                
+                $jrFin = substr($params["dateFin"], 0, 2);
+                $moisFin = atoutcomUser::dateFr("", substr($params["dateFin"], 3, -5));
+                $anneeFin = substr($params["dateFin"], 6);
+
+                //si les années sont identiques
+                if($anneeDebut === $anneeFin){
+                    if( $moisDebut === $moisFin ){
+                        $dateEvenement = $jrDebut." - ".$jrFin." ".$moisDebut." ".$anneeDebut;
+                    }else{
+                        $dateEvenement = $jrDebut." ".$moisDebut." - ".$jrFin." ".$moisFin." ".$anneeDebut;
+                    }
+                }else{
+                    $dateEvenement = atoutcomUser::dateFr($params["dateDebut"], "")." - ".atoutcomUser::dateFr($params["dateFin"], "");
+                }
+            }
+        }else{ 
+            if($params["dateDebut"] === $params["dateFin"]){
+                $dateEvenement = atoutcomUser::dateEn($params["dateDebut"], "");
+            }else{
+                $jrDebut = substr($params["dateDebut"], 0, 2);
+                $moisDebut = atoutcomUser::dateEn("", substr($params["dateFin"], 3, -5));
+                $anneeDebut = substr($params["dateDebut"], 6);
+
+                
+                $jrFin = substr($params["dateFin"], 0, 2);
+                $moisFin = atoutcomUser::dateEn("", substr($params["dateFin"], 3, -5));
+                $anneeFin = substr($params["dateFin"], 6);
+
+                //si les années sont identiques
+                if($anneeDebut === $anneeFin){
+                    if( $moisDebut === $moisFin ){
+                        $dateEvenement = $jrDebut." - ".$jrFin." ".$moisDebut." ".$anneeDebut;
+                    }else{
+                        $dateEvenement = $jrDebut." ".$moisDebut." - ".$jrFin." ".$moisFin." ".$anneeDebut;
+                    }
+                }else{
+                    $dateEvenement = atoutcomUser::dateEn($params["dateDebut"], "")." - ".atoutcomUser::dateEn($params["dateFin"], "");
+                }
+            }
+        }
+
+        $datePaiement = date("d/m/Y");
+        $adresseEvenement = $params["adresseEvent"];
+        $codepostalEvenement = $params["codepostalEvent"];
+        $villeEvenement = $params["villeEvent"];
+        $paysEvenement = $params["paysEvent"];
+        $contact_nom = $params["contactNom"];
+        $contact_adresse = $params["contactAdresse"];
+        $descriptionDetail = $params["detailDesc"];
+ 
+        $jourEvenement = substr($params["dateDebut"], 0, 2);
+        $moisEvenement = substr($params["dateDebut"], 3, -5);
+        $periode = substr($params["dateDebut"], 6);
+        $numeroFacture = $numero."".$periode."/".$jourEvenement."".$moisEvenement;
+
+        $annee = $periode;
+        $quantite = "1";
+        $montant = str_replace ( "," , "." , $params["montant"] );
+        $patricipation = (int)$montant;
+        $montantHT = round($patricipation/1.2, 2, PHP_ROUND_HALF_DOWN);
+        $aka_tauxTVA = 10;
+        $montantTVA = round($patricipation*0.1, 2, PHP_ROUND_HALF_DOWN);
+        $montantTTC = $patricipation;
+        $montantNET = $patricipation;
+        $total = $patricipation;
+        $accompte = 0;
+        $restedu = 0;
+        $paye = $patricipation;
+        $encaisse = $patricipation;
+        $date_reglement = $datePaiement;
+        $commentaire = "";
+        $concerne = "participant BC N° : ".$numBonDeCommande;
+        $emailContact = $params["email"];
+
+        // On insère la donnée dans la facture 
+        $insertDataFacture =  $wpdb->insert( 
+            $wpdb->base_prefix."atoutcom_users_events_facture",
+            array( 
+                'periode'  => $periode,
+                'numero' => $numeroFacture,
+                'date_facture' => $date_facture,
+                'destinataire' => $destinataire,
+                'intitule' => $intitule,
+                'specialite' => $specialite,
+                'annee' => $annee,
+                'montantHT' => $montantHT,
+                'aka_tauxTVA' => $aka_tauxTVA,
+                'montantTVA' => $montantTVA,
+                'montantTTC' => $montantTTC,
+                'montantNET' => $montantNET,
+                'total' => $total,
+                'accompte' => $accompte,
+                'restedu' => $restedu,
+                'paye' => $paye,
+                'encaisse' => $encaisse,
+                'date_reglement' => $date_reglement,
+                'commentaire' => $commentaire,
+                'concerne' => $concerne,
+            ), 
+            array( 
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%f',
+                '%d',
+                '%f',
+                '%f',
+                '%f',
+                '%f',
+                '%f',
+                '%f',
+                '%f',
+                '%f',
+                '%s',
+                '%s',
+                '%s',
+            ) 
+        );
+        if($insertDataFacture){
+            //Génération de la facture et envoie de Mail avec la facture
+            $retour = genererFacture(
+                $langue,
+                $destinataire, 
+                $adresseFacturation,
+                $codepostalFacturation.", ".$villeFacturation.", ".$paysFacturation,
+                $numeroFacture,
+                $date_facture,
+                $intitule,
+                $dateEvenement."<br>".$adresseEvenement." à ".$villeEvenement,
+                $descriptionDetail,
+                $quantite,
+                $montantHT,
+                $montantTVA,
+                $montantTTC,
+                $datePaiement,
+                $emailContact,
+                $contact_nom,
+                $contact_adresse,
+                $aka_tauxTVA,
+                $numBonDeCommande
+            );
+            
+            wp_die(json_encode($retour));
+            
+        }else{
+            wp_die(json_encode("errorDB"));
+        }
+
+    }else{
+        // Si le tableau est vide
+        wp_die(json_encode("errorData"));
+    }
+}
+add_action( 'wp_ajax_createFactureViaBC', 'createFactureViaBC' );
+add_action( 'wp_ajax_nopriv_createFactureViaBC', 'createFactureViaBC' );
+
+/****************************EXPORT EXCEL DYNAMIQUE**************************
+*                                                                           *
+*                                                                           *
+*****************************************************************************/
 function exportExcel() {
     global $wpdb;
     $data = array();
@@ -859,7 +1107,7 @@ function exportExcel() {
         }
         // Participant
         if($type==="participant"){
-            $dataExport = $wpdb->get_results( "SELECT $select FROM ".$wpdb->base_prefix."atoutcom_users_events_facture WHERE id IN($list) AND concerne='participant' ", ARRAY_A);
+            $dataExport = $wpdb->get_results( "SELECT $select FROM ".$wpdb->base_prefix."atoutcom_users_events_facture WHERE id IN($list) AND concerne like '%participant%' ", ARRAY_A);
         }  
     }
 
@@ -1092,7 +1340,11 @@ function genererFacture(
     $montantTVA,
     $montantTTC,
     $datePaiement,
-    $emailContact
+    $emailContact,
+    $contact_nom,
+    $contact_adresse,
+    $aka_tauxTVA,
+    $numBonDeCommande
 )
 {
     $numFact = str_replace ("/", "_",  $numeroFacture);
@@ -1119,16 +1371,19 @@ function genererFacture(
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
                         <span class="adresseGras">Personne à contacter:</span><br>
-                        <span class="">Christelle Noccela</span><br>
-                        <span class="">04 42 54 42 60 - gyneco@atoutcom.com</span>
+                        <span class="">'.$contact_nom.'</span><br>
+                        <span class="">'.$contact_adresse.'</span>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
                     <div class="adresseFacturation">
-                        <span class="adresseSouligneTitre">Adresse de Facturation</span><span class="espace">Adresses</span><br><br>
+                        <span class="adresseSouligneTitre">Adresse de Facturation</span>
+                        <br><br>
                         <span class="adresseGras">'.$titreAdresse.'</span><br>
                         <span class="">'.$adresseFacturation.'</span><br>
                         <span class="">'.$codePostalVille.'</span><br><br>
                         <span class="adresseSouligneTVA">N° TVA Intracommunautaire</span><br>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                 </div>
 
@@ -1153,14 +1408,15 @@ function genererFacture(
                         <td class="noBorder">DESCRIPTION</td>
                         <td class="noBorder">QUANTITÉ</td>
                         <td class="noBorder">MONTANT HT</td>
-                        <td class="noBorder">TVA 20%</td>
+                        <td class="noBorder">TVA '.$aka_tauxTVA.'%</td>
                         <td class="noBorder">MONTANT TTC</td>
                     </tr>
                     <tr>
                         <td class="withBorder" style="border-right: none;">
-                            <span class="adresseGras">/</span>
+                            <span class="adresseGras">'.$numBonDeCommande.'</span>
                         </td>
-                        <td class="withBorder" style="border-right: none;">
+                        <td class="withBorder" width="100%" style="border-right: none;">
+                            <span>'.$titreAdresse.'</span><br>
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
                             <span class="adresseGras detailCongres">'.$descriptionDetail.'</span>
@@ -1260,16 +1516,19 @@ function genererFacture(
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
                         <span class="adresseGras">Personne à contacter:</span><br>
-                        <span class="">Christelle Noccela</span><br>
-                        <span class="">04 42 54 42 60 - gyneco@atoutcom.com</span>
+                        <span class="">'.$contact_nom.'</span><br>
+                        <span class="">'.$contact_adresse.'</span>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
                     <div class="adresseFacturation">
-                        <span class="adresseSouligneTitre">Invoice Address</span><span class="espace">Invoice Address</span><br><br>
+                        <span class="adresseSouligneTitre">Invoice Address</span>
+                        <br><br>
                         <span class="adresseGras">'.$titreAdresse.'</span><br>
                         <span class="">'.$adresseFacturation.'</span><br>
                         <span class="">'.$codePostalVille.'</span><br><br>
                         <span class="adresseSouligneTVA">N° TVA Intracommunautaire</span><br>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                 </div>
 
@@ -1294,14 +1553,15 @@ function genererFacture(
                         <td class="noBorder">DESCRIPTION</td>
                         <td class="noBorder">QUANTITY</td>
                         <td class="noBorder">AMOUNT WITHOUT</td>
-                        <td class="noBorder">VAT 20%</td>
+                        <td class="noBorder">VAT '.$aka_tauxTVA.'%</td>
                         <td class="noBorder">TOTAL AMOUNT</td>
                     </tr>
                     <tr>
                         <td class="withBorder" style="border-right: none;">
-                            <span class="adresseGras">/</span>
+                            <span class="adresseGras">'.$numBonDeCommande.'</span>
                         </td>
-                        <td class="withBorder" style="border-right: none;">
+                        <td class="withBorder" width="100%" style="border-right: none;">
+                            <span>'.$titreAdresse.'</span><br>
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
                             <span class="adresseGras detailCongres">'.$descriptionDetail.'</span>
@@ -1338,7 +1598,7 @@ function genererFacture(
                             <span class="adresseGras">Check Or Bank Transfer</span>
                             <br><br>
 
-                            <span class="adresseGras">Modalités :</span>
+                            <span class="adresseGras">Modality of payment :</span>
                             <br><br>
                             <span class="adresseGras modalite">
                             <i>
@@ -1396,19 +1656,16 @@ function genererFacture(
     $pdf_gen = $dompdf->output();
 
     if(file_put_contents($fichierPDF, $pdf_gen)){
-        //En local pas d'envoie de mail
-        if( strpos($_SERVER['SERVER_NAME'], "localhost") !== false){
+
+        $attachments = array( $fichierPDF );
+        
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        if(wp_mail( $emailContact, $subject, $body, $headers, $attachments )){
             $retour = "success";
         }else{
-            $attachments = array( $fichierPDF );
-            
-            $headers = array('Content-Type: text/html; charset=UTF-8');
-            if(wp_mail( $emailContact, $subject, $body, $headers, $attachments )){
-                $retour = "success";
-            }else{
-                $retour = "errorMail";
-            }
+            $retour = "errorMail";
         }
+        
     }else{
         $retour = "error";
     }

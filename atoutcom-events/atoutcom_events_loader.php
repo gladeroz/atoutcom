@@ -136,8 +136,7 @@ class AtoutcomEventsLoader extends MvcPluginLoader
         // this needs to occur at this level, and not in the
         // constructor/init since we are switching blogs for multisite
         $this->tables = [
-            'events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants',
-            'users_events' => $wpdb->base_prefix.'atoutcom_users_events'
+            'events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'
         ];
 
         /* http://wiip.fr/content/choisir-le-type-de-colonne-de-ses-tables-mysql */
@@ -159,18 +158,6 @@ class AtoutcomEventsLoader extends MvcPluginLoader
 
         dbDelta($sql);
 
-        /*$sql = '
-            CREATE TABLE '.$this->tables['users_events'].' (
-              id int(11) NOT NULL auto_increment,
-              event_id int(11),
-              user_id int(11),  
-              event_status VARCHAR(255),
-              KEY (event_id),
-              KEY (user_id),
-              PRIMARY KEY (id)
-            )';
-        dbDelta($sql);*/
-        //$this->insert_example_data();
     }
 
     /**

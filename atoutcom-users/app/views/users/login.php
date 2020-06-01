@@ -37,14 +37,21 @@
     .mandatory{
         color: red;
     }
+
+    input{
+        font-size: 18px!important;
+        margin-top: 3px;
+        border: none!important;
+        background-color: none!important;
+    }
 </style>
 <!-- Default form login -->
-<div class="col-xs-1 text-center" style="margin-left: 320px;">
+<div class="col-xs-1 text-center" style="margin-left: 320px; font-size: 18px;">
 <form id="target-login" class="text-center p-5" style="border-color: #2ecac2!important; border: 1px solid black; width: 505px;">
     
-    <p class="h4 mb-4">Connexion</p>
+    <p><h2 style="margin-bottom: 20px;">Connexion</h2></p>
     <div class="col-sm-12 alert alert-info text-center info" role="alert" style="display: none;">
-  
+        
     </div>
 
     <div class="col-sm-12 alert alert-danger text-center error" role="alert" style="display: none;">
@@ -89,7 +96,7 @@
     <!-- Register -->
     <p style="text-align: left;">
         Vous n'avez pas de compte ? <a href="../registration/<?=$cond?>">Créer</a>
-        <br>
+        <br><br>
         Mot de passe oublié ? <a href="../reset-password/">Recréer</a>
     </p>
 

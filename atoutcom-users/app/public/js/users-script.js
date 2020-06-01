@@ -88,10 +88,13 @@ jQuery( document ).ready(function() {
     });
 
     // Update user info
-    jQuery( "#submit-update" ).click(function( event ) {
+    jQuery( "#form_updateUserInfo" ).submit(function( event ) {
+        event.preventDefault();
+        //console.log("hello")
+        
         jQuery( "#submit-update" ).prop('disabled', true).css({"background-color": "grey", "cursor": "default"});
     	jQuery( "#loading" ).show();
-        var data = jQuery( "#target-update" ).serialize();
+        var data = jQuery( "#form_updateUserInfo" ).serialize();
         jQuery.post(
 		    ajaxurl,
 		    {
@@ -112,10 +115,21 @@ jQuery( document ).ready(function() {
 		        }
 		    }
         );
-        event.preventDefault();
+        
     });
 
-        // Resset password
+    // Affichage de l'adresse de facturation
+    jQuery('#blocAdresseFact').click(function(){
+        if(jQuery(this).is(':checked')){
+            jQuery( ".blocAdresseFacturation" ).show();
+            // Set required fields
+            jQuery( ".factRequired" ).prop('required',true);
+        } else {
+            jQuery( ".blocAdresseFacturation" ).hide();
+            jQuery( ".factRequired" ).prop('required',false);
+        }
+    });
+    // Resset password
     jQuery( "#submit-reset-password" ).click(function( event ) {
     	event.preventDefault();
         if( jQuery( "#email" ).val() != "" ){

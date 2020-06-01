@@ -1,14 +1,21 @@
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
-Hello test d'ecriture
+Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 23/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 23/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à BOUBOU Serge serge.boubou@gmail.com avec facture en PJ, le : 23/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à Beynaud Fred fred.beynaud@gmail.com avec facture en PJ, le : 23/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à   harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à Harou Guindja harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 25/02/2020 Données insérée avec succès dans la table user_file
+Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 02/03/2020 Données insérée avec succès dans la table user_file

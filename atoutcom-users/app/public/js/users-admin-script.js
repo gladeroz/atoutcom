@@ -317,6 +317,7 @@ jQuery( document ).ready(function() {
 	            var data = response;
 	            if(Object.keys(data).length != 0){
 	            	for(var i in data){
+	            		var id = data[i]['id'];
 	            		var periode = data[i]['periode'];
 	            		var numero = data[i]['numero'];
 	            		var date_facture = data[i]['date_facture'];
@@ -325,7 +326,7 @@ jQuery( document ).ready(function() {
 	            		var annee = data[i]['annee'];
 	            		var montantHT = data[i]['montantHT']
 	            		var aka_tauxTVA = data[i]['aka_tauxTVA'];
-	            		var montantTVA = data[i]['aka_tauxTVA'];
+	            		var montantTVA = data[i]['montantTVA'];
 	            		var montantTTC = data[i]['montantTTC'];
 	            		var montantNET = data[i]['montantNET'];
 	            		var total = data[i]['total'];
@@ -340,7 +341,7 @@ jQuery( document ).ready(function() {
 	            		var dataTable =
 
 	            		"<tr>"
-						+   "<td class='details-control'><i class='fa fa-plus-square' aria-hidden='true'></i></td>"
+						+   "<td class='details-control'><input type='checkbox' class='checkForExport' value='"+id+"'</td>"
 						+   "<td>"+periode+"</td>"
 						+   "<td>"+numero+"</td>"
 						+   "<td>"+date_facture+"</td>"
@@ -412,6 +413,55 @@ jQuery( document ).ready(function() {
 	    jQuery('#loadingFacture').hide();
 		jQuery('#manage_facture').show();
     });
+
+    /****************************CREATION D'UN BON DE COMMANDE******************* 
+    *                                                                           *
+    *                                                                           *
+    *****************************************************************************/
+
+    jQuery('#formBonDeCommande').submit( function(event) {
+        event.preventDefault();
+        // On change le libéllé du bouton pendant la création de la facture
+        jQuery( "#btnBC" ).attr("disabled", true);
+    	jQuery( "#btnBC" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> Création Bon de Commande ");
+        // On serialize le formulaire
+    	var data = jQuery( "#formBonDeCommande" ).serialize();
+    	jQuery.post(
+		    ajaxurl,
+		    {
+		        'action': 'createFactureViaBC',
+		        'data': data
+		    },
+		    function(response){
+		    	var response = JSON.parse(response);
+		    	jQuery( "#btnBC" ).attr("disabled", false);
+		    	jQuery( "#btnBC" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
+		    	
+                if(response==="success"){
+                    jQuery(".successBC").html("Facture créée avec succès et transmis par mail au participant.").show().delay(5000).fadeOut();
+                    setTimeout(document.location.reload(),5000);
+                }
+                
+                if(response==="errorDB"){
+                    jQuery(".errorBC").html("Erreur lors de la création de la facture dans la Base.").show().delay(8000).fadeOut();
+                }
+
+                if(response==="errorMail"){
+                    jQuery(".infoBC").html("La facture a été générée, mais n'a pas été envoyée par mail : Une erreur sur le serveur de mail").show().delay(8000).fadeOut();
+                }
+
+                if(response==="error"){
+                    jQuery(".infoBC").html("La facture a été créé en base, mais n'a pas été générée en PDF.").show().delay(8000).fadeOut();
+                }
+
+                if(response==="errorData"){
+                    jQuery(".errorBC").html("Facture non générée, aucune insertion en base. Problème de données.").show().delay(8000).fadeOut();
+                }
+		    }
+		);
+    });
+    
+
 
     /****************************CREATION D'UN SPONSOR***************************
     *                                                                           *
@@ -493,13 +543,17 @@ jQuery( document ).ready(function() {
         var data = JSON.parse( valueEvent.substring(n+1) );
 
         var dataEvent = data[0];
-        if( jQuery( ".facture_type" ).val() ==="sponsor" ){
+        
+        if( jQuery( ".facture_type" ).val() ==="sponsor" || jQuery( ".facture_type" ).val() ==="participant"){
+        	jQuery( "#specialiteEvent" ).val( dataEvent["Specialite Evenement"] );
         	jQuery( "#dateDebut" ).val( dataEvent["Date Debut Evenement"] );
 	        jQuery( "#dateFin" ).val( dataEvent["Date Fin Evenement"] );
 	        jQuery( "#codepostalEvent" ).val( dataEvent["Code postal Evenement"] );
 	        jQuery( "#adresseEvent" ).val( dataEvent["Adresse Evenement"] );
 	        jQuery( "#villeEvent" ).val( dataEvent["Ville Evenement"] );
 	        jQuery( "#paysEvent" ).val( dataEvent["Pays Evenement"] );
+	        jQuery( "#contactAdresse" ).val( dataEvent["Contact Adresse"] );
+	        jQuery( "#contactNom" ).val( dataEvent["Contact Nom"] );
         }else{
             jQuery( "#dateEvenement" ).val( dataEvent["Date Debut Evenement"] );
         }
@@ -912,56 +966,71 @@ function event_format(d){
 
 // Dérouler du tableau affichage miniature evement
 function user_event_format(d){
-    if( d[9] ==="" || d[10] === ""){
-		var optionDisable = "disabled";
+    //if( d[9] ==="" || d[10] === ""){
+	//	var optionDisable = "disabled";
+	//}
+    var status = d[13];
+	if( status === "Validé" && d[9] ==="" ){
+		var optionDisable = "none";
+	}else{
+		var optionDisable = "block";
 	}
-
-	if( d[9] !="" && d[10] != ""){
-		var optionDisable = "";
-	}
+    
     var chemin = window.location.origin+"/wordpress/wp-admin/images/loading.gif";
 
-    var status = d[12];
+    
 	if(status ==="En attente"){
 		var optionData =       
         '<option value="En attente" selected>En attente</option>'+
         '<option value="Annulé">Annulé</option>'+
         '<option value="Validé">Validé</option>';
 	}
-
-	if(status ==="Validé"){
+	else if(status ==="Validé"){
 		var optionData =       
         '<option value="En attente">En attente</option>'+
         '<option value="Annulé">Annulé</option>'+
         '<option value="Validé" selected>Validé</option>';
 	}
-
-	if(status ==="Annulé"){
+	else if(status ==="Annulé"){
 		var optionData =       
         '<option value="En attente">En attente</option>'+
         '<option value="Annulé" selected>Annulé</option>'+
+        '<option value="Validé">Validé</option>';
+	}else {
+		var optionData =       
+        '<option value="En attente">En attente</option>'+
+        '<option value="Annulé">Annulé</option>'+
         '<option value="Validé">Validé</option>';
 	}
     
     var dataForm = 
     '<form method="post" onsubmit="return changeStatus();">'+
-        '<div class="alert alert-success text-center success" style="display: none;"></div>'+
-        '<div class="alert alert-danger text-center error" style="display: none;"></div>'+
-        '<div class="row">'+
-            '<div class="col-sm-8">'+
-                '<input type="hidden" value='+d[4]+' class="userId">'+
-                '<input type="hidden" value='+d[13]+' class="formID">'+
-                '<input type="hidden" value='+d[12]+' class="entryID">'+
-		        '<select '+optionDisable+' class="form-control statut">'+
-		            optionData+
-		        '</select>'+
-		    '</div>'+
-		    '<div class="col-sm-2">'+
-		        '<input type="submit" '+optionDisable+' value="Ok" style="cursor:pointer;">'+
-		    '</div>'+
-		    '<div class="col-sm-1">'+
-                '<img id="loading" src="'+chemin+'" style="display: none;">'+
-		    '</div>'+
+        '<div class="alert alert-success text-center successStatus" style="display: none;"></div>'+
+        '<div class="alert alert-danger text-center errorStatus" style="display: none;"></div>'+
+        '<div class="alert alert-info text-center infoStatus" style="display: none;"></div>'+
+        '<div class="container">'+
+	        '<div class="row">'+
+	            '<div class="col-sm-6">'+
+	                '<input type="hidden" value='+d[4]+' class="userId">'+
+	                '<input type="hidden" value='+d[12]+' class="formID">'+
+	                '<input type="hidden" value='+d[11]+' class="entryID">'+
+	                '<input type="hidden" value='+d[9]+'  class="transactionID">'+
+			        '<select class="form-control statut">'+
+			            optionData+
+			        '</select>'+
+
+			    '</div>'+
+			    
+			    '<div class="col-sm-2">'+
+			        '<input type="submit" value="Ok" style="cursor:pointer;">'+
+			    '</div>'+
+			    '<div class="col-sm-1">'+
+	                '<img id="loading" src="'+chemin+'" style="display: none;">'+
+			    '</div>'+
+			    '<div class="col-sm-6" style="margin-top:5px; display :'+optionDisable+'">'+
+			        '<input type="number" class="form-control" placeholder="montant reçu" id="montantRecu">'+
+			    '</div>'+
+	        '</div>'+
         '</div>'+
     '</form>';
 
@@ -970,13 +1039,13 @@ function user_event_format(d){
         '<div class="alert alert-success text-center successUserFile" style="display: none;"></div>'+
         '<div class="alert alert-danger text-center errorUserFile" style="display: none;"></div>'+
         '<div class="row">'+
-            '<div class="col-sm-6">'+
+            '<div class="col-sm-10">'+
                 '<input type="hidden" value='+d[4]+' class="userId">'+
-                '<input type="hidden" value='+d[13]+' class="formID">'+
-                '<input type="hidden" value='+d[12]+' class="entryID">'+
+                '<input type="hidden" value='+d[12]+' class="formID">'+
+                '<input type="hidden" value='+d[11]+' class="entryID">'+
 		        '<input type="file"  name="fichier">'+
 		    '</div>'+
-		    '<div class="col-sm-2">'+
+		    '<div class="col-sm-3" style="margin-top: 7px;">'+
 		        '<input type="submit" value="Envoyer" style="cursor:pointer;">'+
 		    '</div>'+
 		    '<div class="col-sm-1">'+
@@ -1009,7 +1078,7 @@ function user_event_format(d){
         '</div>'+
     '</div>'
     ; 
-    return data;  
+    return data;
 }
 
 // Fonction declencheur du changement de statut
@@ -1017,8 +1086,9 @@ function changeStatus(){
 	jQuery('#loading').show();
 	var dataStatus = jQuery('.statut').val();
 	var userId = jQuery('.userId').val();
-	//var entryId = jQuery('.entryID').val();
+	var transactionID = jQuery('.transactionID').val();
 	var formId = jQuery('.formID').val();
+	var montantRecu = jQuery('#montantRecu').val();
 
 	jQuery.ajax({
         type: 'POST',
@@ -1028,21 +1098,39 @@ function changeStatus(){
             "dataStatus": dataStatus,
             "userId": userId,
             "formId": formId,
+            "transactionID": transactionID,
+            "participation" : montantRecu,
         },
         success: function(response){
+        	//console.log(response)
         	var response = JSON.parse(response);
             jQuery('#loading').hide();
-            if(response==="success"){
-                jQuery('.success').html("Statut mis à jour avec success").show().delay(5000).fadeOut();
-                setTimeout(document.location.reload(),5000);
+            
+            // Statut ok (différent de validé)
+            if(response==="successStatus"){
+                jQuery('.successStatus').html("Statut mis à jour avec success").show().delay(15000).fadeOut();
+                setTimeout(document.location.reload(),15000);
             }
-
-            if(response==="error"){
-                jQuery('.error').html("Une erreur s'est produite. Veuillez ressayer.").show().delay(5000).fadeOut();
+            
+            // Statut Ok, facture générée et envoyée par mail
+            if(response==="successFactureMail"){
+                jQuery('.successStatus').html("Statut mis à jour avec success. La facture a aussi été envoyée au participant.").show().delay(15000).fadeOut();
+                setTimeout(document.location.reload(),15000);
             }
-
-            if(response==="errorDB"){
-                jQuery('.error').html("Une erreur DB s'est produite. Veuillez ressayer.").show().delay(5000).fadeOut();
+            
+            // Statut Ok, facture générée mais pas envoyée par mail
+            if(response==="errorMail"){
+                jQuery('.infoStatus').html("Statut mis à jour avec succes. La facture a été générée mais n'a pas été envoyée").show().delay(15000).fadeOut();
+            }
+            
+            // Statut Ok mais facture non générée
+            if(response==="error" || response==="errorUserNotFoundEmail" || response==="errorUserNotFoundEvent"){
+                jQuery('.infoStatus').html("Statut mis à jour avec succes. Mais la facture n'a pas été générée").show().delay(15000).fadeOut();
+            }
+            
+            //
+            if(response==="errorDBStatus"){
+                jQuery('.error').html("Une erreur s'est produite lors de la mise à jour du statut. Veuillez ressayer.").show().delay(15000).fadeOut();
             }
 	    }
 	});

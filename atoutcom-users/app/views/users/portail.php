@@ -36,16 +36,22 @@
     $prospection = $userInfo->prospection;
     $profil = $userInfo->categorie;
     
-
     $specialite = $userInfo->specialite;
     $isUpdated = $userInfo->isUpdate;
+
+    $organismeFact = $userInfo->organisme_facturation;
+    $emailFact = $userInfo->email_facturation;
+    $adresseFact = $userInfo->adresse_facturation;
+    $villeFact = $userInfo->ville_facturation;
+    $codepostalFact = $userInfo->codepostal_facturation;
+    $paysFact = $userInfo->pays_facturation;
 
     // Fichiers utilisateurs
     $userFile = atoutcomUser::dataUserFile($email, "user");
     $userFactures = atoutcomUser::dataUserFile($email, "facture");
     $userAttestations = atoutcomUser::dataUserFile($email, "attestation");
 
-    $dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers", "");
+    $dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
     //retourner uniquement le tableau contenant les info du user connecté
     $tabUsers = array();
     
@@ -56,11 +62,16 @@
         	$tabUser = array();
         	$tab = $dataUserEvent["data"][0];
             if( $tab["Email Professionnel"] === $email ){
+            	if( $tab["Date Debut Evenement"] === $tab["Date Fin Evenement"] ){
+            		$dateEvt = $tab["Date Debut Evenement"];
+            	}else{
+            		$dateEvt = $tab["Date Debut Evenement"]." - ".$tab["Date Fin Evenement"];
+            	}
 	            $tabUser = 
 	            array(
                     "titre"=>$dataUserEvent["evenement"],
                     "dateDebut"=>$tab["Date Debut Evenement"],
-                    "dateEvt"=>$tab["Date Debut Evenement"]." - ".$tab["Date Fin Evenement"],
+                    "dateEvt"=>$dateEvt,
                     "moisAnneeTexte"=>atoutcomUser::dateFr( "", substr( $tab["Date Debut Evenement"], 3, -5 ) )." ".substr( $tab["Date Debut Evenement"], 6 ),
                     "villeEvt"=>$tab["Ville Evenement"],
                     "organisateur"=> $tab["Organisateur Evenement"],
@@ -200,6 +211,78 @@
 
 					</div>	
                 </div>
+
+                <?php 
+                    if( $organismeFact == "" || $organismeFact == NULL){
+                    	echo "<div class='adresseDeFacturation' style='display: none'>";
+                    }else{
+                    	echo "<div class='adresseDeFacturation' style='display: block'>";
+                    }
+                ?>
+	                <div class="profil_nom">
+					    Adresse de facturation
+					</div>
+
+					<div class="profil_detail">
+	                	<div class="profil_info">
+						    
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Organisme :
+						        </div>
+						        <div class="profil_value">
+						            <?= $organismeFact ?>
+						        </div>
+						    </div>
+
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Email :
+						        </div>
+						        <div class="profil_value">
+						            <?= $emailFact ?>
+						        </div>
+						    </div>
+
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Adresse :
+						        </div>
+						        <div class="profil_value">
+						            <?= $adresseFact ?>
+						        </div>
+						    </div>
+
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Ville :
+						        </div>
+						        <div class="profil_value">
+						            <?= $villeFact ?>
+						        </div>
+						    </div>
+
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Code Postal :
+						        </div>
+						        <div class="profil_value">
+						            <?= $codepostalFact ?>
+						        </div>
+						    </div>
+
+						    <div class="profil_info_row">
+						        <div class="profil_label">
+						            Pays :
+						        </div>
+						        <div class="profil_value">
+						            <?= $paysFact ?>
+						        </div>
+						    </div>
+
+						</div>
+					</div>
+				</div>
         	</div>
         </div>
 
@@ -609,12 +692,12 @@
 
 <div class="modal fade" id="modalProfil" data-backdrop="static">
     <div class="modal-dialog" role="document">
-	    <div class="modal-content" style="width: 600px; margin-top: 90px;">
+	    <div class="modal-content" style="width: 950px; margin-top: 90px; margin-left: -150px;">
 		    <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLabel">Je complète mes informations personnelles</h5>
 		    </div>
 		    <div class="modal-body">
-		        <form id="target-update">
+		        <form id="form_updateUserInfo">
 			        <div class="container">
 			            <div class="col-sm-12 alert alert-danger text-center error" role="alert" style="display: none;">
 			        
@@ -623,113 +706,130 @@
 			  
 			            </div>
 			            <div class="row">
-			                <div class="col-sm-2">
-			                    Nom :
+				            <div class="col-sm-4">
+				            	<label class="label">Nom :</label>
+				                <input type="text" name="nom" id="nom" value="<?=$nom?>">
+				                <input type="hidden" name="idUser" id="idUser" value="<?=$idUser?>" required>
+				            </div>
+
+			                <div class="col-sm-4">
+			                	<label class="label">Prénom :</label>
+			                    <input type="text" name="prenom" id="prenom" value="<?=$prenom?>" required>
 			                </div>
-			            <div class="col-sm-10">
-			                <input type="text" name="nom" id="nom" value="<?=$nom?>">
-			                <input type="hidden" name="idUser" id="idUser" value="<?=$idUser?>">
-			            </div>
-			        </div>
 
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Prenom :
-			            </div>
-			            <div class="col-sm-10">
-			                <input type="text" name="prenom" id="prenom" value="<?=$prenom?>">
-			            </div>
-			        </div>
-
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Email :
-			            </div>
-			            <div class="col-sm-10">
-			                <input type="text" name="email" id="email" value="<?=$email?>">
-			            </div>
-			        </div>
-
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Adresse :
-			            </div>
-			            <div class="col-sm-10">
-			                <input type="text" name="adresse" id="adresse" value="<?=$adresse?>">
-			            </div>
-			        </div>
-
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Ville :
-			            </div>
-			            <div class="col-sm-4">
-			                <input type="text" name="ville" id="ville" value="<?=$ville?>">
-			            </div>
-
-			            <div class="col-sm-2">
-			                Code Postal :
-			            </div>
-			            <div class="col-sm-4">
-			                <input type="text" name="codepostal" id="codepostal" value="<?=$codePostal?>">
-			            </div>
-			        </div>
-			        
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Tel. Fixe :
-			            </div>
-			            <div class="col-sm-4">
-			                <input type="text" name="telephone_fixe" id="telephone_fixe" value="<?=$telephone_fixe?>">
-			            </div>
-
-			            <div class="col-sm-2">
-			                Tel. Mobile :
-			            </div>
-			            <div class="col-sm-4">
-			                <input type="text" name="telephone_mobile" id="telephone_mobile" value="<?=$telephone_mobile?>">
-			            </div>
-			        </div>
-
-			        <div class="row">
-			            <div class="col-sm-2">
-			                Date :
-			            </div>
-			            <div class="col-sm-4">
-			                <input type="text" name="dateinscription" id="dateinscription" value="<?=$dateInscription?>" title="Ce champ est en lecture seule" readonly>
-			            </div>
-
-                        <div class='col-sm-2'>
-			                Pays :
-			            </div>
-			            <div class='col-sm-4'>
-			                <input type='text' name='pays' id='pays' value='<?=$pays?>'>
-			            </div>
-			        </div>
-                <?php 
-                    if($profil==="intervenant") {
-                    	echo"
-                    	<div class='row'>
-	                        <div class='col-sm-2'>
-				                Spécialité :
-				            </div>
-				            <div class='col-sm-10'>
-				                <input type='text' name='specialite' id='specialite' value='$specialite'>
+			                <div class="col-sm-4">
+				            	<label class="label">Email :</label>
+				                <input type="text" name="email" id="email" value="<?=$email?>" required>
 				            </div>
 			            </div>
-                    	";
-                    }
-                ?>
-			            
-			        
 
-			        <div class="row" style="margin-bottom: 25px; margin-top: 25px;">
-			            <div class="col-sm-10">
-                            <button type="button" id="submit-update" class="btn btn-success">Confirmer</button>
-			                <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="display: block;">
-			            </div>
-			        </div>
-			    </div>
+				        <div class="row">
+				            <div class="col-sm-5">
+				            	<label class="label"> Adresse :</label>
+				                <input type="text" name="adresse" id="adresse" value="<?=$adresse?>" required>
+				            </div>
+
+				            <div class="col-sm-3">
+				            	<label class="label">Ville :</label>
+				                <input type="text" name="ville" id="ville" value="<?=$ville?>" required>
+				            </div>
+
+				            <div class="col-sm-2">
+				            	<label class="label">Code Postal :</label>
+				                <input type="text" name="codepostal" id="codepostal" value="<?=$codePostal?>" required>
+				            </div>
+
+				            <div class="col-sm-2">
+				            	<label class="label">Pays :</label>
+				                <input type='text' name='pays' id='pays' value='<?=$pays?>' required>
+				            </div>
+				        </div>
+				        
+				        <div class="row">
+				            <div class="col-sm-4">
+				            	<label class="label">Tel. Fixe :</label>
+				                <input type="text" name="telephone_fixe" id="telephone_fixe" value="<?=$telephone_fixe?>">
+				            </div>
+
+				            <div class="col-sm-4">
+				            	<label class="label">Tel. Professionnel :</label>
+				                <input type="text" name="telephone_mobile" id="telephone_mobile" value="<?=$telephone_mobile?>" required>
+				            </div>
+
+				            <div class="col-sm-4">
+				            	<label class="label">Date d'inscription :</label>
+				                <input type="text" name="dateinscription" id="dateinscription" value="<?=$dateInscription?>" title="Ce champ est en lecture seule" readonly style="background-color: #cec9c9;">
+				            </div>
+				        </div>
+
+	                <?php 
+	                    if($profil==="intervenant") {
+	                    	echo"
+	                    	<div class='row'>
+					            <div class='col-sm-12'>
+					                <label class='label'> Spécialité :</label>
+					                <input type='text' name='specialite' id='specialite' value='$specialite' required>
+					            </div>
+				            </div>
+	                    	";
+	                    }
+	                ?>
+
+				        <div class="row">
+				            <div class="col-sm-12">
+				            	<input type="checkbox" id="blocAdresseFact">
+				                Ajouter ou modifier une adresse de facturation différente de l'adresse professionnelle 
+				            </div>
+				        </div>
+                        
+                        <div class="blocAdresseFacturation" style="display: none;">
+	                        <div class="row">
+					            <div class="col-sm-6">
+					            	<label class="label">Organisme/Société :</label>
+					                <input type="text" name="organismeFact" class="factRequired" id="organismeFact" value="<?=$organismeFact?>">
+					            </div>
+                                
+                                <div class="col-sm-6">
+					            	<label class="label">Email de facturation :</label>
+					                <input type="text" name="emailFact" class="factRequired" id="emailFact" value="<?=$emailFact?>">
+					            </div>
+					            
+					        </div>
+
+					        <div class="row">
+					        	<div class="col-sm-4">
+					            	<label class="label">Adresse de facturation :</label>
+					                <input type="text" name="adresseFact" class="factRequired" id="adresseFact" value="<?=$adresseFact?>">
+					            </div>
+
+					            <div class="col-sm-3">
+					            	<label class="label">Ville :</label>
+					                <input type="text" name="villeFact" class="factRequired" id="villeFact" value="<?=$villeFact?>">
+					            </div>
+
+					            <div class="col-sm-2">
+					                <label class="label">Code Postal :</label>
+					                <input type="text" name="codepostalFact" class="factRequired" id="codepostalFact" value="<?=$codepostalFact?>">
+					            </div>
+
+					            <div class="col-sm-3">
+					                <label class="label">Pays :</label>
+					                <input type="text" name="paysFact" class="factRequired" id="paysFact" value="<?=$paysFact?>">
+					            </div>
+
+					        </div>
+					        
+                        </div>
+				        <div class="row" style="margin-bottom: 10px; margin-top: 25px;">
+				            <div class="col-sm-2">
+	                            <input type="submit" id="submit-update" value="Confirmer">
+	                        </div>
+
+	                        <div class="col-sm-1">
+				                <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="padding-top: 11px;">
+				            </div>
+				        </div>
+				    </div>
 			    </form>
 		    </div>
 	    </div>

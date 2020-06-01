@@ -1,5 +1,19 @@
 <?php
-    $listEvents = atoutcomUser::formsEvents("listeEventsForSponsors", "");
+    $dataEvent = atoutcomUser::formsEvents("listeEventsForSponsors");
+    $listEvents = array();
+    // Filtré les évenements pour ne pas chopper des doublons
+    foreach ($dataEvent as $data) {
+        $event = $data["evenement"];
+        if(empty($listEvents)){
+            array_push($listEvents, $data);
+        }else{
+            foreach ($listEvents as $value) {
+                if( !in_array($event, $value) ){
+                    array_push($listEvents, $data);
+                }
+            }
+        }
+    }
 ?>
 
 <style type="text/css">
@@ -125,7 +139,7 @@
 
 			<div class="row">
 
-				<div class="col-sm-6">
+				<div class="col-sm-4">
 			        <label for="evenementList" class="col-form-label-lg labelSponsor">Evenement</label>
 			        <select name="evenement" id="evenementList" class="form-control form-control-lg" required style="max-width: none!important;">
 	                    <option value=''>selectionner</option>
@@ -136,6 +150,27 @@
 					    }
 	                ?>   
 	                </select>
+	                <input type="hidden" name="specialiteEvent" id="specialiteEvent">
+			    </div>
+                
+                <div class="col-sm-4">
+			        <label for="adresseEvent" class="col-form-label-lg labelSponsor">Adresse</label>
+			        <input type="text" name="adresseEvent" class="form-control form-control-lg" id="adresseEvent" readonly="">
+			    </div>
+
+			    <div class="col-sm-2">
+			        <label for="codepostalEvent" class="col-form-label-lg labelSponsor">Code postal</label>
+			        <input type="text" name="codepostalEvent" class="form-control form-control-lg" id="codepostalEvent" readonly="">
+			    </div>
+
+			    <div class="col-sm-2">
+			        <label for="villeEvent" class="col-form-label-lg labelSponsor">Ville</label>
+			        <input type="text" name="villeEvent" class="form-control form-control-lg" id="villeEvent" readonly="">
+			    </div>
+                
+                <div class="col-sm-2">
+			        <label for="paysEvent" class="col-form-label-lg labelSponsor">Pays</label>
+			        <input type="text" name="paysEvent" class="form-control form-control-lg" id="paysEvent" readonly="">
 			    </div>
 
 			    <div class="col-sm-2">
@@ -148,24 +183,14 @@
 			        <input type="text" name="dateFin" class="form-control form-control-lg" id="dateFin" readonly="">
 			    </div>
 
-				<div class="col-sm-2">
-			        <label for="codepostalEvent" class="col-form-label-lg labelSponsor">Code postal</label>
-			        <input type="text" name="codepostalEvent" class="form-control form-control-lg" id="codepostalEvent" readonly="">
-			    </div>
-
-			    <div class="col-sm-6">
-			        <label for="adresseEvent" class="col-form-label-lg labelSponsor">Adresse</label>
-			        <input type="text" name="adresseEvent" class="form-control form-control-lg" id="adresseEvent" readonly="">
+                <div class="col-sm-3">
+			        <label for="contactNom" class="col-form-label-lg labelSponsor">Personne à contacter</label>
+			        <input type="text" name="contactNom" class="form-control form-control-lg" id="contactNom" readonly="">
 			    </div>
 
 			    <div class="col-sm-3">
-			        <label for="villeEvent" class="col-form-label-lg labelSponsor">Ville</label>
-			        <input type="text" name="villeEvent" class="form-control form-control-lg" id="villeEvent" readonly="">
-			    </div>
-
-			    <div class="col-sm-3">
-			        <label for="paysEvent" class="col-form-label-lg labelSponsor">Pays</label>
-			        <input type="text" name="paysEvent" class="form-control form-control-lg" id="paysEvent" readonly="">
+			        <label for="contactAdresse" class="col-form-label-lg labelSponsor">Adresse Contact</label>
+			        <input type="text" name="contactAdresse" class="form-control form-control-lg" id="contactAdresse" readonly="">
 			    </div>
 
 			</div>
@@ -200,27 +225,27 @@
 
 			    <div class="col-sm-3">
 			        <label for="adresseFact" class="col-form-label-lg labelSponsor">Adresse de facturation</label>
-			        <input type="text" name="adresseFact" class="form-control form-control-lg" id="adresseFact" required>
+			        <input type="text" name="adresseFact" class="form-control form-control-lg" placeholder="Adresse de facturation" id="adresseFact" required>
 			    </div>
 
 			    <div class="col-sm-3">
 			        <label for="emailContact" class="col-form-label-lg labelSponsor">Email de contact</label>
-			        <input type="text" name="emailContact" class="form-control form-control-lg" id="emailContact" required>
+			        <input type="text" name="emailContact" class="form-control form-control-lg" placeholder="Email du sponsor" id="emailContact" required>
 			    </div>
 
 			    <div class="col-sm-2">
 			        <label for="codepostalFact" class="col-form-label-lg labelSponsor">Code postal</label>
-			        <input type="text" name="codepostalFact" class="form-control form-control-lg" id="codepostalFact" required>
+			        <input type="text" name="codepostalFact" class="form-control form-control-lg" id="codepostalFact" placeholder="Ex : 13090" required>
 			    </div>
 
 			    <div class="col-sm-2">
 			        <label for="villeFact" class="col-form-label-lg labelSponsor">Ville</label>
-			        <input type="text" name="villeFact" class="form-control form-control-lg" id="villeFact" required>
+			        <input type="text" name="villeFact" class="form-control form-control-lg" id="villeFact" placeholder="Ex : Marseille" required>
 			    </div>
 
 			    <div class="col-sm-2">
 			        <label for="paysFact" class="col-form-label-lg labelSponsor">Pays</label>
-			        <input type="text" name="paysFact" class="form-control form-control-lg" id="paysFact" required>
+			        <input type="text" name="paysFact" class="form-control form-control-lg" id="paysFact" placeholder="Ex : France" required>
 			    </div>
 
 			</div>
@@ -228,7 +253,7 @@
 
 			<div class="row" style="margin-top: 15px;">
 				<div class="col-sm-3">
-					<button type="submit" id="enregistrerSponsor" class="btn btn-success btn-lg" style="width: 150px;">
+					<button type="submit" id="enregistrerSponsor" class="btn btn-success btn-lg" style="width: 250px;">
 					    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer
 					</button>
 				</div>

@@ -21,7 +21,7 @@ class AtoutcomUsersLoader extends MvcPluginLoader
      *
      * Variable to store the tables to create
      */
-    private $tables = ["wp_atoutcom_users"];
+    private $tables = [$wpdb->base_prefix ."atoutcom_users"];
 
     public function init()
     {
@@ -161,7 +161,15 @@ class AtoutcomUsersLoader extends MvcPluginLoader
                 statut VARCHAR(15),
                 specialite VARCHAR(100),
                 categorie VARCHAR(20),
-                isUpdate VARCHAR(10)
+                isUpdate VARCHAR(10),
+                organisme_facturation CHAR(100),
+                email_facturation CHAR(255),
+                adresse_facturation CHAR(255),
+                ville_facturation CHAR(60),
+                codepostal_facturation CHAR(10),
+                pays_facturation CHAR(50)
+                
+
         )';
 
         dbDelta($sql);
