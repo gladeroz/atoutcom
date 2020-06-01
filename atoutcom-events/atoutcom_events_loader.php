@@ -21,15 +21,17 @@ class AtoutcomEventsLoader extends MvcPluginLoader
      *
      * Variable to store the tables to create
      */
-    private $tables = [$wpdb->prefix."_atoutcom_events"];
+    private $tables = [];
 
     public function init()
     {
+		global $wpdb;
+		this.$tables = ['events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'];
     }
 
     public function activate($network_wide = false)
     {
-        global $wpdb;
+        
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
@@ -133,11 +135,6 @@ class AtoutcomEventsLoader extends MvcPluginLoader
     private function create_tables()
     {
         global $wpdb;
-        // this needs to occur at this level, and not in the
-        // constructor/init since we are switching blogs for multisite
-        $this->tables = [
-            'events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'
-        ];
 
         /* http://wiip.fr/content/choisir-le-type-de-colonne-de-ses-tables-mysql */
         $sql = '
@@ -169,14 +166,13 @@ class AtoutcomEventsLoader extends MvcPluginLoader
      */
     private function delete_tables()
     {
-        // global $wpdb;
+        global $wpdb;
 
         // this needs to occur at this level, and not in the
-
-        //foreach ($this->tables as $tablename) {
-        //    $sql = 'DROP TABLE IF EXISTS ' . $tablename;
-        //    $wpdb->query($sql);
-        //}
+        foreach ($this->tables as $tablename) {
+            $sql = 'DROP TABLE IF EXISTS ' . $tablename;
+           $wpdb->query($sql);
+        }
     }
     /**
      * insert_example_data()

@@ -21,14 +21,15 @@ class AtoutcomUsersLoader extends MvcPluginLoader
      *
      * Variable to store the tables to create
      */
-    private $tables = ['users' => $wpdb->base_prefix .'atoutcom_users',
-            'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
-            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
-            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'
-	];
+    private $tables = [];
 
     public function init()
     {
+		global $wpdb;
+		this.$tables = ['users' => $wpdb->base_prefix .'atoutcom_users',
+            'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
+            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
+            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'];
     }
 
     public function activate($network_wide = false)
@@ -235,14 +236,13 @@ class AtoutcomUsersLoader extends MvcPluginLoader
      */
     private function delete_tables()
     {
-        // global $wpdb;
+        global $wpdb;
 
         // this needs to occur at this level, and not in the
-
-        // foreach ($this->tables as $tablename) {
-        //    $sql = 'DROP TABLE IF EXISTS ' . $tablename;
-        //    $wpdb->query($sql);
-        // }
+        foreach ($this->tables as $tablename) {
+            $sql = 'DROP TABLE IF EXISTS ' . $tablename;
+            $wpdb->query($sql);
+        }
     }
     /**
      * insert_example_data()
