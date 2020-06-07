@@ -12,7 +12,7 @@ echo '<br/><br/><br/>';
 global $wpdb;
 
 define("IDBOUTIQUE", "XXXX");
-define("IDCERTIIFICAT", "XXXX");
+define("IDCERTIFICAT", "XXXX");
 define("MODEBOUTIQUE", "TEST"); //VALEUR TEST OU PRODUCTION
 
 $form_id = sanitize_text_field($_GET['form_id']);
