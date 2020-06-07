@@ -11,8 +11,8 @@ echo '<br/><br/><br/>';
 
 global $wpdb;
 
-define("IDBOUTIQUE", "XXXX");
-define("IDCERTIFICAT", "XXXX");
+define("IDBOUTIQUE", "XXXX"); //Identifiant de la boutique
+define("IDCERTIFICAT", "XXXX"); //Certificat de test ou de production
 define("MODEBOUTIQUE", "TEST"); //VALEUR TEST OU PRODUCTION
 
 $form_id = sanitize_text_field($_GET['form_id']);
@@ -39,7 +39,7 @@ $total = $total * 100;
 
 $trans_date = date('YmdHis');
 
-$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIIFICAT));
+$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIFICAT));
 
 $signature = hash('sha1', $concat, false);
 
