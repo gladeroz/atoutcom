@@ -1,0 +1,24 @@
+[12-Dec-2019 18:16:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
+[14-Dec-2019 04:42:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
+[14-Dec-2019 18:31:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
+[16-Dec-2019 05:05:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
+[14-Jan-2020 16:40:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
+[16-Jan-2020 01:38:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ataweb02/atoutcom.com/wp-content/themes/salient7.0.9/404.php on line 1
