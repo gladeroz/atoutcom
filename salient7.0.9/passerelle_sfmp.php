@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: passerelle de paiement SOGENACTIF
+Template Name: passerelle de paiement SOGECOMMERCE SFMP
 */
 
 error_reporting(0);
@@ -11,9 +11,9 @@ echo '<br/><br/><br/>';
 
 global $wpdb;
 
-define("IDBOUTIQUE", "XXXX"); //Identifiant de la boutique
-define("IDCERTIFICAT", "XXXX"); //Certificat de test ou de production
-define("MODEBOUTIQUE", "TEST"); //VALEUR TEST OU PRODUCTION
+define("IDBOUTIQUE", "39471254"); //Identifiant de la boutique
+define("IDCERTIFICAT", "e9soz1RhtrtjKjjy"); //Certificat de test ou de production
+define("MODEBOUTIQUE", "PRODUCTION"); //VALEUR TEST OU PRODUCTION
 
 $form_id = sanitize_text_field($_GET['form_id']);
 $entry_id = sanitize_text_field($_GET['entry_id']);

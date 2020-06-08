@@ -1,5 +1,5 @@
 <?php get_header(); ?>
- < ?php setlocale(LC_TIME, 'fr'); ?>
+
 <?php nectar_page_header(get_option('page_for_posts')); ?>
 
 <div class="container-wrap">

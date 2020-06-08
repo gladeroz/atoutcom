@@ -71,7 +71,7 @@ $external_dynamic = (!empty($options['external-dynamic-css']) && $options['exter
     .testimonial_slider[data-style="multiple_visible"][data-color*="accent-color"] .flickity-page-dots .dot.is-selected:before, .testimonial_slider[data-style="multiple_visible"][data-color*="accent-color"] blockquote.is-selected p, .nectar-recent-posts-slider .container .strong span:before, #page-header-bg[data-post-hs="default_minimal"] .inner-wrap > a:hover,
     .single .heading-title[data-header-style="default_minimal"] .meta-category a:hover, body.single-post .sharing-default-minimal .nectar-love.loved, .nectar-fancy-box:after '.$woocommerce_main.'
 	{
-		/*background-color:'.$options["accent-color"].'!important;*/
+		background-color:'.$options["accent-color"].'!important;
 	}
 	
 	.col:hover > [class^="icon-"].icon-3x:not(.alt-style).accent-color.hovered, .col:hover > [class*=" icon-"].icon-3x:not(.alt-style).accent-color.hovered, body .nectar-button.see-through-2[data-hover-color-override="false"]:hover,

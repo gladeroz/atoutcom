@@ -432,6 +432,3 @@ try {
 	fwrite($fichierRetour, $error);
 	fclose($fichierRetour);
 }
-
-
-
