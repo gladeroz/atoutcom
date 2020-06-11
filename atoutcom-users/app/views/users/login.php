@@ -22,6 +22,11 @@
     $cond = ( $_GET["congres"] === NULL ) ? "" : "?congres=".$_GET["congres"];
 ?>
 <style type="text/css">
+    .formLogin{
+        border-color: #2ecac2!important; 
+        border: 1px solid black;
+    }
+
     .categorie, .identifiant{
         text-align: left;
     }
@@ -34,71 +39,112 @@
     .loadingConnect{
         text-align: -webkit-center;
     }
+    
+
+    .titreLogin {
+        margin-top: 40px;
+    }
+    
     .mandatory{
         color: red;
+    }
+
+    .form-group {
+        display: inline-block;
     }
 
     input{
         font-size: 18px!important;
         margin-top: 3px;
-        border: none!important;
         background-color: none!important;
+        border: 1px solid #27cfc3!important;
     }
 </style>
 <!-- Default form login -->
-<div class="col-xs-1 text-center" style="margin-left: 320px; font-size: 18px;">
-<form id="target-login" class="text-center p-5" style="border-color: #2ecac2!important; border: 1px solid black; width: 505px;">
-    
-    <p><h2 style="margin-bottom: 20px;">Connexion</h2></p>
-    <div class="col-sm-12 alert alert-info text-center info" role="alert" style="display: none;">
-        
-    </div>
+<div class="container text-center">
+    <div class="row" style="padding-right: 25%; padding-left: 25%">
+        <form id="target-login" class="formLogin">     
 
-    <div class="col-sm-12 alert alert-danger text-center error" role="alert" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-10 titreLogin">
+                        <h2>Connexion</h2>
+                    </div>
+                </div>
                 
+                <div class="col-sm-12 alert alert-info text-center info" role="alert" style="display: none;">
+                    test
+                </div>
+
+                <div class="col-sm-12 alert alert-danger text-center error" role="alert" style="display: none;">
+                            
+                </div>
+
+                <div class="col-sm-12 alert alert-success text-center success" role="alert" style="display: none;">
+                            
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8 text-left">Selectionner votre catégorie <span class="mandatory">*</span> :</div>
+                    <div class="form-group col-sm-8 text-left">
+                        <input type="radio" id="participant" name="categorie" value="participant" required>
+                        <label for="participant">Participant</label>
+                    </div>
+
+                    <div class="form-group col-sm-8 text-left" style="margin-bottom: 15px;">
+                        <input type="radio" id="intervenant" name="categorie" value="intervenant">
+                        <label for="intervenant">Intervenant</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <div class="text-left">E-mail</div>
+                        <div>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <div class="text-left">Password</div>
+                        <div>
+                             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <input type="checkbox" name="remember" id="remember" class="remember">
+                        <label for="remember">Resté connecter</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        
+                        <div class="form-group">
+                            <input type="submit" id="submit-login" class="form-control btn btn-primary btn-lg" value="Login" style="width: 100px;" />
+                            <input id="redirection" type="hidden" name="redirection" value="<?=$cond?>"/>
+                        </div>
+
+                        <div class="form-group" style="vertical-align: middle;">
+                            <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>">
+                        </div>                 
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <div>Vous n'avez pas de compte ? <a href="../registration/<?=$cond?>">Créer</a></div>
+                        <div>Mot de passe oublié ? <a href="../reset-password/">Recréer</a></div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div class="col-sm-12 alert alert-success text-center success" role="alert" style="display: none;">
-                
-    </div>
-
-    <p class="categorie">Selectionner votre catégorie <span class="mandatory">*</span> :</p>
-
-    <div class="categorie">
-        <input type="radio" id="participant" name="categorie" value="participant" required>
-        <label for="participant">Participant</label>
-    </div>
-
-    <div class="categorie">
-        <input type="radio" id="intervenant" name="categorie" value="intervenant">
-        <label for="intervenant">Intervenant</label>
-    </div>
-
-    <div class="identifiant">
-        <!-- Email -->
-        <input type="email" name="email" id="email" class="form-control mb-4" placeholder="E-mail">
-
-        <!-- Password -->
-        <input type="password" name="password" id="password" class="form-control mb-4" placeholder="Password">
-
-        <input type="checkbox" name="remember" id="remember" class="remember mb-4">
-        <label for="remember">Resté connecter</label>
-
-        <input id="redirection" type="hidden" name="redirection" value="<?=$cond?>"/>
-        <!-- Sign in button -->
-        <input type="submit" id="submit-login" class="form-control mb-4" value="Login" style="width: 407px; height: 43px;" />
-        <div class="loadingConnect">
-            <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="display: none;">
-        </div>
-    </div>
-
-             
-    <!-- Register -->
-    <p style="text-align: left;">
-        Vous n'avez pas de compte ? <a href="../registration/<?=$cond?>">Créer</a>
-        <br><br>
-        Mot de passe oublié ? <a href="../reset-password/">Recréer</a>
-    </p>
-
-</form>
 </div>

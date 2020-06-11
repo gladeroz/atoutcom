@@ -16,7 +16,9 @@ MvcConfiguration::set(array(
 
 MvcConfiguration::append(array(
     'AdminPages' => array(
-        'users'
+        'users' => array(
+            'edition'
+        )
     )
 ));
 

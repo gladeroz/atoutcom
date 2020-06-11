@@ -90,6 +90,32 @@
     //var_dump( $dataUserEvents ); 
 ?>
 
+<style type="text/css">
+	.form-group {
+    	display: inline-block;
+    }
+
+    div.text-left{
+    	margin-bottom: 5px;
+    	font-weight: 800;
+    }
+
+    .notice {
+    	font-weight: 800;
+    	color: #e88b48d6;
+    }
+
+    .row {
+    	padding-bottom: 8px!important;
+    }
+
+    input{
+
+        border: 1px solid #27cfc3!important;
+    }
+</style>
+
+
 <div class="col-sm-12 col-xs-12">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 0px;">
 		<li class="nav-item" style="list-style-type: none;">
@@ -691,74 +717,77 @@
 </div>
 
 <div class="modal fade" id="modalProfil" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-	    <div class="modal-content" style="width: 950px; margin-top: 90px; margin-left: -150px;">
+    <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content text-center" style="margin-top: 90px;">
 		    <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Je complète mes informations personnelles</h5>
+		        <h5 class="modal-title text-center" id="exampleModalLabel">Je complète mes informations personnelles</h5>
 		    </div>
 		    <div class="modal-body">
 		        <form id="form_updateUserInfo">
-			        <div class="container">
+			        <div class="container col-sm-12 col-md-12">
 			            <div class="col-sm-12 alert alert-danger text-center error" role="alert" style="display: none;">
 			        
 			            </div>
 			            <div class="col-sm-12 alert alert-success text-center success" role="alert" style="display: none;">
 			  
 			            </div>
+
 			            <div class="row">
-				            <div class="col-sm-4">
-				            	<label class="label">Nom :</label>
-				                <input type="text" name="nom" id="nom" value="<?=$nom?>">
+				            <div class="form-group col-sm-3">
+				            	<div class="text-left">Nom</div>
+				                <div><input type="text" name="nom" id="nom" value="<?=$nom?>"></div>
 				                <input type="hidden" name="idUser" id="idUser" value="<?=$idUser?>" required>
 				            </div>
 
-			                <div class="col-sm-4">
-			                	<label class="label">Prénom :</label>
-			                    <input type="text" name="prenom" id="prenom" value="<?=$prenom?>" required>
+			                <div class="form-group col-sm-3">
+			                	<div class="text-left">Prénom</div>
+			                    <div><input type="text" name="prenom" id="prenom" value="<?=$prenom?>" required></div>
 			                </div>
 
-			                <div class="col-sm-4">
-				            	<label class="label">Email :</label>
-				                <input type="text" name="email" id="email" value="<?=$email?>" required>
+			                <div class="form-group col-sm-5">
+				            	<div class="text-left">Email</div>
+				                <div>
+				                	<input type="text" name="email" id="email" value="<?=$email?>" title="Ce champ est en lecture seule" readonly required style="background-color: #cec9c9;">
+				                </div>
 				            </div>
 			            </div>
 
 				        <div class="row">
-				            <div class="col-sm-5">
-				            	<label class="label"> Adresse :</label>
-				                <input type="text" name="adresse" id="adresse" value="<?=$adresse?>" required>
+				            <div class="form-group col-sm-4">
+				            	<div class="text-left"> Adresse</div>
+				                <div><input type="text" name="adresse" id="adresse" value="<?=$adresse?>" required></div>
 				            </div>
 
-				            <div class="col-sm-3">
-				            	<label class="label">Ville :</label>
-				                <input type="text" name="ville" id="ville" value="<?=$ville?>" required>
+				            <div class="form-group col-sm-3">
+				            	<div class="text-left">Ville</div>
+				                <div><input type="text" name="ville" id="ville" value="<?=$ville?>" required></div>
 				            </div>
 
-				            <div class="col-sm-2">
-				            	<label class="label">Code Postal :</label>
-				                <input type="text" name="codepostal" id="codepostal" value="<?=$codePostal?>" required>
+				            <div class="form-group col-sm-2">
+				            	<div class="text-left">Code Postal</div>
+				                <div><input type="text" name="codepostal" id="codepostal" value="<?=$codePostal?>" required></div>
 				            </div>
 
-				            <div class="col-sm-2">
-				            	<label class="label">Pays :</label>
-				                <input type='text' name='pays' id='pays' value='<?=$pays?>' required>
+				            <div class="form-group col-sm-2">
+				            	<div class="text-left">Pays</div>
+				                <div><input type='text' name='pays' id='pays' value='<?=$pays?>' required></div>
 				            </div>
 				        </div>
 				        
 				        <div class="row">
-				            <div class="col-sm-4">
-				            	<label class="label">Tel. Fixe :</label>
-				                <input type="text" name="telephone_fixe" id="telephone_fixe" value="<?=$telephone_fixe?>">
+				            <div class="form-group col-sm-4">
+				            	<div class="text-left">Tel. Fixe</div>
+				                <div><input type="text" name="telephone_fixe" id="telephone_fixe" value="<?=$telephone_fixe?>"></div>
 				            </div>
 
-				            <div class="col-sm-4">
-				            	<label class="label">Tel. Professionnel :</label>
-				                <input type="text" name="telephone_mobile" id="telephone_mobile" value="<?=$telephone_mobile?>" required>
+				            <div class="form-group col-sm-4">
+				            	<div class="text-left">Tel. Professionnel</div>
+				                <div><input type="text" name="telephone_mobile" id="telephone_mobile" value="<?=$telephone_mobile?>" required></div>
 				            </div>
 
-				            <div class="col-sm-4">
-				            	<label class="label">Date d'inscription :</label>
-				                <input type="text" name="dateinscription" id="dateinscription" value="<?=$dateInscription?>" title="Ce champ est en lecture seule" readonly style="background-color: #cec9c9;">
+				            <div class="form-group col-sm-3">
+				            	<div class="text-left">Date d'inscription</div>
+				                <div><input type="text" name="dateinscription" id="dateinscription" value="<?=$dateInscription?>" title="Ce champ est en lecture seule" readonly style="background-color: #cec9c9;"></div>
 				            </div>
 				        </div>
 
@@ -766,8 +795,8 @@
 	                    if($profil==="intervenant") {
 	                    	echo"
 	                    	<div class='row'>
-					            <div class='col-sm-12'>
-					                <label class='label'> Spécialité :</label>
+					            <div class='form-group col-sm-12'>
+					                <div class='text-left'> Spécialité :</div>
 					                <input type='text' name='specialite' id='specialite' value='$specialite' required>
 					            </div>
 				            </div>
@@ -776,58 +805,58 @@
 	                ?>
 
 				        <div class="row">
-				            <div class="col-sm-12">
+				            <div class="col-sm-12 notice">
 				            	<input type="checkbox" id="blocAdresseFact">
-				                Ajouter ou modifier une adresse de facturation différente de l'adresse professionnelle 
+				                <label>Ajouter ou modifier une adresse de facturation différente de l'adresse professionnelle</label>
 				            </div>
 				        </div>
                         
                         <div class="blocAdresseFacturation" style="display: none;">
 	                        <div class="row">
-					            <div class="col-sm-6">
-					            	<label class="label">Organisme/Société :</label>
-					                <input type="text" name="organismeFact" class="factRequired" id="organismeFact" value="<?=$organismeFact?>">
+					            <div class="form-group col-sm-5">
+					            	<div class="text-left">Organisme/Société</div>
+					                <div><input type="text" name="organismeFact" class="factRequired" id="organismeFact" value="<?=$organismeFact?>"></div>
 					            </div>
                                 
-                                <div class="col-sm-6">
-					            	<label class="label">Email de facturation :</label>
-					                <input type="text" name="emailFact" class="factRequired" id="emailFact" value="<?=$emailFact?>">
+                                <div class="form-group col-sm-6">
+					            	<div class="text-left">Email de facturation</div>
+					                <div><input type="text" name="emailFact" class="factRequired" id="emailFact" value="<?=$emailFact?>"></div>
 					            </div>
 					            
 					        </div>
 
 					        <div class="row">
-					        	<div class="col-sm-4">
-					            	<label class="label">Adresse de facturation :</label>
-					                <input type="text" name="adresseFact" class="factRequired" id="adresseFact" value="<?=$adresseFact?>">
+					        	<div class="form-group col-sm-4">
+					            	<div class="text-left">Adresse de facturation</div>
+					                <div><input type="text" name="adresseFact" class="factRequired" id="adresseFact" value="<?=$adresseFact?>"></div>
 					            </div>
 
-					            <div class="col-sm-3">
-					            	<label class="label">Ville :</label>
-					                <input type="text" name="villeFact" class="factRequired" id="villeFact" value="<?=$villeFact?>">
+					            <div class="form-group col-sm-3">
+					            	<div class="text-left">Ville</div>
+					                <div><input type="text" name="villeFact" class="factRequired" id="villeFact" value="<?=$villeFact?>"></div>
 					            </div>
 
-					            <div class="col-sm-2">
-					                <label class="label">Code Postal :</label>
-					                <input type="text" name="codepostalFact" class="factRequired" id="codepostalFact" value="<?=$codepostalFact?>">
+					            <div class="form-group col-sm-2">
+					                <div class="text-left">Code Postal</div>
+					                <div><input type="text" name="codepostalFact" class="factRequired" id="codepostalFact" value="<?=$codepostalFact?>"></div>
 					            </div>
 
-					            <div class="col-sm-3">
-					                <label class="label">Pays :</label>
-					                <input type="text" name="paysFact" class="factRequired" id="paysFact" value="<?=$paysFact?>">
+					            <div class="form-group col-sm-2">
+					                <div class="text-left">Pays</div>
+					                <div><input type="text" name="paysFact" class="factRequired" id="paysFact" value="<?=$paysFact?>"></div>
 					            </div>
 
 					        </div>
-					        
                         </div>
-				        <div class="row" style="margin-bottom: 10px; margin-top: 25px;">
-				            <div class="col-sm-2">
-	                            <input type="submit" id="submit-update" value="Confirmer">
-	                        </div>
 
-	                        <div class="col-sm-1">
-				                <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="padding-top: 11px;">
-				            </div>
+				        <div class="row" style="margin-top: 15px;">
+				        	<div class="form-group col-sm-12 text-left">
+							    <input type="submit" id="submit-update" value="Confirmer">
+							</div>
+							
+							<div class="form-group" style="vertical-align: middle;">
+							    <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="padding-top: 11px;">
+							</div>
 				        </div>
 				    </div>
 			    </form>
