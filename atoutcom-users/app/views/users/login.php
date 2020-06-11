@@ -88,7 +88,7 @@
         <!-- Sign in button -->
         <input type="submit" id="submit-login" class="form-control mb-4" value="Login" style="width: 407px; height: 43px;" />
         <div class="loadingConnect">
-            <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="display: block;">
+            <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>" style="display: none;">
         </div>
     </div>
 

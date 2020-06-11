@@ -19,6 +19,3 @@ Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 24/02/2
 Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 24/02/2020 Données insérée avec succès dans la table user_file
 Mail envoyé à Sud Labs harouguindja@gmail.com avec facture en PJ, le : 25/02/2020 Données insérée avec succès dans la table user_file
 Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 02/03/2020 Données insérée avec succès dans la table user_file
-Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 01/06/2020 Données insérée avec succès dans la table user_file
-Mail envoyé à BARREAULT JULIEN barreaultj@gmail.com avec facture en PJ, le : 01/06/2020 Données insérée avec succès dans la table user_file
-Mail envoyé à Harou Guindja harouguindja@gmail.com avec facture en PJ, le : 04/06/2020 Données insérée avec succès dans la table user_file

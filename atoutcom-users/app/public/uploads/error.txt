@@ -1,2 +1,1 @@
 La transaction id n'a pas été trouvé (siteid : atoa_; transaction_id : 174835)La transaction id n'a pas été trouvé (siteid : atoa_; transaction_id : 381745)La transaction id n'a pas été trouvé (siteid : atoa_1_; transaction_id : 704283)\nLa transaction id n'a pas été trouvé (siteid : atoa_88_; transaction_id : 063275)
-La transaction id n'a pas été trouvé (siteid : atoa_88_; transaction_id : 864721)
