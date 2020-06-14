@@ -189,8 +189,8 @@
 			foreach($wpsite as $blog) {
 				$tabFormId = array();
 			
-				$blog_id = get_object_vars($blog)['blog_id'];
-				$wpdb->prefix = $base . $blog_id . '_';
+		        $blog_id = (int)$blog->blog_id;
+		        switch_to_blog($blog_id);
 				$forms = GFAPI::get_forms();
 
 				// Chargement des données dans $tabFormId : on filtre les formulaire pour ne chopper que les form_id des events
@@ -255,8 +255,8 @@
 							foreach ($entries as  $entry) {
 								$dataEvt = array();
 								// evenement titre
-								if($entry["Titre Evenement"]!=NULL){
-									$evenement = $entry["Titre Evenement"];
+								if($entry["Titre"]!=NULL){
+									$evenement = $entry["Titre"];
 									$form_id = $entry["form_id"];
 									$entry_id = $entry["entry_id"];
 									$blog_id = $entry["blog_id"];
@@ -266,43 +266,43 @@
 								}
 
                                 // Organisateur
-								if($entry["Organisateur Evenement"] != NULL){
-									$organisateur = $entry["Organisateur Evenement"];
+								if($entry["Organisateur"] != NULL){
+									$organisateur = $entry["Organisateur"];
 								}
 
 								// Spécialité
-								if($entry["Specialite Evenement"] != NULL){
-									$specialite = $entry["Specialite Evenement"];
+								if($entry["SpécialitéEvt"] != NULL){
+									$specialite = $entry["SpécialitéEvt"];
 								}
 								
 								// Date début
-								if($entry["Date Debut Evenement"] != NULL){
-									$dateDebut = $entry["Date Debut Evenement"];
+								if($entry["DateDebut"] != NULL){
+									$dateDebut = $entry["DateDebut"];
 								}
 								
 								// Date fin
-								if($entry["Date Fin Evenement"] != NULL){
-									$dateFin = $entry["Date Fin Evenement"];
+								if($entry["DateFin"] != NULL){
+									$dateFin = $entry["DateFin"];
 								}
 
 								// code Postal
-								if($entry["Code postal Evenement"] != NULL){
-									$codePostal = $entry["Code postal Evenement"]; 
+								if($entry["CodePostalEvt"] != NULL){
+									$codePostal = $entry["CodePostalEvt"]; 
 								}
 
 								// Adresse
-								if($entry["Adresse Evenement"] != NULL){
-									$adresse = $entry["Adresse Evenement"];
+								if($entry["AdresseEvt"] != NULL){
+									$adresse = $entry["AdresseEvt"];
 								}
 
 								// Ville
-								if($entry["Ville Evenement"] != NULL){
-									$ville = $entry["Ville Evenement"];
+								if($entry["VilleEvt"] != NULL){
+									$ville = $entry["VilleEvt"];
 								}
 
 								// Pays
-								if($entry["Pays Evenement"] != NULL){
-									$pays = $entry["Pays Evenement"];
+								if($entry["PaysEvt"] != NULL){
+									$pays = $entry["PaysEvt"];
 								}
 
 								// Contact Nom
@@ -337,8 +337,8 @@
 								}
 
 								// Code postal User
-								if($entry["Code postal"]!=NULL){
-									$codepostalUser = $entry["Code postal"];                   
+								if($entry["Code Postal"]!=NULL){
+									$codepostalUser = $entry["Code Postal"];                   
 								}
 
 								// Ville User
