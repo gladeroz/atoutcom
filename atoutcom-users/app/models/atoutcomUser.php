@@ -185,7 +185,7 @@
 					$tabForms[0][$form_id][$entrie["id"]] = $tabLabel;
 				}
 			}
-			//$tabFormId=array();	
+	
 			foreach($wpsite as $blog) {
 				$tabFormId = array();
 			
@@ -238,8 +238,9 @@
 						$tabForms[$blog_id][$form_id][$entrie["id"]] = $tabLabel;
 					}
 				}
+				
+				restore_current_blog();
 			}
-			
 
 		    /*
 		    * Si param vaut listeEventsForSponsors on retourne la liste des évenements en encodant le tableau data pour le traitement JS
@@ -393,17 +394,7 @@
 									"blog_id"=>$blog_id,
 									"data"=>$dataEvtFinal 
 								);
-								/*if( empty($listEvents) ){
-									$listEvent = array( "evenement"=>$evenement, "form_id"=>$form_id, "entry_id"=>$entry_id, "blog_id"=>$blog_id, "data"=>$dataEvtFinal );
-								}else{
-									foreach ($listEvents as $data){
-										if ($data['evenement'] != $evenement){
-											$listEvent = array( "evenement"=>$evenement, "form_id"=>$form_id, "entry_id"=>$entry_id, "blog_id"=>$blog_id, "data"=>$dataEvtFinal );
-											//break;
-										}
-									}
-								} */					
-								
+				
 							} // Fin foreach entries
 						    //si par de données dans le tableau $listEvent
 							if( !empty($listEvent) ){
