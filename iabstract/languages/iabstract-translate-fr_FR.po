@@ -1,0 +1,1306 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-01 19:45+0100\n"
+"PO-Revision-Date: 2018-03-01 19:45+0100\n"
+"Last-Translator: Admintoche <contact@informatux.com>\n"
+"Language-Team: French (France)\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: iso-8859-15\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: iabstract-functions.php:146 iabstract-interface.php:63
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: iabstract-functions.php:148
+msgid "Steps"
+msgstr "Etapes"
+
+#: iabstract-functions.php:150
+msgid "Spaces"
+msgstr "Places"
+
+#: iabstract-functions.php:153
+msgid "Orders"
+msgstr "Les commandes"
+
+#: iabstract-functions.php:156
+msgid "Menus"
+msgstr "Les menus"
+
+#: iabstract-functions.php:159
+msgid "Plats"
+msgstr "Les plats"
+
+#: iabstract-functions.php:162
+msgid "Plat types"
+msgstr "Types de plat"
+
+#: iabstract-functions.php:165
+msgid "Transports"
+msgstr "Les transports"
+
+#: iabstract-interface.php:31 iabstract-interface.php:67
+msgid "Options"
+msgstr "Options"
+
+#: iabstract-interface.php:55 iabstract-interface.php:91
+#: includes/iabstract-dashboard.php:19
+msgid "Credits"
+msgstr "Crédits"
+
+#: iabstract-interface.php:110 iabstract-interface.php:115
+#: lib/titan-framework/lib/class-option-save.php:21
+msgid "Save Changes"
+msgstr "Sauvegardez les changements"
+
+#: iabstract-interface.php:117 lib/titan-framework/lib/class-option-save.php:24
+msgid "Reset to Defaults"
+msgstr "Réinitialiser par défaut"
+
+#: iabstract-system.php:88
+msgid "IAbstract"
+msgstr "IAbstract"
+
+#: iabstract.php:104
+msgid "Donate"
+msgstr "Encouragement"
+
+#: iabstract.php:105
+msgid "About"
+msgstr "A propos"
+
+#: includes/iabstract-credits.php:16
+msgid "CREDITS"
+msgstr "CREDITS"
+
+#: includes/iabstract-credits.php:18
+msgid "Developed and maintained by"
+msgstr "Développé et maintenu par"
+
+#: includes/iabstract-credits.php:18
+msgid "Written with "
+msgstr "Ecrit avec "
+
+#: includes/iabstract-credits.php:22
+msgid "SUPPORT"
+msgstr "SUPPORT"
+
+#: includes/iabstract-credits.php:24
+msgid "Support contact"
+msgstr "Contact du support"
+
+#: includes/iabstract-credits.php:24
+msgid "Need more features on this plugin? Don't hesitate to contact us here"
+msgstr ""
+"Besoin de plus de fonctionnalités sur ce plugin ? N'hésitez pas à nous "
+"contacter ici"
+
+#: includes/iabstract-credits.php:24
+msgid "Need a plugin for Wordpress? Don't hesitate to contact us here"
+msgstr "Besoin d'un plugin pour Wordpress ? N'hésitez pas à nous contacter ici"
+
+#: includes/iabstract-credits.php:24
+msgid ""
+"To contact us, You have to indicate us all the informations of your "
+"wordpress installation (Version Number WP, Version number Storefront "
+"Icustomizer, Server)"
+msgstr ""
+"Pour nous contacter, vous devez nous indiquer toutes les informations de "
+"votre installation Wordpress (Numéro de version WP, Numéro de version du "
+"plugin, Serveur, ...)"
+
+#: includes/iabstract-credits.php:24
+msgid "If you would like to use our other plugins, click here "
+msgstr "Si vous souhaitez utiliser nos autres plugins, cliquez ici "
+
+#: includes/iabstract-credits.php:28
+msgid "SERVICES"
+msgstr "SERVICES"
+
+#: includes/iabstract-credits.php:34
+msgid "SECURITY"
+msgstr "SECURITE"
+
+#: includes/iabstract-credits.php:36
+msgid "Tired of your WORDPRESS sites being attacked"
+msgstr "Fatigué de voir vos sites WORDPRESS attaqués"
+
+#: includes/iabstract-credits.php:37
+msgid "Too complicated to put back"
+msgstr "Trop compliqué à remettre en place"
+
+#: includes/iabstract-credits.php:48
+msgid "Wordpress Themes"
+msgstr "Themes Wordpress"
+
+#: includes/iabstract-credits.php:49
+msgid "Web Hosting"
+msgstr "Hébergements"
+
+#: includes/iabstract-credits.php:50
+msgid "Manage your WP sites by ANDROID / APPLE application"
+msgstr "Gérez vos sites WP par applications ANDROID / APPLE"
+
+#: includes/iabstract-credits.php:57
+msgid "MAINTENANCE"
+msgstr "MAINTENANCE"
+
+#: includes/iabstract-credits.php:59
+msgid "No time"
+msgstr "Pas le temps"
+
+#: includes/iabstract-credits.php:60
+msgid "No envy"
+msgstr "Pas l'envie"
+
+#: includes/iabstract-credits.php:61
+msgid "Too complicated"
+msgstr "Trop compliqué"
+
+#: includes/iabstract-dashboard.php:19
+#, php-format
+msgid "Welcome to the %s plugin"
+msgstr "Bienvenue sur le plugin %s"
+
+#: includes/iabstract-dashboard.php:23
+msgid "ADMINISTRATION"
+msgstr "ADMINISTRATION"
+
+#: includes/iabstract-dashboard.php:56
+#: lib/titan-framework/lib/class-option-enable.php:62
+#: lib/titan-framework/lib/class-option-enable.php:141
+msgid "Enabled"
+msgstr "Activé"
+
+#: lib/titan-framework/inc/edd-licensing/EDD_SL_Plugin_Updater.php:189
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+"Nouvelle version disponible de %1$s. %2$sVoir la version %3$s détails%4$s."
+
+#: lib/titan-framework/inc/edd-licensing/EDD_SL_Plugin_Updater.php:197
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Nouvelle version disponible de %1$s. %2$sVoir la version %3$s détails%4$s or "
+"%5$sMettre à jour maintenant%6$s."
+
+#: lib/titan-framework/inc/edd-licensing/EDD_SL_Plugin_Updater.php:340
+msgid "You do not have permission to install plugin updates"
+msgstr "Vous ne possédez les droits pour installer ce plugin"
+
+#: lib/titan-framework/inc/edd-licensing/EDD_SL_Plugin_Updater.php:340
+msgid "Error"
+msgstr "Erreur"
+
+#: lib/titan-framework/lib/class-admin-page.php:114
+msgid ""
+"<em>Options Page Created with <a href='http://titanframework.net?"
+"utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
+msgstr ""
+"<em>Page d'options créées avec le <a href='http://titanframework.net?"
+"utm_source=admin&utm_medium=admin footer'>Framework Titan</a></em>"
+
+#: lib/titan-framework/lib/class-admin-page.php:333
+msgid "Settings saved."
+msgstr "Paramètres sauvegardés."
+
+#: lib/titan-framework/lib/class-admin-page.php:335
+msgid "Settings reset to default."
+msgstr "Réinitialisation des paramètres par défaut."
+
+#: lib/titan-framework/lib/class-customizer.php:33
+#: lib/titan-framework/lib/class-meta-box.php:36
+msgid "More Options"
+msgstr "Plus d'options"
+
+#: lib/titan-framework/lib/class-option-ajax-button.php:29
+#: lib/titan-framework/lib/class-option-ajax-button.php:32
+msgid "Security check failed, please refresh the page and try again."
+msgstr ""
+"La vérification de la sécurité a échoué, actualisez la page et réessayez."
+
+#: lib/titan-framework/lib/class-option-ajax-button.php:86
+msgid "Something went wrong"
+msgstr "Quelque chose s'est mal passé"
+
+#: lib/titan-framework/lib/class-option-ajax-button.php:91
+msgid "Click me"
+msgstr "Cliquez moi"
+
+#: lib/titan-framework/lib/class-option-ajax-button.php:96
+msgid "Please wait..."
+msgstr "Attendez..."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:379
+msgid "Theme License"
+msgstr "Licence de thème"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:380
+msgid "Enter your theme license key."
+msgstr "Entrez votre numéro de licence"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:381
+msgid "License Key"
+msgstr "Numéro de la licence"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:382
+msgid "License Action"
+msgstr "Action de licence"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:383
+msgid "Deactivate License"
+msgstr "Désactivation de la licence"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:384
+msgid "Activate License"
+msgstr "Activation de la licence"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:385
+#: lib/titan-framework/lib/class-option-edd-license.php:397
+msgid "License status is unknown."
+msgstr "Statut de la licence inconnu"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:386
+msgid "Renew?"
+msgstr "Renouvelez ?"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:387
+msgid "unlimited"
+msgstr "illimité"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:388
+msgid "License key is active."
+msgstr "Numéro de licence activée."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:389
+#, php-format
+msgid "Expires %s."
+msgstr "Expiration %s."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:390
+#, php-format
+msgid "You have %1$s / %2$s sites activated."
+msgstr "Vous avez %1$s / %2$s sites activés."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:391
+#, php-format
+msgid "License key expired %s."
+msgstr "Le numéro de licence est expiré %s."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:392
+msgid "License key has expired."
+msgstr "Le numéro de licence a expiré."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:393
+msgid "License keys do not match."
+msgstr "Le numéro de licence ne correspond pas"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:394
+msgid "License is inactive."
+msgstr "La licence est inactive."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:395
+msgid "License key is disabled."
+msgstr "Le numéro de licence est désactivé."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:396
+msgid "Site is inactive."
+msgstr "Site inactif"
+
+#: lib/titan-framework/lib/class-option-edd-license.php:398
+msgid ""
+"Updating this theme will lose any customizations you have made. 'Cancel' to "
+"stop, 'OK' to update."
+msgstr ""
+"La mise à jour de ce thème perdra toute personnalisation que vous avez "
+"faite. 'Annuler' pour arrêter, 'OK' pour mettre à jour."
+
+#: lib/titan-framework/lib/class-option-edd-license.php:399
+#, php-format
+msgid ""
+"<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\" class=\"thickbox\" "
+"title=\"%4s\">Check out what's new</a> or <a href=\"%5$s\"%6$s>update now</"
+"a>."
+msgstr ""
+"<strong>%1$s %2$s</strong> est disponible. <a href=\"%3$s\" class=\"thickbox"
+"\" title=\"%4s\">Découvrez les nouveautés</a> ou <a href=\"%5$s\"%6$s>mettre "
+"à jour maintenant</a>."
+
+#: lib/titan-framework/lib/class-option-enable.php:65
+#: lib/titan-framework/lib/class-option-enable.php:144
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: lib/titan-framework/lib/class-option-multicheck-pages.php:27
+#: lib/titan-framework/lib/class-option-multicheck-pages.php:48
+#: lib/titan-framework/lib/class-option-multicheck-posts.php:34
+#: lib/titan-framework/lib/class-option-multicheck-posts.php:60
+#: lib/titan-framework/lib/class-option-select-pages.php:38
+#: lib/titan-framework/lib/class-option-select-posts.php:46
+#, php-format
+msgid "Untitled %s"
+msgstr "Sans titre %s"
+
+#: lib/titan-framework/lib/class-option-save.php:27
+msgid "Are you sure you want to reset ALL options to their default values?"
+msgstr ""
+"Etes vous sûr de vouloir remettre TOUTES les options à leurs valeurs par "
+"défaut ?"
+
+#: lib/titan-framework/lib/class-option-select-categories.php:37
+#: lib/titan-framework/lib/class-option-select-categories.php:104
+#: lib/titan-framework/lib/class-option-select-pages.php:30
+#: lib/titan-framework/lib/class-option-select-posts.php:38
+#: lib/titan-framework/lib/class-option-select-posts.php:112
+msgid "Select"
+msgstr "Sélectionnez"
+
+#: lib/titan-framework/lib/class-option.php:111
+#, php-format
+msgid "Option type or extended class %s does not exist."
+msgstr "Le type d'option ou la classe étendue %s n'existe pas"
+
+#: lib/titan-framework/lib/class-titan-framework.php:170
+#, php-format
+msgid ""
+"All option IDs per namespace must be unique. The id %s has been used "
+"multiple times."
+msgstr ""
+"Tous IDs d'options par namespace doit être unique. Cet id %s a été utilisé "
+"plusieurs fois."
+
+#: lib/titan-framework/lib/class-titan-framework.php:407
+#, php-format
+msgid "%s needs a %s parameter."
+msgstr "%s a besoin d'un paramètre %s."
+
+#: lib/titan-framework/lib/class-titan-framework.php:417
+#, php-format
+msgid "Container of type %s, does not exist."
+msgstr "Le type de conteneur %s n'existe pas."
+
+#: lib/titan-framework/titan-framework-checker.php:72
+msgid "Titan Framework needs to be installed."
+msgstr "Le Framework Titan doit être installé."
+
+#: lib/titan-framework/titan-framework-checker.php:75
+msgid "Click here to search for the plugin."
+msgstr "Cliquez ici pour rechercher le plugin."
+
+#: lib/titan-framework/titan-framework-checker.php:82
+msgid "Titan Framework needs to be activated."
+msgstr "Le Framework Titan a besoin d'être activé"
+
+#: lib/titan-framework/titan-framework-checker.php:85
+msgid "Click here to go to the plugins page and activate it."
+msgstr "Cliquez ici pour aller à la page des plugins et l'activer."
+
+#: lib/titan-framework/titan-framework.php:173
+msgid "Documentation"
+msgstr "Documentation"
+
+#: lib/titan-framework/titan-framework.php:177
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: lib/titan-framework/titan-framework.php:181
+msgid "Issue Tracker"
+msgstr "Issue Tracker"
+
+#~ msgid "VISITORS"
+#~ msgstr "VISITEURS"
+
+#~ msgid "Product available for sale"
+#~ msgstr "Produit disponible à la vente"
+
+#~ msgid "Internet purchase"
+#~ msgstr "Achat Internet"
+
+#~ msgid "Purchase on e-commerce online shop"
+#~ msgstr "Achat sur la boutique e-commerce en ligne"
+
+#~ msgid "Purchase in proshop (withdrawal in prostore)"
+#~ msgstr "Achat en Boutique (retrait en boutique)"
+
+#~ msgid "Purchase in proshop can by retrieved by the owner of the list"
+#~ msgstr ""
+#~ "Achat en boutique à venir retirer en boutique par le propriétaire de la "
+#~ "liste"
+
+#~ msgid "Purchase in proshop (taken by the buyer)"
+#~ msgstr "Achat en Boutique (emporté par le l'acheteur)"
+
+#~ msgid "Purchase in proshop was taken by the buyer"
+#~ msgstr "L'achat en boutique a été emporté par l'acheteur"
+
+#~ msgid "Update"
+#~ msgstr "Modifier"
+
+#~ msgid "this menu"
+#~ msgstr "ce menu"
+
+#~ msgid "Delete this selection"
+#~ msgstr "Supprimer"
+
+#~ msgid "Title"
+#~ msgstr "Titre"
+
+#~ msgid "Description"
+#~ msgstr "Description"
+
+#~ msgid "Price"
+#~ msgstr "Prix"
+
+#~ msgid "Photo"
+#~ msgstr "Photo"
+
+#~ msgid "Active"
+#~ msgstr "Activé"
+
+#~ msgid "Delete"
+#~ msgstr "Supprimer  la sélection"
+
+#~ msgid "Menu saved successfully"
+#~ msgstr "Menu sauvegardé avec succès"
+
+#~ msgid "ERROR when saving menu"
+#~ msgstr "ERREUR lors de l'enregistrement du menu"
+
+#~ msgid "Menu updated successfully"
+#~ msgstr "Menu mis à jour avec succès"
+
+#~ msgid "ERROR when editing menu (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification du menu (aucune information modifiée)"
+
+#~ msgid "Menu not found"
+#~ msgstr "Menu non trouvé"
+
+#~ msgid "Edit menu"
+#~ msgstr "Modifier le menu"
+
+#~ msgid "Add menu"
+#~ msgstr "Ajouter un menu"
+
+#~ msgid "Back to menus"
+#~ msgstr "Retour aux menus"
+
+#~ msgid "Actions"
+#~ msgstr "Actions"
+
+#~ msgid "Help"
+#~ msgstr "Aide"
+
+#~ msgid "YES"
+#~ msgstr "OUI"
+
+#~ msgid "NO"
+#~ msgstr "NON"
+
+#~ msgid "Upload image"
+#~ msgstr "Uploader une image"
+
+#~ msgid "Title is required"
+#~ msgstr "Le titre est obligatoire"
+
+#~ msgid "Price is required"
+#~ msgstr "Le prix est obligatoire"
+
+#~ msgid "Description is required"
+#~ msgstr "La description est obligatoire"
+
+#~ msgid "this order"
+#~ msgstr "cette commande"
+
+#~ msgid "None"
+#~ msgstr "Aucun"
+
+#~ msgid "adults"
+#~ msgstr "adultes"
+
+#~ msgid "adult"
+#~ msgstr "adulte"
+
+#~ msgid "children"
+#~ msgstr "enfants"
+
+#~ msgid "child"
+#~ msgstr "enfant"
+
+#~ msgid "Date resa"
+#~ msgstr "Date résa"
+
+#~ msgid "Order"
+#~ msgstr "Commande"
+
+#~ msgid "Persons"
+#~ msgstr "Personnes"
+
+#~ msgid "Contact"
+#~ msgstr "Contact"
+
+#~ msgid "Transport"
+#~ msgstr "Transport"
+
+#~ msgid "Payment"
+#~ msgstr "Paiement"
+
+#~ msgid "Detail"
+#~ msgstr "Détail"
+
+#~ msgid "Detail order"
+#~ msgstr "Détail de la commande"
+
+#~ msgid "Back to orders"
+#~ msgstr "Retour aux commandes"
+
+#~ msgid "Client Infos"
+#~ msgstr "Infos Client"
+
+#~ msgid "Firstname"
+#~ msgstr "Prénom"
+
+#~ msgid "Lastname"
+#~ msgstr "Nom"
+
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgid "Phone"
+#~ msgstr "Téléphone"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Resa for"
+#~ msgstr "Réservation pour le "
+
+#~ msgid "Total price order"
+#~ msgstr "Prix total de la commande"
+
+#~ msgid "Date order the"
+#~ msgstr "Commande passée le"
+
+#~ msgid "Meels"
+#~ msgstr "Repas"
+
+#~ msgid "Adults"
+#~ msgstr "Adultes"
+
+#~ msgid "Children"
+#~ msgstr "Enfants"
+
+#~ msgid "Menus not found"
+#~ msgstr "Menus introuvables"
+
+#~ msgid "Starter"
+#~ msgstr "Entrée"
+
+#~ msgid "Main course"
+#~ msgstr "Plat"
+
+#~ msgid "Dessert"
+#~ msgstr "Dessert"
+
+#~ msgid "Order saved successfully"
+#~ msgstr "Commande enregistré avec succès"
+
+#~ msgid "ERROR when saving order"
+#~ msgstr "ERREUR lors de l'enregistrement de la commande"
+
+#~ msgid "Order updated successfully"
+#~ msgstr "Commande mise à jour avec succès"
+
+#~ msgid "ERROR when editing order (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification de la commande (aucune information "
+#~ "modifiée)"
+
+#~ msgid "Plat not found"
+#~ msgstr "Plat non trouvé"
+
+#~ msgid "Edit order"
+#~ msgstr "Modifier la commande"
+
+#~ msgid "Add order"
+#~ msgstr "Ajouter une commande"
+
+#~ msgid "Select a transport"
+#~ msgstr "Sélectionnez un transport"
+
+#~ msgid "Date is required"
+#~ msgstr "La date de réservation est obligatoire"
+
+#~ msgid "Transport is required"
+#~ msgstr "Le transport est obligatoire"
+
+#~ msgid "Transport total is required"
+#~ msgstr "Le prix du transport est obligatoire"
+
+#~ msgid "Payment is required"
+#~ msgstr "Le paiement est obligatoire"
+
+#~ msgid "Firstname is required"
+#~ msgstr "Le prénom est obligatoire"
+
+#~ msgid "Lastname is required"
+#~ msgstr "Le nom est obligatoire"
+
+#~ msgid "Address is required"
+#~ msgstr "L'adresse est obligatoire"
+
+#~ msgid "Zip is required"
+#~ msgstr "Le code postal est obligatoire"
+
+#~ msgid "City is required"
+#~ msgstr "La ville est obligatoire"
+
+#~ msgid "Phone is required"
+#~ msgstr "Le téléphone est obligatoire"
+
+#~ msgid "Email is required"
+#~ msgstr "L'email est obligatoire"
+
+#~ msgid "this dish"
+#~ msgstr "ce plat"
+
+#~ msgid "Menu"
+#~ msgstr "Menu"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Plat saved successfully"
+#~ msgstr "Plat sauvegardé avec succès"
+
+#~ msgid "ERROR when saving plat"
+#~ msgstr "ERREUR lors de l'enregistrement du plat"
+
+#~ msgid "Plat updated successfully"
+#~ msgstr "Plat mis à jour avec succès"
+
+#~ msgid "ERROR when editing plat (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification du plat (aucune information modifiée)"
+
+#~ msgid "Edit plat"
+#~ msgstr "Modifier le plat"
+
+#~ msgid "Add plat"
+#~ msgstr "Ajouter un plat"
+
+#~ msgid "Back to plats"
+#~ msgstr "Retour aux plats"
+
+#~ msgid "Menu name"
+#~ msgstr "Nom du menu"
+
+#~ msgid "Select a menu"
+#~ msgstr "Sélectionnez un menu"
+
+#~ msgid "Plat type"
+#~ msgstr "Type de plat"
+
+#~ msgid "Select a plat type"
+#~ msgstr "Sélectionnez un type de plat"
+
+#~ msgid "Menu name is required"
+#~ msgstr "Le nom du menu est obligatoire"
+
+#~ msgid "Plat type is required"
+#~ msgstr "Le type de plat est obligatoire"
+
+#~ msgid "this transport"
+#~ msgstr "ce transport"
+
+#~ msgid "Space max"
+#~ msgstr "Places disponibles max."
+
+#~ msgid "Free - 14 years old"
+#~ msgstr "Gratuit - 14 ans"
+
+#~ msgid "Transport saved successfully"
+#~ msgstr "Transport sauvegardé avec succès"
+
+#~ msgid "ERROR when saving transport"
+#~ msgstr "ERREUR lors de l'enregistrement du transport"
+
+#~ msgid "Transport updated successfully"
+#~ msgstr "Transport mis à jour avec succès"
+
+#~ msgid "ERROR when editing transport (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification du transport (aucune information modifiée)"
+
+#~ msgid "Transport not found"
+#~ msgstr "Transport non trouvé"
+
+#~ msgid "Edit transport"
+#~ msgstr "Modifier le transport"
+
+#~ msgid "Add transport"
+#~ msgstr "Ajouter un transport"
+
+#~ msgid "Back to transports"
+#~ msgstr "Retour aux transports"
+
+#~ msgid "Space max type is required"
+#~ msgstr "Places disponibles est obligatoire"
+
+#~ msgid "this type"
+#~ msgstr "ce type"
+
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#~ msgid "Add type"
+#~ msgstr "Ajouter un type"
+
+#~ msgid "Edit type"
+#~ msgstr "Modifier le type"
+
+#~ msgid "Status Title"
+#~ msgstr "Titre du type"
+
+#~ msgid "Status name."
+#~ msgstr "Nom du type"
+
+#~ msgid "Status description. You can leave it blank."
+#~ msgstr "Description du type. Vous pouvez le laisser vide."
+
+#~ msgid "Required fields"
+#~ msgstr "Champs obligatoires"
+
+#~ msgid "Add new type"
+#~ msgstr "Ajouter un type de plat"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Type saved successfully"
+#~ msgstr "Type sauvegardé avec succès"
+
+#~ msgid "ERROR when saving list"
+#~ msgstr "ERREUR lors de la sauvegarde de la liste"
+
+#~ msgid "Type updated successfully"
+#~ msgstr "Type mis à jour avec succès"
+
+#~ msgid "ERROR when editing type (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification du type (aucune information modifiée)"
+
+#~ msgid "Type not found"
+#~ msgstr "Type non trouvé"
+
+#~ msgid "Type :: "
+#~ msgstr "Type :: "
+
+#~ msgid "Back to types"
+#~ msgstr "Retour aux types"
+
+#~ msgid "See products"
+#~ msgstr "Voir les produits"
+
+#~ msgid "Save"
+#~ msgstr "Sauvegarder"
+
+#~ msgid "Type title"
+#~ msgstr "Titre du type"
+
+#~ msgid "Type name"
+#~ msgstr "Nom du type"
+
+#~ msgid "Type title is required"
+#~ msgstr "Titre du type obligatoire"
+
+#~ msgid "Title:"
+#~ msgstr "Titre :"
+
+#~ msgid "All orders"
+#~ msgstr "Toutes les commandes"
+
+#~ msgid "Add new menu"
+#~ msgstr "Ajouter un menu"
+
+#~ msgid "Summary"
+#~ msgstr "Récapitulatif"
+
+#~ msgid "Entry(s) successfully deleted : %d"
+#~ msgstr "Entré(s) supprimée(s) : %d"
+
+#~ msgid "Search"
+#~ msgstr "Recherche"
+
+#~ msgid "Add an order"
+#~ msgstr "Ajouter une commande"
+
+#~ msgid "Order payment %d updated succesfully"
+#~ msgstr "Le paiement de la commande n°%d a été mis à jour avec succès"
+
+#~ msgid "Add new plat"
+#~ msgstr "Ajouter un plat"
+
+#~ msgid "Available Spaces on Monday (default)"
+#~ msgstr "Places disponibles le Lundi (par défaut)"
+
+#~ msgid "Minimum"
+#~ msgstr "Minimum"
+
+#~ msgid "Maximum"
+#~ msgstr "Maximum"
+
+#~ msgid "Show minimum spaces"
+#~ msgstr "Afficher les places minimum"
+
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#~ msgid "No"
+#~ msgstr "Non"
+
+#~ msgid "Available Spaces on Tuesday (default)"
+#~ msgstr "Places disponibles le Mardi (par défaut)"
+
+#~ msgid "Available Spaces on Wednesday (default)"
+#~ msgstr "Places disponibles le Mercredi (par défaut)"
+
+#~ msgid "Available Spaces on Thursday (default)"
+#~ msgstr "Places disponibles le Jeudi (par défaut)"
+
+#~ msgid "Available Spaces on Friday (default)"
+#~ msgstr "Places disponibles le Vendredi (par défaut)"
+
+#~ msgid "Available Spaces on Saturday (default)"
+#~ msgstr "Places disponibles le Samedi (par défaut)"
+
+#~ msgid "Available Spaces on Sunday (default)"
+#~ msgstr "Places disponibles le Dimanche (par défaut)"
+
+#~ msgid "Steps Help"
+#~ msgstr "Aide des étapes"
+
+#~ msgid ""
+#~ "The images will be displayed by default in priority. If you want to "
+#~ "display the text, you will have to delete the image"
+#~ msgstr ""
+#~ "Les images seront affichés par défaut en priorité. Si vous souhaitez "
+#~ "afficher le texte, il faudra supprimer l'image."
+
+#~ msgid "Step 1 configuration (Date reservation)"
+#~ msgstr "Etape 1 Configuration (Réservation de date)"
+
+#~ msgid "Text"
+#~ msgstr "Texte"
+
+#~ msgid "Image"
+#~ msgstr "Image"
+
+#~ msgid "Upload your step image"
+#~ msgstr "Téléchargez l'image de l'étape"
+
+#~ msgid "Step 2 configuration (Persons)"
+#~ msgstr "Etape 2 Configuration (Nb Personnes)"
+
+#~ msgid "Step 3 configuration (Transport)"
+#~ msgstr "Etape 3 Configuration (Transport)"
+
+#~ msgid "Step 4 configuration (Menu)"
+#~ msgstr "Etape 4 Configuration (Choix des Menus)"
+
+#~ msgid "Step 5 configuration (Contact information)"
+#~ msgstr "Etape 5 configuration (Coordonnées)"
+
+#~ msgid "Add new transport"
+#~ msgstr "Ajouter un transport"
+
+#~ msgid "Dish types"
+#~ msgstr "Types de plat"
+
+#~ msgid "All dish types"
+#~ msgstr "Les types de plat"
+
+#~ msgid "Type(s) successfully deleted : %d"
+#~ msgstr "Type(s) modifié avec succès : %d"
+
+#~ msgid "Reload this page"
+#~ msgstr "Rechargez la page"
+
+#~ msgid "Search in types"
+#~ msgstr "Recherche dans les types"
+
+#~ msgid "Emails"
+#~ msgstr "Emails"
+
+#~ msgid "Menus total is required"
+#~ msgstr "Le prix des menus est obligatoire"
+
+#~ msgid ""
+#~ "Disabled<br>The WooCommerce plugin must be installed and enabled to use "
+#~ "this plugin"
+#~ msgstr ""
+#~ "Désactivé<br>Le plugin WooCommerce doit être installé et activé pour "
+#~ "utiliser ce plugin"
+
+#~ msgid "version"
+#~ msgstr "version"
+
+#~ msgid "Checks"
+#~ msgstr "Vérifications"
+
+#~ msgid "Check WooCommerce plugin"
+#~ msgstr "Vérification plugin WooCommerce"
+
+#~ msgid ""
+#~ "Inactive<br>Activation required to receive your emails notifications."
+#~ "<br>See the DISABLE_WP_CRON constant in the wp-config.php file."
+#~ msgstr ""
+#~ "Désactivé<br>Activation requise pour recevoir vos notifications par email."
+#~ "<br> Voir la constante DISABLE_WP_CRON dans le fichier wp-config.php."
+
+#~ msgid "Check Cron WP"
+#~ msgstr "Vérification Cron WP"
+
+#~ msgid "WP Crons: "
+#~ msgstr "Crons WP : "
+
+#~ msgid "The product has been successfully removed from your list"
+#~ msgstr "Le produit a été supprimé de votre liste avec succès"
+
+#~ msgid ""
+#~ "An error occurred while deleting the product.<br>Retry or contact an "
+#~ "administrator."
+#~ msgstr ""
+#~ "Une erreur est survenue lors de la suppression du produit.<br>Réessayer "
+#~ "ou contacter un administrateur."
+
+#~ msgid "This list does not exist or is disabled"
+#~ msgstr "La liste n'existe plus ou a été désactivé"
+
+#~ msgid "The product was not added"
+#~ msgstr "Le produit n'a pas été ajouté"
+
+#~ msgid "The product has been added to your list successfully"
+#~ msgstr "Le produit a été ajouté à votre liste avec succès"
+
+#~ msgid "Name of the list is required"
+#~ msgstr "Le nom de la liste est obligatoire"
+
+#~ msgid "The email does not have a correct format"
+#~ msgstr "L'email n'a pas un format correct"
+
+#~ msgid "Your list was not updated<br>Retry or contact an administrator."
+#~ msgstr ""
+#~ "Votre liste n'a pas été mise à jour.<br>Réessayer ou contacter un "
+#~ "administrateur."
+
+#~ msgid "You can not modify this list because you are not the creator"
+#~ msgstr ""
+#~ "Vous ne pouvez pas modifier cette liste car vous n'en êtes pas le créateur"
+
+#~ msgid "Insert HTML Code visible in the Website BODY "
+#~ msgstr "Insérez le code HTML visible dans la balise BODY du site web"
+
+#~ msgid "Available Spaces by day (default)"
+#~ msgstr "Places disponibles par jour de semaine (par défaut)"
+
+#~ msgid "Monday (min)"
+#~ msgstr "Lundi (minimum)"
+
+#~ msgid "Monday (max)"
+#~ msgstr "Lundi (maximum)"
+
+#~ msgid "Tuesday (min)"
+#~ msgstr "Mardi (minimum)"
+
+#~ msgid "Tuesday (max)"
+#~ msgstr "Mardi (maximum)"
+
+#~ msgid "Wednesday (min)"
+#~ msgstr "Mercredi (minimum)"
+
+#~ msgid "Wednesday (max)"
+#~ msgstr "Mercredi (maximum)"
+
+#~ msgid "Thursday (min)"
+#~ msgstr "Jeudi (minimum)"
+
+#~ msgid "Thursday (max)"
+#~ msgstr "Jeudi (maximum)"
+
+#~ msgid "Friday (min)"
+#~ msgstr "Vendredi (minimum)"
+
+#~ msgid "Friday (max)"
+#~ msgstr "Vendredi (maximum)"
+
+#~ msgid "Saturday (min)"
+#~ msgstr "Samedi (minimum)"
+
+#~ msgid "Saturday (max)"
+#~ msgstr "Samedi (maximum)"
+
+#~ msgid "Sunday (min)"
+#~ msgstr "Dimanche (minimum)"
+
+#~ msgid "Sunday (max)"
+#~ msgstr "Dimanche (maximum)"
+
+#~ msgid "Etapes"
+#~ msgstr "Etapes"
+
+#~ msgid "All Menus"
+#~ msgstr "Tous les menus"
+
+#~ msgid "Details"
+#~ msgstr "Détails"
+
+#~ msgid "Date order"
+#~ msgstr "Date de la commande"
+
+#~ msgid "Select a order type"
+#~ msgstr "Sélectionnez un type de commande"
+
+#~ msgid "Number"
+#~ msgstr "Numéro"
+
+#~ msgid "this entry"
+#~ msgstr "cette entrée"
+
+#~ msgid "Voir le produit"
+#~ msgstr "Voir le produit"
+
+#~ msgid "Voir la commande"
+#~ msgstr "Voir la commande"
+
+#~ msgid "Unknown"
+#~ msgstr "Inconnu"
+
+#~ msgid "Date"
+#~ msgstr "Date"
+
+#~ msgid "Product"
+#~ msgstr "Produit"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "Paid"
+#~ msgstr "Payé"
+
+#~ msgid "Delete All"
+#~ msgstr "Tout supprimer"
+
+#~ msgid "List saved successfully"
+#~ msgstr "Liste sauvegardée avec succès"
+
+#~ msgid "List updated successfully"
+#~ msgstr "Liste modifiée avec succès"
+
+#~ msgid "ERROR when editing list (no information changed)"
+#~ msgstr ""
+#~ "ERREUR lors de la modification de la liste (aucune information modifiée)"
+
+#~ msgid "List not found"
+#~ msgstr "Liste introuvable"
+
+#~ msgid "Edit list"
+#~ msgstr "Modifier la liste"
+
+#~ msgid "List :: "
+#~ msgstr "Liste :: "
+
+#~ msgid "Back to lists"
+#~ msgstr "Retour aux listes"
+
+#~ msgid "List name"
+#~ msgstr "Nom de la liste"
+
+#~ msgid "Your Email"
+#~ msgstr "Votre email"
+
+#~ msgid "List name is required"
+#~ msgstr "Le nom de la liste est obligatoire"
+
+#~ msgid "The email has an incorrect format"
+#~ msgstr "L'email ne possède pas un format correct"
+
+#~ msgid "All entries successfully deleted"
+#~ msgstr "Toutes les entrées sont supprimées"
+
+#~ msgid "Frequency: "
+#~ msgstr "Fréquence : "
+
+#~ msgid ""
+#~ "Disabled - Check your cron !<br>Hook name: "
+#~ "iabstract_check_status_order<br>Action: iabstract_do_cron()"
+#~ msgstr ""
+#~ "Désactivé - Vérifiez votre cron !<br>Nom du Hook : "
+#~ "iabstract_check_status_order<br>Action : iabstract_do_cron()"
+
+#~ msgid "Check Pixel Stat Cron"
+#~ msgstr "Vérification du cron Pixel Stat"
+
+#~ msgid "Pixel Stat Cron: "
+#~ msgstr "Cron Pixel Stat : "
+
+#~ msgid "Global JS Frontend"
+#~ msgstr "Global JS Frontend"
+
+#~ msgid "Global Script JS (HEAD)"
+#~ msgstr "Global Script JS (HEAD)"
+
+#~ msgid "Advanced users"
+#~ msgstr "Utilisateurs avancés"
+
+#~ msgid "Global Script JS (BODY)"
+#~ msgstr "Global Script JS (BODY)"
+
+#~ msgid "Insert HTML Code visible in the Website HEADER "
+#~ msgstr "Insérez votre code HTML dans le HEADER de votre site web"
+
+#~ msgid "All lists"
+#~ msgstr "Récapitulatif"
+
+#~ msgid "Global JS"
+#~ msgstr "Global JS"
+
+#~ msgid "Once every 1 minute"
+#~ msgstr "Toutes les 1 minute"
+
+#~ msgid "Once every 2 minutes"
+#~ msgstr "Toutes les 2 minutes"
+
+#~ msgid "Once every 5 minutes"
+#~ msgstr "Toutes les 5 minutes"
+
+#~ msgid "Once every 10 minutes"
+#~ msgstr "Toutes les 10 minutes"
+
+#~ msgid "Once every 30 minutes"
+#~ msgstr "Toutes les 30 minutes"
+
+#~ msgid "You must be logged in to view your lists and create new ones"
+#~ msgstr ""
+#~ "Vous devez être connecté pour voir vos listes et en créez de nouvelles"
+
+#~ msgid "Name of your list"
+#~ msgstr "Nom de votre liste"
+
+#~ msgid "Enter a name which you wish to associate with this list."
+#~ msgstr "Entrez un nom que vous souhaitez associer à cette liste."
+
+#~ msgid "Email associated with the list"
+#~ msgstr "Email associé à votre liste"
+
+#~ msgid "Users will be able to find your list by searching with this email"
+#~ msgstr ""
+#~ "Les utilisateurs pourront trouver votre liste en recherchant avec cet "
+#~ "email"
+
+#~ msgid "Create a list"
+#~ msgstr "Créer une liste"
+
+#~ msgid "Connexion"
+#~ msgstr "Connexion"
+
+#~ msgid "Log in"
+#~ msgstr "Identification"
+
+#~ msgid "Create account"
+#~ msgstr "Créer un compte"
+
+#~ msgid "Create a new list"
+#~ msgstr "Créer une liste"
+
+#~ msgid "Your lists"
+#~ msgstr "Vos listes"
+
+#~ msgid "Created on"
+#~ msgstr "Créée le"
+
+#~ msgid "Products"
+#~ msgstr "Produits"
+
+#~ msgid "Edit"
+#~ msgstr "Modifier"
+
+#~ msgid "Add products to the list"
+#~ msgstr "Ajouter des produits à la liste"
+
+#~ msgid "You have not created lists yet"
+#~ msgstr "Vous n'avez pas encore créé de listes"
+
+#~ msgid "Add products to your list"
+#~ msgstr "Ajouter des produits à votre liste"
+
+#~ msgid "Enter product name of your shop (3 characters min.)"
+#~ msgstr "Entrez le nom du produit de votre boutique (3 caractères min.)"
+
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgid "Action"
+#~ msgstr "Action"
+
+#~ msgid "Not still bought"
+#~ msgstr "Pas encore acheté"
+
+#~ msgid "Select options"
+#~ msgstr "Sélectionnez des options"
+
+#~ msgid "View options"
+#~ msgstr "Voir les options"
+
+#~ msgid "Read More"
+#~ msgstr "Lire plus"
+
+#~ msgid "Add to cart"
+#~ msgstr "Ajouter au panier"
+
+#~ msgid "Offered by "
+#~ msgstr "Offert par "
+
+#~ msgid "Offered product"
+#~ msgstr "Produit offert"
+
+#~ msgid "Purchase shop (Withdrawal in shop)"
+#~ msgstr "Achat boutique (retrait en boutique)"
+
+#~ msgid "Purchase shop (Taken by the participant)"
+#~ msgstr "Achat boutique (emporté par le participant)"
+
+#~ msgid "No available product for this list"
+#~ msgstr "Aucun produit disponible pour cette liste"
+
+#~ msgid "Find a list"
+#~ msgstr "Trouver une liste"
+
+#~ msgid "Enter name, email"
+#~ msgstr "Entrez un nom, un email"
+
+#~ msgid "Name of list"
+#~ msgstr "Nom de la liste"
+
+#~ msgid "Created"
+#~ msgstr "Créée"
+
+#~ msgid "No list found"
+#~ msgstr "Aucune liste trouvée"
+
+#~ msgid "Pixel"
+#~ msgstr "Pixel"

@@ -1,0 +1,28 @@
+/* -------------------------------------- */
+/* --- Front style plugin "IAbstract" --- */
+/* -------------------------------------- */
+
+/* --- General --- */
+.iabstract_hidden {
+	display: none;
+}
+.iabstract-red {
+	color: red;
+}
+.iabstract-green {
+	color: green;
+}
+.iabstract-orange {
+	color: orange;
+}
+.iabstract-check {
+	font-size: 1.4em !important;
+}
+.iabstract-note {
+	color: black;
+}
+.iabstract-no-selectable {
+	background: lightgray !important;
+	color: white !important;
+	cursor: default !important;
+}
