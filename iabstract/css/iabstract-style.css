@@ -26,3 +26,15 @@
 	color: white !important;
 	cursor: default !important;
 }
+
+.iabstract-select {
+	background: green !important;
+	color: white !important;
+	cursor: default !important;
+}
+
+.iabstract-reject {
+	background: red !important;
+	color: white !important;
+	cursor: default !important;
+}

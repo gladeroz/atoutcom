@@ -18,7 +18,7 @@ function iabstract_format(d){
      '</table>';  
 }
 
-function iabstract_selected(abstract_id, form_id, user_id) {
+/*function iabstract_selected(abstract_id, form_id, user_id) {
 	jQuery.confirm({
 		theme: 'supervan',
 		backgroundDismiss: false,
@@ -77,6 +77,79 @@ function iabstract_selected(abstract_id, form_id, user_id) {
 	return false;
 }
 
+// Fonction pour deselectionner un abstract
+function iabstract_unselected(entry_id, form_id, selected, actionClick) {
+  if(actionClick ==="deselect"){
+    var title ="De-sélection d\'un abstract";
+    var content = "Vous confirmez la de-sélection de cet abstract ?";
+    var text = "De-sélectionner";
+  }
+
+  if(actionClick ==="reselect"){
+    var title ="Sélection d\'un abstract";
+    var content = "Vous confirmez la Sélection de cet abstract ?";
+    var text = "Sélectionner";
+  }
+  jQuery.confirm({
+    theme: 'supervan',
+    backgroundDismiss: false,
+    backgroundDismissAnimation: 'shake',
+    title: title,
+    content: content+
+          '<form action="" class="formName">' +
+          '<div class="form-group">' +
+          '<input type="hidden" name="entry_id" value="' + entry_id + '">' +
+          '<input type="hidden" name="selected" value="' + selected + '">' +
+          '<input type="hidden" name="form_id" value="' + form_id + '">' +
+          '<input type="hidden" name="actionClick" value="' + actionClick + '">' +
+          '</div>' +
+          '</form>',
+    buttons: {
+               formSubmit: {
+                   text: text,
+                   btnClass: 'btn-blue',
+                   action: function () {
+                         var entry_id = this.$content.find('input[name="entry_id"]').val();
+                         var form_id     = this.$content.find('input[name="form_id"]').val();
+                         var selected_data    = this.$content.find('input[name="selected"]').val();
+                         var actionClick    = this.$content.find('input[name="actionClick"]').val();
+                         var data = {
+                              action: 'iabstract_response',
+                              switch_p: 'user_unselect',
+                              entry_id: entry_id,
+                              form_id: form_id,
+                              selected: selected_data,
+                              actionClick: actionClick,
+                         };
+                         // iabstract_ajax_script.ajaxurl is a variable that will contain the url to the ajax processing file
+                         jQuery.post(iabstract_ajax_script.ajaxurl, data, function(response) {
+                              jQuery.confirm({
+                                  boxWidth: '300px',
+                                  useBootstrap: false,
+                                  title: 'Confirmation',
+                                  content: response,
+                                  buttons: {
+                                      ok: {
+                                          text: 'OK',
+                                          btnClass: 'btn-blue',
+                                          action: function () {
+                                              location.href = window.location.href;
+                                          }
+                                      },
+                                  },
+                              });
+                         });
+
+                   }
+               },
+               cancel: function () {
+                   //text: ""
+                   // no action - Close
+               },
+    }
+  });
+  return false;
+}*/
 function iabstract_note(abstract_id, form_id, user_id, first) {
 	// Initialize
 	var select     = "";

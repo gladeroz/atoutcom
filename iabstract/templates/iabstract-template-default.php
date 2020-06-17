@@ -12,6 +12,7 @@ iabstract_get_locale();
 // ------------------------------------
 // --- Get current user id
 // ------------------------------------
+//var_dump(get_current_user_id());die();
 $iabstract_get_current_user_id = get_current_user_id();
 //echo 'user ID: '.$iabstract_get_current_user_id;
 
@@ -84,9 +85,9 @@ if ($iabstract_get_current_user_id > 0 && in_array($iabstract_get_current_user_i
 			if ( !is_nan($iabstract_moyenne) ) {
 				$iabstract_number_format = number_format($iabstract_moyenne, 2);
 				if (!strstr($iabstract_number_format, '0'))
-					$iabstract_show_moyenne = number_format($iabstract_moyenne, 2) . '/' . $iabstract_note_max;
+					$iabstract_show_moyenne = number_format($iabstract_moyenne, 2);
 				else
-					$iabstract_show_moyenne = $iabstract_moyenne . '/' . $iabstract_note_max;
+					$iabstract_show_moyenne = $iabstract_moyenne;
 			} else {
 				$iabstract_show_moyenne = "--";
 			}			
@@ -95,17 +96,35 @@ if ($iabstract_get_current_user_id > 0 && in_array($iabstract_get_current_user_i
 
 			// Abstract selectionne ou pas
 			$iabstract_selected_info = $wpdb->get_row( "SELECT selected FROM $iabstract_tbl_selected WHERE entry_id = " . $form['id'] );
-			if (@$iabstract_selected_info->selected == '1') {
-				// Abstract selected
-				$iabstract_selected = '<i class=\"fa fa-check-square iabstract-green iabstract-check\" aria-hidden=\"true\" title=\"Candidat sélectionné\"></i>';
+			if ($iabstract_selected_info->selected == '1') {			
+				//Cas où l'abstract a été noté et déjà été selectionné
+				//var_dump($form['id']);
+				$iabstract_selected = '<form method=\"post\" onclick=\"return false;\"><input type=\"submit\" class=\"iabstract-select\" style=\"width:111px;\" value=\"Sélectionné\"></form>';
 			} else {
 				// Check if members count EQUAL nb votants
-				if ( ($iabstract_authorized_members_count == $iabstract_nb_votant) || ($iabstract_opening_selection === true) ) {
-					// Select abstract is possible
-					$iabstract_selected = '<form method=\"post\" onsubmit=\"return iabstract_selected(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\');\"><input type=\"submit\" value=\"Sélectionner\"></form>';
+				if ( ($iabstract_authorized_members_count == $iabstract_nb_votant) && (isset($iabstract_selected_info->selected)) || ($iabstract_opening_selection === true)) {
+					// Select abstract is possible again
+					
+					if ($iabstract_selected_info->selected == '2') {
+						$iabstract_selected = '<form method=\"post\" onclick=\"return false;\"><input type=\"submit\" class=\"iabstract-reject\" style=\"width:111px;\" value=\"Rejeté\"></form>';
+					}else{
+                        $iabstract_selected = '--';
+					}
 				} else {
-					// Select abstract is impossible
-					$iabstract_selected = '<form method=\"post\"><input type=\"submit\" onclick=\"return false;\" class=\"iabstract-no-selectable\" value=\"Sélectionner\"></form>';
+					if( ($iabstract_authorized_members_count == $iabstract_nb_votant) && (!isset($iabstract_selected_info->selected)) ){
+						if ($iabstract_selected_info->selected == '2') {
+						    $iabstract_selected = '<form method=\"post\" onclick=\"return false;\"><input type=\"submit\" class=\"iabstract-reject\" style=\"width:111px;\" value=\"Rejeté\"></form>';
+						}else{
+                            $iabstract_selected = '<form method=\"post\" onclick=\"return false;\"><input type=\"submit\" class=\"iabstract-select\" style=\"width:111px;\" value=\"Sélectionné\"></form>';
+						}
+					}else{
+						// Select abstract is impossible
+					    if ($iabstract_selected_info->selected == '2') {
+						    $iabstract_selected = '<form method=\"post\" onclick=\"return false;\"><input type=\"submit\" class=\"iabstract-reject\" style=\"width:111px;\" value=\"Rejeté\"></form>';
+					    }else{
+                            $iabstract_selected = '--';
+					    }
+					}
 				}
 			}
 			// Abstract note
@@ -114,25 +133,31 @@ if ($iabstract_get_current_user_id > 0 && in_array($iabstract_get_current_user_i
 			$iabstract_closing_date  = iabstract_get_options( 'closing_date' );
 			$iabstract_current_date  = time();
 			if (isset($iabstract_usernote_info->note) && $iabstract_usernote_info->note >= 0) {
+                //var_dump($iabstract_current_date, $iabstract_closing_date);
 				// Check if closing date expired
 				if ($iabstract_current_date < $iabstract_closing_date) {
-					$iabstract_usernote  = '<strong class=\"iabstract-note\">' . $iabstract_usernote_info->note . '</strong>';
-					$iabstract_usernote .= '<form onsubmit=\"return iabstract_note(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\', \'N\');\" method=\"post\"><input class=\"iabstractnote\" type=\"submit\" value=\"Modifier\"></form>';
+                    if( strlen($iabstract_usernote_info->note)==1){
+                    	$noteDisplay = $iabstract_usernote_info->note."&nbsp;&nbsp;";
+                    }else{
+                    	$noteDisplay = $iabstract_usernote_info->note;
+                    }
+					
+					$iabstract_usernote  = '<div style=\"width: 77px;\"><div style=\"float: left;\"><strong class=\"iabstract-note\">' . $noteDisplay . '</strong></div>';
+					$iabstract_usernote .= '<div><form onsubmit=\"return iabstract_note(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\', \'N\');\" method=\"post\"><input class=\"iabstractnote\" type=\"submit\" value=\"Modifier\"></form></div></div>';
 				} else {
 					$iabstract_usernote = '<strong class=\"iabstract-note\">' . $iabstract_usernote_info->note . '</strong>';
 				}
 			} else {
 				// First note
-				$iabstract_usernote = '<form onsubmit=\"return iabstract_note(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\', \'Y\');\" method=\"post\"><input class=\"iabstractnote\" type=\"submit\" value=\"Noter\"></form>';
+				$iabstract_usernote = '<form onsubmit=\"return iabstract_note(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\', \'Y\');\" method=\"post\"><input style=\"width:55px;\" class=\"iabstractnote\" type=\"submit\" value=\"Noter\"></form>';
 			}
 			// Construct ARRAY Datas
 			$iabstract_datas .= '{
-				"Nom / Prénom": "' . addslashes(htmlentities(ucfirst(strtolower($form['2']) . ' ' . strtoupper($form['1'])))) . '",
 				"Titre": "' . addslashes(htmlentities($form['24'])) . '",
 				"Choix": "' . addslashes(htmlentities($form['18'])) . '",
 				"Thématique": "' . (($form['19']) ? addslashes(htmlentities($form['19'])) : '--' ) . '",
-				"Note": "' . $iabstract_usernote . '",
-				"Moyenne": "' . str_replace("/6", "", $iabstract_show_moyenne) . '",
+				"Note/20": "' . $iabstract_usernote . '",
+				"Moyenne/'. $iabstract_note_max.'": "' . str_replace("/6", "", $iabstract_show_moyenne) . '",
 				"Votes": "' . $iabstract_nb_votant . '/' . $iabstract_authorized_members_count . '",
 				"Sélectionné": "' . $iabstract_selected . '",
 				"NoteMoyenne": "' . $iabstract_show_moyenne . '",
@@ -156,12 +181,11 @@ tr.shown td.details-control {
         <thead>
             <tr>
                 <th></th>
-                <th>Nom / Prénom</th>
                 <th>Titre</th>
                 <th>Choix</th>
                 <th>Thématique</th>
-                <th>Note</th>
-                <th>Moyenne</th>
+                <th>Note/20</th>
+                <th>Moyenne/'. $iabstract_note_max.'</th>
                 <th>Votes</th>
                 <th>Sélectionné</th>
             </tr>
@@ -169,12 +193,11 @@ tr.shown td.details-control {
         <tfoot>
             <tr>
                 <th></th>
-                <th>Nom / Prénom</th>
                 <th>Titre</th>
                 <th>Choix</th>
                 <th>Thématique</th>
-                <th>Note</th>
-                <th>Moyenne</th>
+                <th>Note/20</th>
+                <th>Moyenne/'. $iabstract_note_max.'</th>
                 <th>Votes</th>
                 <th>Sélectionné</th>
             </tr>
@@ -196,21 +219,23 @@ jQuery(document).ready(function () {
                      },
                      width:"15px"
                  },
-                 { "data": "Nom / Prénom" },
                  { "data": "Titre" },
                  { "data": "Choix" },
                  { "data": "Thématique" },
-                 { "data": "Note" },
-                 { "data": "Moyenne" },
+                 { "data": "Note/20" },
+                 { "data": "Moyenne/'. $iabstract_note_max.'" },
                  { "data": "Votes" },
                  { "data": "Sélectionné" },
              ],
              "order": [2, "asc"],
-			 responsive: true,
-			 "lengthMenu": [25, 50, 75, 100, 150],
+			 "responsive": true,
+			 "lengthMenu": [[25, 50, 100, 150, -1], [25, 50, 100,150, "Tout"]],
+			 "iDisplayLength": 100,
+			 "stateSave": true,
 			 "language": {
-				"search": "Recherche",
-				"lengthMenu": "_MENU_ abstracts",
+			 	"search":"_INPUT_",
+				"searchPlaceholder": "Rechercher...",
+				"lengthMenu": "_MENU_",
 				"zeroRecords": "Aucun abstract posté",
 				"emptyTable": "Aucun abstract reçu",
 				"paginate": {
@@ -268,9 +293,13 @@ jQuery(document).ready(function () {
 		// ------------------------------------
 		// --- User not connected
 		// ------------------------------------
+		/*
 		echo '<h3>';
 		echo "Vous devez vous connecter pour accéder à cette page";
-		echo '</h3>';
+		echo '</h3>';*/
+		$redirect = "?redirect_to=jury/";
+		$www = wp_login_url().$redirect;
+	    echo '<script language="Javascript">document.location.replace("'.$www.'"); </script>';
 	} else {
 		// ------------------------------------
 		// --- User is not a member
@@ -280,3 +309,5 @@ jQuery(document).ready(function () {
 		echo '</h3>';
 	}
 }
+
+?>

@@ -24,13 +24,16 @@ $iabstract_gf_forms_count = count($iabstract_gf_forms);
 // ----------------------------------------
 // Create option select
 // ----------------------------------------
-$iabstract_gf_forms_select = "";
+$iabstract_gf_forms_select = array();
 if ($iabstract_gf_forms_count > 0) {
 	$iabstract_gf_forms_select[0] = "Choisissez un formulaire";
+	
 	foreach($iabstract_gf_forms as $form) {
-		$iabstract_gf_forms_select[$form['id']] = '[ID: '.$form['id'].'] ' . $form['title'];
+		$value = "[ID: ".$form['id']."] " . $form['title'];
+		$iabstract_gf_forms_select[$form['id']] = $value;
 	}
 }
+
 // ----------------------------------------
 $iabstract_optionsTab->createOption( array(
 	'name'    => 'Nbre de formulaires (GF)',

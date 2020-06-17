@@ -45,6 +45,7 @@ if ( ! function_exists('iabstract_install') ) {
 				user_id int(11) NOT NULL,
 				date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				selected tinyint(4) NOT NULL DEFAULT '1',
+        commentaire VARCHAR(255),
 				PRIMARY KEY (id)
 			   ) $charset_collate;
 		";

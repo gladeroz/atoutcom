@@ -230,3 +230,47 @@ div.page_iabstract h1 a.button-primary {
   margin: 0;
   text-align: center;
 }
+
+.reselect{
+	width:111px; 
+	background-color:green; 
+	border : none; 
+	color : white; 
+	cursor: pointer;
+}
+
+.deselect{
+    width:111px; 
+    background-color:orange; 
+    border : none; 
+    color : white; 
+    cursor: pointer;
+}
+
+.deselect:hover, .reselect:hover, .unselect:hover, .rejct:hover{
+	background-color : #27ccc0;;
+}
+
+.reject{
+	width:111px; 
+    background-color:red; 
+    border : none; 
+    color : white; 
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.textarea-container {
+  position: relative;
+  height: 90px;
+}
+.textarea-container textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.textarea-container button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

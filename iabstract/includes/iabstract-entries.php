@@ -24,6 +24,12 @@ $iabstract_gf_entries_count         = count( $iabstract_gf_entries );
 $iabstract_note_max                 = iabstract_get_options( 'note_max' );
 $iabstract_authorized_members       = iabstract_get_options( 'authorized_members' );
 $iabstract_authorized_members_count = count( $iabstract_authorized_members );
+
+// ------------------------------------
+// --- Get current user id
+// ------------------------------------
+$iabstract_get_current_user_id = get_current_user_id();
+
 // ----------------------------------------
 // Create option select
 // ----------------------------------------
@@ -57,10 +63,58 @@ if ($iabstract_gf_entries_count > 0) {
 		// Moyenne de la note
 		@$iabstract_moyenne = $iabstract_total_note / $iabstract_nb_votant;
 		// Affichage de la note moyenne
-		$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne . '/' . $iabstract_note_max : "--";
-		// Abstract selectionne ou pas
-		$iabstract_selected_info = $wpdb->get_row( "SELECT selected FROM $iabstract_tbl_selected WHERE entry_id = " . $form['id'] );
-		$iabstract_selected      = (@$iabstract_selected_info->selected == '1') ? '<i class=\"fa fa-check-square iabstract-green\" aria-hidden=\"true\" title=\"Candidat sélectionné\"></i>' : '<i class=\"fa fa-window-close iabstract-red\" aria-hidden=\"true\" title=\"Non sélectionné\"></i>';
+		//$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne . '/' . $iabstract_note_max : "--";
+		//$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne : "--";
+		$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne : "";
+		
+        $iabstract_selected_info = $wpdb->get_row( "SELECT selected, commentaire FROM $iabstract_tbl_selected WHERE entry_id = " . $form['id'] );
+        if( ($iabstract_selected_info->commentaire !=NULL) || ($iabstract_selected_info->commentaire !="")){
+            $label_comment = $iabstract_selected_info->commentaire;
+        }else{
+            $label_comment = "";
+        }
+        if ($iabstract_selected_info->selected == '1') {            
+            //Cas où l'abstract a été noté et déjà été selectionné
+            $iabstract_selected = '<form method=\"post\" onsubmit=\"return iabstract_unselected(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \'0\', \'deselect\');\"><input type=\"submit\" class=\"deselect\" value=\"De-Sélectionner\"></form>'.'<form method=\"post\" onsubmit=\"return iabstract_rejected(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\', \'update\');\"><input type=\"submit\" class=\"reject\" value=\"Rejeter\"></form>';
+            $etat = 'Selectionné';
+
+            $commentaire = '<form method=\"post\" style=\"width: 128px;\" onsubmit=\"return iabstract_comment(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\');\"><div class=\"textarea-container\"><textarea class=\"com_'.$form['id'].'\" name=\"comment\" type=\"text\">'.$label_comment.'</textarea><button type=\"submit\">Valider</button></div></form>';
+
+        } else {
+            // Check if members count EQUAL nb votants
+            if ( ($iabstract_authorized_members_count == $iabstract_nb_votant) && (isset($iabstract_selected_info->selected)) || ($iabstract_opening_selection === true)) {
+                // Select abstract is possible again
+                $iabstract_selected = '<form method=\"post\" onsubmit=\"return iabstract_unselected(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \'1\', \'reselect\');\"><input type=\"submit\" class=\"reselect\" value=\"Sélectionner\"></form>'.'<form method=\"post\" onsubmit=\"return iabstract_rejected(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\', \'update\');\"><input type=\"submit\" class=\"reject\" value=\"Rejeter\"></form>';
+
+                $commentaire = '<form method=\"post\" style=\"width: 128px;\" onsubmit=\"return iabstract_comment(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\');\"><div class=\"textarea-container\"><textarea class=\"com_'.$form['id'].'\" name=\"comment\" type=\"text\">'.$label_comment.'</textarea><button type=\"submit\">Valider</button></div></form>';
+                if($iabstract_selected_info->selected == '2'){
+                    $etat = 'Rejeté';
+                }else{
+                    $etat = '--';
+                }
+            } else {
+                if( ($iabstract_authorized_members_count == $iabstract_nb_votant) && (!isset($iabstract_selected_info->selected)) ){
+                    $iabstract_selected = '<form method=\"post\" onsubmit=\"return iabstract_selected(\''.$form['id'].'\', \''.$iabstract_gf_form_id.'\', \''.$iabstract_get_current_user_id.'\');\"><input type=\"submit\" class=\"reselect\"  value=\"Sélectionner\"></form>'.'<form method=\"post\" onsubmit=\"return iabstract_rejected(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\', \'insert\');\"><input type=\"submit\" class=\"reject\" value=\"Rejeter\"></form>';
+
+                    $commentaire = '<form method=\"post\" style=\"width: 128px;\" onsubmit=\"return iabstract_comment(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\');\"><div class=\"textarea-container\"><textarea class=\"com_'.$form['id'].'\" name=\"comment\" type=\"text\">'.$label_comment.'</textarea><button type=\"submit\">Valider</button></div></form>';
+                    if($iabstract_selected_info->selected == '2'){
+                        $etat = 'Rejeté';
+                    }else{
+                        $etat = '--';
+                    }
+                }else{
+                    // Select abstract is impossible
+                    $iabstract_selected = '<form method=\"post\"><input type=\"submit\" title=\"Abstract non noté\" onclick=\"return false;\" class=\"iabstract-no-selectable unselect\" style=\"width:111px; border : none;\" value=\"Sélectionner\"></form>'.'<form method=\"post\" onsubmit=\"return iabstract_rejected(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\', \'insert\');\"><input type=\"submit\" class=\"reject\" value=\"Rejeter\"></form>';
+
+                    $commentaire = '<form method=\"post\" style=\"width: 128px;\" onsubmit=\"return iabstract_comment(\''.$form['id'].'\', \''.$iabstract_get_current_user_id.'\', \''.$iabstract_gf_form_id.'\');\"><div class=\"textarea-container\"><textarea class=\"com_'.$form['id'].'\" name=\"comment\" type=\"text\">'.$label_comment.'</textarea><button type=\"submit\">Valider</button></div></form>';
+                    if($iabstract_selected_info->selected == '2'){
+                        $etat = 'Rejeté';
+                    }else{
+                        $etat = '--';
+                    }
+                }
+            }
+        }
 		// Construct ARRAY Datas
 		$iabstract_datas .= '{
 		    "Date": "' . iabstract_convert_date($form['date_created'], 'FRT') . '",
@@ -69,13 +123,17 @@ if ($iabstract_gf_entries_count > 0) {
 			"Thématique": "' . (($form['19']) ? addslashes(htmlentities($form['19'])) : '--' ) . '",
 			"Nom / Prénom": "' . addslashes(htmlentities(ucfirst(strtolower($form['2']) . ' ' . strtoupper($form['1'])))) . '",
 			"Email": "' . addslashes(htmlentities($form['9'])) . '",
-			"Note": "' . number_format($iabstract_show_moyenne, 2, '.', '') . '",
+			"Moyenne/'.$iabstract_note_max.'": "' . $iabstract_show_moyenne . '",
 			"Votants": "' . $iabstract_nb_votant . '/' . $iabstract_authorized_members_count . '",
-			"Sélectionné": "' . $iabstract_selected . '",
+			"Action": "' . $iabstract_selected . '",
+            "Etat": "' . $etat . '",
+			"Commentaire": "'.$commentaire.'",
 			"auteurPrincipal": "' . addslashes(htmlentities($form['20'])) . '",
 			"titreAbstract": "' . addslashes(htmlentities($form['24'])) . '",
 			"Abstract": "' . addslashes(htmlentities(iabstract_htmlconvert($form['23']))) . '",
 			"Members": "' . $iabstract_users . '",
+            "Pays": "' . addslashes(htmlentities($form['17'])) . '",
+            "Ville": "' . addslashes(htmlentities($form['16'])) . '",
 			},';
 	}
 }
@@ -107,9 +165,11 @@ tr.shown td.details-control {
                 <th>Thématique</th>
                 <th>Nom / Prénom</th>
                 <th>Email</th>
-                <th>Note</th>
+                <th>Moyenne/'.$iabstract_note_max.'</th>
                 <th>Votants</th>
-                <th>Sélectionné</th>
+                <th>Action</th>
+                <th>Etat</th>
+				<th>Commentaire</th>
             </tr>
         </thead>
         <tfoot>
@@ -121,9 +181,11 @@ tr.shown td.details-control {
                 <th>Thématique</th>
                 <th>Nom / Prénom</th>
                 <th>Email</th>
-                <th>Note</th>
+                <th>Moyenne/'.$iabstract_note_max.'</th>
                 <th>Votants</th>
-                <th>Sélectionné</th>
+                <th>Action</th>
+                <th>Etat</th>
+				<th>Commentaire</th>
             </tr>
         </tfoot>
     </table>
@@ -149,13 +211,17 @@ $(document).ready(function () {
                  { "data": "Thématique" },
                  { "data": "Nom / Prénom" },
                  { "data": "Email" },
-                 { "data": "Note" },
+                 { "data": "Moyenne/'.$iabstract_note_max.'" },
                  { "data": "Votants" },
-                 { "data": "Sélectionné" },
+                 { "data": "Action" },
+                 { "data": "Etat" },
+				 { "data": "Commentaire" },
              ],
              "order": [1, "desc"],
-			 responsive: true,
-			 "lengthMenu": [25, 50, 75, 100, 150],
+			 "responsive": true,
+			 "lengthMenu": [[25, 50, 100, 150, -1], [25, 50, 100,150, "Tout"]],
+			 "iDisplayLength": 100,
+			 "stateSave": true,
 			 "language": {
 				"search": "Recherche",
 				"lengthMenu": "_MENU_ abstracts",

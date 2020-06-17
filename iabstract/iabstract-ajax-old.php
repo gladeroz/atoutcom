@@ -275,23 +275,51 @@ function iabstract_ajax_process_request() {
 			
 			// --- Check if all variable are OK
 			if ( (isset($form_id) && $form_id > 0)	&& (isset($entry_id) && $entry_id > 0)) {
-				$update_abstract = $wpdb->update( 
-					$iabstract_tbl_selected,
-					array( 
-						'commentaire'  => $comment, 
-					), 
-					array(
-						'entry_id' => $entry_id,   // integer (number)
-						'form_id' => $form_id,
-						'user_id' => $user_id,
-					)
-				);
-			    if ($update_abstract) {
-				    echo 'Le commentaire de cet abstract a été enregistré avec succès.<br>Merci pour votre action';
-			    } else {
-				    // DB Error
-				    echo "La mise à jour du commentaire a rencontré un problème.<br>Veuillez réessayer ou bien contactez un administrateur.";
-			    }
+				$iabstract_data = $wpdb->get_row( "SELECT commentaire FROM $iabstract_tbl_selected WHERE entry_id = " . $entry_id  . " AND user_id = " . $user_id );
+				
+                if( $iabstract_data !=NULL){
+					$update_abstract = $wpdb->update( 
+						$iabstract_tbl_selected,
+						array( 
+							'commentaire'  => $comment, 
+						), 
+						array(
+							'entry_id' => $entry_id,   // integer (number)
+							'form_id' => $form_id,
+							'user_id' => $user_id,
+						)
+					);
+				    if ($update_abstract) {
+					    echo 'Le commentaire de cet abstract a été enregistré avec succès.<br>Merci pour votre action';
+				    } else {
+					    // DB Error
+					    echo "La mise à jour du commentaire a rencontré un problème.<br>Veuillez réessayer ou bien contactez un administrateur.";
+				    }
+                }else{
+					$insert_abstract = $wpdb->insert( 
+						$iabstract_tbl_selected,
+						array( 
+							'form_id'  => $form_id,     // integer (number)
+							'entry_id' => $entry_id, // integer (number)
+							'user_id' => $user_id, // integer (number)
+							'selected' => "",
+							'commentaire'  => $comment,     // integer (number)
+						), 
+						array( 
+							'%d', // value1
+							'%d', // value2
+							'%d', // value3
+							'%d', // value4
+							'%s', // value5
+						) 
+					);
+				    if ($insert_abstract) {
+					    echo 'Le commentaire de cet abstract a été enregistré avec succès.<br>Merci pour votre action';
+				    } else {
+					    // DB Error
+					    echo "L'enregistrement du commentaire a rencontré un problème.<br>Veuillez réessayer ou bien contactez un administrateur.";
+				    }
+                }
 
 			} else {
 				// Error Missing Variables
