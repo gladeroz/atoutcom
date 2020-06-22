@@ -11,7 +11,7 @@ $iabstract_tbl_selected = $wpdb->prefix . $iabstract_table_selected;
 // Create tab's Entries                  -=
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $iabstract_entriesTab->createOption( array(
-	'name' => "Tous les abstracts reçus",
+	'name' => 'Tous les abstracts reçus',
 	'type' => 'heading',
 ) );
 // ----------------------------------------
