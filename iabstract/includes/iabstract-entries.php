@@ -11,9 +11,10 @@ $iabstract_tbl_selected = $wpdb->prefix . $iabstract_table_selected;
 // Create tab's Entries                  -=
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 $iabstract_entriesTab->createOption( array(
-	'name' => 'Tous les abstracts reçus',
+	'name' => "Tous les abstracts reçus",  
 	'type' => 'heading',
 ) );
+
 // ----------------------------------------
 $iabstract_gf_form_id               = iabstract_get_options( 'form_gf_id' );
 $iabstract_gf_search_criteria       = array('status' => 'active');
@@ -34,6 +35,7 @@ $iabstract_get_current_user_id = get_current_user_id();
 // Create option select
 // ----------------------------------------
 $iabstract_datas = "";
+
 if ($iabstract_gf_entries_count > 0) {
 	foreach($iabstract_gf_entries as $form) {
 		// Check if members in project
@@ -63,9 +65,8 @@ if ($iabstract_gf_entries_count > 0) {
 		// Moyenne de la note
 		@$iabstract_moyenne = $iabstract_total_note / $iabstract_nb_votant;
 		// Affichage de la note moyenne
-		//$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne . '/' . $iabstract_note_max : "--";
-		//$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne : "--";
-		$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? $iabstract_moyenne : "";
+		$iabstract_show_moyenne = (!is_nan($iabstract_moyenne)) ? number_format($iabstract_moyenne,2) : "";
+		//$iabstract_show_moyenne = "--";
 		
         $iabstract_selected_info = $wpdb->get_row( "SELECT selected, commentaire FROM $iabstract_tbl_selected WHERE entry_id = " . $form['id'] );
         if( ($iabstract_selected_info->commentaire !=NULL) || ($iabstract_selected_info->commentaire !="")){
@@ -115,6 +116,7 @@ if ($iabstract_gf_entries_count > 0) {
                 }
             }
         }
+
 		// Construct ARRAY Datas
 		$iabstract_datas .= '{
 		    "Date": "' . iabstract_convert_date($form['date_created'], 'FRT') . '",
@@ -190,8 +192,8 @@ tr.shown td.details-control {
         </tfoot>
     </table>
 <script>
-$(document).ready(function () {
-         var table = $("#iabstract-entries").DataTable({
+jQuery(document).ready(function () {
+         var table = jQuery("#iabstract-entries").DataTable({
              "data": iabstract_data.data,
              select:"single",
              "columns": [
