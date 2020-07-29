@@ -40,14 +40,13 @@
         <tr>
             <th></th>
             <th>Nom</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Email</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Tel. Mobile</th>
-            <th>Tel. Fixe</th>
+            <th>Tel. Professionnel</th>
             <th>Date inscription</th>
             <th>Profil</th>
             <th style="display: none;">UserFile</th>
@@ -60,14 +59,13 @@
         <tr>
             <th></th>
             <th>Nom</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Email</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Tel. Mobile</th>
-            <th>Tel. Fixe</th>
+            <th>Tel. Professionnel</th>
             <th>Date inscription</th>
             <th>Profil</th>
             <th style="display: none;">UserFile</th>

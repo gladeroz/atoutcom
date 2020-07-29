@@ -63,12 +63,13 @@
             <th></th>
             <th>Evenement</th>
             <th>Nom</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Email</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
-            <th>Telephone Professionnel</th>
+            <th>Pays</th>
+            <th>Téléphone Professionnel</th>
             <th>Transaction ID</th>
             <th>Statut Paiement</th>
             <th style="display: none;">Entry ID</th>
@@ -84,12 +85,13 @@
             <th></th>
             <th>Evenement</th>
             <th>Nom</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Email</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
-            <th>Telephone Professionnel</th>
+            <th>Téléphone Professionnel</th>
+            <th>Pays</th>
             <th>Transaction ID</th>
             <th>Statut Paiement</th>
             <th style="display: none;">Entry ID</th>

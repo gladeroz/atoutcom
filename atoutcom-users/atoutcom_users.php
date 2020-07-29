@@ -177,8 +177,7 @@ function updateUserInfo() {
     $ville = $params["ville"];
     $pays = $params["pays"];
     $codePostal = $params["codepostal"];
-    $telephone_fixe = $params["telephone_fixe"];
-    $telephone_mobile = $params["telephone_mobile"];
+    $telephone_mobile = $params["telephone_professionnel"];
     $specialite = $params["specialite"];
 
     $organismeFact = $params["organismeFact"];
@@ -200,8 +199,7 @@ function updateUserInfo() {
             'ville'  => $ville,
             'pays'  => $pays,
             'codepostal'  => $codePostal,
-            'telephone_fixe'  => $telephone_fixe,
-            'telephone_mobile'  => $telephone_mobile,
+            'telephone_professionnel'  => $telephone_professionnel,
             'specialite'  => $specialite,
             'isUpdate'  => "yes",
             'organisme_facturation'  => $organismeFact,
@@ -381,8 +379,7 @@ function users_manage() {
             $data["Adresse"] = $value["adresse"];
             $data["CodePostal"] = $value["codepostal"];
             $data["Ville"] = $value["ville"];
-            $data["TelephoneMobile"] = $value["telephone_mobile"];
-            $data["TelephoneFixe"] = $value["telephone_fixe"];
+            $data["TelephoneProfessionnel"] = $value["telephone_professionnel"];
             $data["DateInscription"] = $value["dateinscription"];
             $data["Pays"] = $value["pays"];
             $data["Profil"] = $value["categorie"];
@@ -1057,7 +1054,7 @@ function exportExcel() {
     // Distinguer les listes classiques des exports facture
     if($type==="Liste_Participant"){
         $from = "A1";
-        $to = "K1";
+        $to = "L1";
         $dataExport = $identifiants;
         for($i=0; $i < sizeof($dataExport); $i++ ){
             unset($dataExport[$i][0], $dataExport[$i][11], $dataExport[$i][12]);
@@ -1219,22 +1216,22 @@ function setVille( $value ) {
     return $dataUserInfo->ville;
 }
 
-add_filter( 'gform_field_value_telephone_fixe', 'setTelephoneFixe' );
-function setTelephoneFixe( $value ) {
+add_filter( 'gform_field_value_pays', 'setPays' );
+function setPays( $value ) {
     global $wpdb;
     session_start();
     $email = $_SESSION["loginEmail"];
     $dataUserInfo = atoutcomUser::dataUser($email, "participant");
-    return $dataUserInfo->telephone_fixe;
+    return $dataUserInfo->pays;
 }
 
-add_filter( 'gform_field_value_telephone_mobile', 'setTelephoneMobile' );
-function setTelephoneMobile( $value ) {
+add_filter( 'gform_field_value_telephone_professionnel', 'setTelephoneProfessionnel' );
+function setTelephoneProfessionnel( $value ) {
     global $wpdb;
     session_start();
     $email = $_SESSION["loginEmail"];
     $dataUserInfo = atoutcomUser::dataUser($email, "participant");
-    return $dataUserInfo->telephone_mobile;
+    return $dataUserInfo->telephone_professionnel;
 }
 
 // Arrangement des colonnes

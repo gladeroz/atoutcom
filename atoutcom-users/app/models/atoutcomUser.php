@@ -318,38 +318,43 @@
 								
 								//Users
 								// Nom
-								if($entry["Nom"]!=NULL){
-									$nom = $entry["Nom"];                   
+								if($entry["Nom"] != NULL || $entry["Last Name"] != NULL){
+									$nom = ($entry["Nom"] != NULL)  ?  $entry["Nom"] : $entry["Last Name"];                
 								}
 
-								// Prenom
-								if($entry["Prenom"]!=NULL){
-									$prenom = $entry["Prenom"];                   
+								// Prénom
+								if($entry["Prénom"] != NULL || $entry["First Name"] != NULL){
+									$prenom = ($entry["Prénom"] != NULL)  ?  $entry["Prénom"] : $entry["First Name"];                    
 								}
 
 								// Email
-								if($entry["Email Professionnel"]!=NULL){
-									$email = $entry["Email Professionnel"];                   
+								if($entry["Email Professionnel"] != NULL || $entry["Professional E-mail"] != NULL){
+									$email = ($entry["Email Professionnel"] != NULL)  ?  $entry["Email Professionnel"] : $entry["Professional E-mail"];                  
 								}
 
 								// Adresse User
-								if($entry["Adresse"]!=NULL){
-									$adresseUser = $entry["Adresse"];                   
+								if($entry["Adresse"] != NULL || $entry["Address"] != NULL){
+									$adresseUser = ($entry["Adresse"] != NULL)  ?  $entry["Adresse"] : $entry["Adress"];                
 								}
 
 								// Code postal User
-								if($entry["Code Postal"]!=NULL){
-									$codepostalUser = $entry["Code Postal"];                   
+								if($entry["Code Postal"] != NULL || $entry["Zip Code"] != NULL){
+									$codepostalUser = ($entry["Code Postal"] != NULL)  ?  $entry["Code Postal"] : $entry["Zip Code"];                  
 								}
 
 								// Ville User
-								if($entry["Ville"]!=NULL){
-									$villeUser = $entry["Ville"];                   
+								if($entry["Ville"] != NULL || $entry["City"] != NULL){
+									$villeUser = ($entry["Ville"] != NULL)  ?  $entry["Ville"] : $entry["City"];                  
 								}
 
-								// Tél. Fixe User
-								if($entry["Telephone Professionnel"]!=NULL){
-									$telFixe = $entry["Telephone Professionnel"];                   
+								// Pays User
+								if($entry["Pays"] != NULL || $entry["Country"] != NULL){
+									$paysUser = ($entry["Pays"] != NULL)  ?  $entry["Pays"] : $entry["Country"];                  
+								}
+
+								// Tél. Professionnel
+								if($entry["Téléphone Professionnel"] != NULL || $entry["Professional Phone"] != NULL){
+									$telProfessionnel = ($entry["Téléphone Professionnel"] != NULL)  ?  $entry["Téléphone Professionnel"] : $entry["Professional Phone"];                  
 								}
 
 								// Stockage des datas  
@@ -371,7 +376,8 @@
 									"Adresse" => $adresseUser,
 									"Code postal" => $codepostalUser,
 									"Ville" => $villeUser,
-									"Telephone Professionnel" => $telFixe,
+									"Telephone Professionnel" => $telProfessionnel,
+									"Pays" => $paysUser,
 									"payment_status" => $payment_status,
 									"transaction_id" => $transaction_id,
 									"form_id" => $form_id

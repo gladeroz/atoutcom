@@ -84,7 +84,7 @@
 			
             <div class="row">
 				<div class="form-group col-sm-10">
-			        <div class="text-left">Email</div>
+			        <div class="text-left">Email Professionnel</div>
 			        <div><input type="email" name="email" id="email" class="form-control" required/></div>
 			    </div>
             </div>

@@ -22,8 +22,7 @@ jQuery( document ).ready(function() {
             		var adresse = (data_ret[i]['Adresse'] ===null) ? "" : data_ret[i]['Adresse'];
             		var codepostal = (data_ret[i]['CodePostal'] ===null) ? "" : data_ret[i]['CodePostal'];
             		var ville = (data_ret[i]['Ville'] ===null) ? "" : data_ret[i]['Ville'];
-            		var telephoneMobile = (data_ret[i]['TelephoneMobile'] ===null) ? "" : data_ret[i]['TelephoneMobile'];
-            		var telephoneFixe = (data_ret[i]['TelephoneFixe'] ===null) ? "" : data_ret[i]['TelephoneFixe'];
+            		var telephoneProfessionnel = (data_ret[i]['telephoneProfessionnel'] ===null) ? "" : data_ret[i]['telephoneProfessionnel'];
             		var date_inscription = (data_ret[i]['DateInscription'] ===null) ? "" : data_ret[i]['DateInscription'];
             		var pays = (data_ret[i]['Pays'] ===null) ? "" : data_ret[i]['Pays'];
             		var profil = (data_ret[i]['Profil'] ===null) ? "" : data_ret[i]['Profil'];
@@ -40,8 +39,7 @@ jQuery( document ).ready(function() {
 					+   "<td>"+codepostal+"</td>"
 					+   "<td>"+ville+"</td>"
 					+   "<td>"+pays+"</td>"
-					+   "<td>"+telephoneMobile+"</td>"
-					+   "<td>"+telephoneFixe+"</td>"
+					+   "<td>"+telephoneProfessionnel+"</td>"
 					+   "<td>"+date_inscription+"</td>"
 					+   "<td>"+profil+"</td>"
 					+   "<td style='display:none;'>"+userFile+"</td>"
@@ -212,6 +210,7 @@ jQuery( document ).ready(function() {
             		var adresse = (data_ret[i]['adresseUser'] ===null) ? "" : data_ret[i]['adresseUser'];
             		var codepostal = (data_ret[i]['codepostalUser'] ===null) ? "" : data_ret[i]['codepostalUser'];
             		var ville = (data_ret[i]['villeUser'] ===null) ? "" : data_ret[i]['villeUser'];
+            		var pays = (data_ret[i]['paysUser'] ===null) ? "" : data_ret[i]['paysUser'];
             		var telephone = (data_ret[i]['telephone'] ===null) ? "" : data_ret[i]['telephone'];
             		var transaction_id = (data_ret[i]['transaction_id'] ===null) ? "" : data_ret[i]['transaction_id'];
             		var payment_status = (data_ret[i]['payment_status'] ===null) ? "" : data_ret[i]['payment_status'];
@@ -230,6 +229,7 @@ jQuery( document ).ready(function() {
 					+   "<td>"+adresse+"</td>"
 					+   "<td>"+codepostal+"</td>"
 					+   "<td>"+ville+"</td>"
+					+   "<td>"+pays+"</td>"
 					+   "<td>"+telephone+"</td>"
 					+   "<td>"+transaction_id+"</td>"
 					+   "<td>"+payment_status+"</td>"
@@ -964,13 +964,13 @@ function event_format(d){
 }
 
 
-// Dérouler du tableau affichage miniature evement
+// Dérouler du tableau affichage miniature participants
 function user_event_format(d){
     //if( d[9] ==="" || d[10] === ""){
 	//	var optionDisable = "disabled";
 	//}
-    var status = d[13];
-	if( status === "Validé" && d[9] ==="" ){
+    var status = d[11];
+	if( status === "Validé" && d[10] ==="" ){
 		var optionDisable = "none";
 	}else{
 		var optionDisable = "block";
@@ -1012,9 +1012,9 @@ function user_event_format(d){
 	        '<div class="row">'+
 	            '<div class="col-sm-6">'+
 	                '<input type="hidden" value='+d[4]+' class="userId">'+
-	                '<input type="hidden" value='+d[12]+' class="formID">'+
-	                '<input type="hidden" value='+d[11]+' class="entryID">'+
-	                '<input type="hidden" value='+d[9]+'  class="transactionID">'+
+	                '<input type="hidden" value='+d[13]+' class="formID">'+
+	                '<input type="hidden" value='+d[12]+' class="entryID">'+
+	                '<input type="hidden" value='+d[10]+'  class="transactionID">'+
 			        '<select class="form-control statut">'+
 			            optionData+
 			        '</select>'+
@@ -1041,8 +1041,8 @@ function user_event_format(d){
         '<div class="row">'+
             '<div class="col-sm-10">'+
                 '<input type="hidden" value='+d[4]+' class="userId">'+
-                '<input type="hidden" value='+d[12]+' class="formID">'+
-                '<input type="hidden" value='+d[11]+' class="entryID">'+
+                '<input type="hidden" value='+d[13]+' class="formID">'+
+                '<input type="hidden" value='+d[12]+' class="entryID">'+
 		        '<input type="file"  name="fichier">'+
 		    '</div>'+
 		    '<div class="col-sm-3" style="margin-top: 7px;">'+
@@ -1108,24 +1108,24 @@ function changeStatus(){
             
             // Statut ok (différent de validé)
             if(response==="successStatus"){
-                jQuery('.successStatus').html("Statut mis à jour avec success").show().delay(15000).fadeOut();
+                jQuery('.successStatus').html("Statut mis à jour avec succès").show().delay(15000).fadeOut();
                 setTimeout(document.location.reload(),15000);
             }
             
             // Statut Ok, facture générée et envoyée par mail
             if(response==="successFactureMail"){
-                jQuery('.successStatus').html("Statut mis à jour avec success. La facture a aussi été envoyée au participant.").show().delay(15000).fadeOut();
+                jQuery('.successStatus').html("Statut mis à jour avec succès. La facture a aussi été envoyée au participant.").show().delay(15000).fadeOut();
                 setTimeout(document.location.reload(),15000);
             }
             
             // Statut Ok, facture générée mais pas envoyée par mail
             if(response==="errorMail"){
-                jQuery('.infoStatus').html("Statut mis à jour avec succes. La facture a été générée mais n'a pas été envoyée").show().delay(15000).fadeOut();
+                jQuery('.infoStatus').html("Statut mis à jour avec succès. La facture a été générée mais n'a pas été envoyée").show().delay(15000).fadeOut();
             }
             
             // Statut Ok mais facture non générée
             if(response==="error" || response==="errorUserNotFoundEmail" || response==="errorUserNotFoundEvent"){
-                jQuery('.infoStatus').html("Statut mis à jour avec succes. Mais la facture n'a pas été générée").show().delay(15000).fadeOut();
+                jQuery('.infoStatus').html("Statut mis à jour avec succès. Mais la facture n'a pas été générée").show().delay(15000).fadeOut();
             }
             
             //
@@ -1235,7 +1235,7 @@ function exportDataExcel(param, tab, id){
 	// Distinguer les listes classiques des exports facture
 	if(typeFacture ==="Liste_Participant"){
 		var tabId = JSON.parse(tab);
-		var colonneVisible =["Evenement", "Nom", "Prenom", "Email", "Adresse", "Code Postal", "Ville", "Telephone", "TransactionID", "Statut Paiement", "Statut"];
+		var colonneVisible =["Evenement", "Nom", "Prenom", "Email", "Adresse", "Code Postal", "Ville", "Pays", "Téléphone", "TransactionID", "Statut Paiement", "Statut"];
 	}else{
 		var idChecked = jQuery('.checkForExport:checked');
 		var colonneVisible = JSON.parse(jQuery('#'+param).val());

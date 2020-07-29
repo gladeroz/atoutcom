@@ -53,7 +53,7 @@ function events_manage() {
     $data = array();
     $datas = array();
     //$dataEvent = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."atoutcom_events", ARRAY_A);
-    $dataEvent = atoutcomUser::formsEvents("listeEventsForUsers", "");
+    $dataEvent = atoutcomUser::formsEvents("listeEventsForUsers");
     $listEvt = array();
     // Filtré les évenements pour ne pas chopper des doublons
     foreach ($dataEvent as $data) {
@@ -115,12 +115,13 @@ function user_events() {
             $data["form_id"] = $datauUserEvent["form_id"];
             $data["entry_id"] = $datauUserEvent["entry_id"];
             $data["nom"] = $dataUsr["Nom"];
-            $data["prenom"] = $dataUsr["Prenom"];
+            $data["prenom"] = $dataUsr["Prénom"];
             $data["email"] = $dataUsr["Email Professionnel"];
             $data["adresseUser"] = $dataUsr["Adresse"];
             $data["codepostalUser"] = $dataUsr["Code postal"];
             $data["villeUser"] = $dataUsr["Ville"];
-            $data["telephone"] = $dataUsr["Telephone Professionnel"];
+            $data["paysUser"] = $dataUsr["Pays"];
+            $data["telephone"] = $dataUsr["Téléphone Professionnel"];
             $data["payment_status"] = $dataUsr["payment_status"];
             $data["transaction_id"] = $dataUsr["transaction_id"];
             $data["status"] = events::getUsersEventsStatus($data["form_id"],  $data["email"]);
@@ -178,7 +179,7 @@ function updateUserStatus() {
 	
 	if( $updateStatus ){
         // On verifie le statut : S'il vaut valide, on envoie la facture
-        if($statut==="Validé" && $transactionID ===NULL ){
+        if($statut === "Validé" && $transactionID === NULL ){
         	$dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
 		    //retourner uniquement le tableau contenant les info du user connecté
 		    

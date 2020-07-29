@@ -30,8 +30,8 @@
     $ville = $userInfo->ville;
     $pays = $userInfo->pays;
     $codePostal = $userInfo->codepostal;
-    $telephone_mobile = $userInfo->telephone_mobile;
-    $telephone_fixe = $userInfo->telephone_fixe;
+    $telephone_professionnel = $userInfo->telephone_professionnel;
+    //$telephone_fixe = $userInfo->telephone_fixe;
     $dateInscription = $userInfo->dateinscription;
     $prospection = $userInfo->prospection;
     $profil = $userInfo->categorie;
@@ -194,21 +194,21 @@
 					        </div>
 					    </div>
 
-					    <div class="profil_info_row">
+					    <!--<div class="profil_info_row">
 					        <div class="profil_label">
 					            Tel. Fixe :
 					        </div>
 					        <div class="profil_value">
 					            <?= $telephone_fixe ?>
 					        </div>
-					    </div>
+					    </div>-->
 
 					    <div class="profil_info_row">
 					        <div class="profil_label">
-					            Tel. Mobile :
+					            Tel. Professionnel :
 					        </div>
 					        <div class="profil_value">
-					            <?= $telephone_mobile ?>
+					            <?= $telephone_professionnel ?>
 					        </div>
 					    </div>
 
@@ -776,13 +776,8 @@
 				        
 				        <div class="row">
 				            <div class="form-group col-sm-4">
-				            	<div class="text-left">Tel. Fixe</div>
-				                <div><input type="text" name="telephone_fixe" id="telephone_fixe" value="<?=$telephone_fixe?>"></div>
-				            </div>
-
-				            <div class="form-group col-sm-4">
 				            	<div class="text-left">Tel. Professionnel</div>
-				                <div><input type="text" name="telephone_mobile" id="telephone_mobile" value="<?=$telephone_mobile?>" required></div>
+				                <div><input type="text" name="telephone_professionnel" id="telephone_professionnel" value="<?=$telephone_professionnel?>" required></div>
 				            </div>
 
 				            <div class="form-group col-sm-3">
