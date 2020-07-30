@@ -34,5 +34,3 @@
  - passerelle.php
  - passerelle_retour.php
  
-
- 
