@@ -34,8 +34,7 @@ $transaction_id = generateRandomString();
 
 $sql = "SELECT meta_value FROM " . $prefix . "gf_entry_meta WHERE form_id=".$form_id." AND entry_id=".$entry_id." AND meta_key = '".$field_id."'";
 $inscr = $wpdb->get_var( $sql );
-$total = number_format($inscr,2);
-$total = $total * 101.75;
+$total = number_format($inscr * 1.0175,2,".","") * 100;
 
 $trans_date = date('YmdHis');
 
