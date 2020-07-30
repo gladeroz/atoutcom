@@ -22,7 +22,7 @@ jQuery( document ).ready(function() {
             		var adresse = (data_ret[i]['Adresse'] ===null) ? "" : data_ret[i]['Adresse'];
             		var codepostal = (data_ret[i]['CodePostal'] ===null) ? "" : data_ret[i]['CodePostal'];
             		var ville = (data_ret[i]['Ville'] ===null) ? "" : data_ret[i]['Ville'];
-            		var telephoneProfessionnel = (data_ret[i]['telephoneProfessionnel'] ===null) ? "" : data_ret[i]['telephoneProfessionnel'];
+            		var telephoneProfessionnel = (data_ret[i]['TelephoneProfessionnel'] ===null) ? "" : data_ret[i]['TelephoneProfessionnel'];
             		var date_inscription = (data_ret[i]['DateInscription'] ===null) ? "" : data_ret[i]['DateInscription'];
             		var pays = (data_ret[i]['Pays'] ===null) ? "" : data_ret[i]['Pays'];
             		var profil = (data_ret[i]['Profil'] ===null) ? "" : data_ret[i]['Profil'];
@@ -1235,7 +1235,7 @@ function exportDataExcel(param, tab, id){
 	// Distinguer les listes classiques des exports facture
 	if(typeFacture ==="Liste_Participant"){
 		var tabId = JSON.parse(tab);
-		var colonneVisible =["Evenement", "Nom", "Prenom", "Email", "Adresse", "Code Postal", "Ville", "Pays", "Téléphone", "TransactionID", "Statut Paiement", "Statut"];
+		var colonneVisible =["Evenement", "Nom", "Prenom", "Email", "Adresse", "Code Postal", "Ville", "Pays", "Téléphone Professionnel", "TransactionID", "Statut Paiement", "Statut"];
 	}else{
 		var idChecked = jQuery('.checkForExport:checked');
 		var colonneVisible = JSON.parse(jQuery('#'+param).val());

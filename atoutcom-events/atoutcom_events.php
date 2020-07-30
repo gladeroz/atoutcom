@@ -115,13 +115,13 @@ function user_events() {
             $data["form_id"] = $datauUserEvent["form_id"];
             $data["entry_id"] = $datauUserEvent["entry_id"];
             $data["nom"] = $dataUsr["Nom"];
-            $data["prenom"] = $dataUsr["Prénom"];
+            $data["prenom"] = $dataUsr["Prenom"];
             $data["email"] = $dataUsr["Email Professionnel"];
             $data["adresseUser"] = $dataUsr["Adresse"];
             $data["codepostalUser"] = $dataUsr["Code postal"];
             $data["villeUser"] = $dataUsr["Ville"];
             $data["paysUser"] = $dataUsr["Pays"];
-            $data["telephone"] = $dataUsr["Téléphone Professionnel"];
+            $data["telephone"] = $dataUsr["Telephone Professionnel"];
             $data["payment_status"] = $dataUsr["payment_status"];
             $data["transaction_id"] = $dataUsr["transaction_id"];
             $data["status"] = events::getUsersEventsStatus($data["form_id"],  $data["email"]);
@@ -353,6 +353,24 @@ function updateUserStatus() {
 
 						// Traitement des retours
 						if( $genererFacture === "success" ){
+							// On insère les données de la facture dans la table user_file
+							$insertDataUsersFile =  $wpdb->insert( 
+								$wpdb->base_prefix."atoutcom_users_file",
+								array( 
+									'email'  => $userEmail,
+									'fichier' => 'Facture_'.$numeroFacture,
+									'chemin' => 'Facture_'.$numeroFacture.'.pdf',
+									'date_enregistrement' => date("Y-m-d H:i:s"),
+									'type_doc' => 'facture',
+								), 
+								array( 
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+								) 
+							);
                             wp_die(wp_json_encode("successFactureMail"));
 						}
 

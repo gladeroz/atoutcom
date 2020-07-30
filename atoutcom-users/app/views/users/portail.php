@@ -52,6 +52,7 @@
     $userAttestations = atoutcomUser::dataUserFile($email, "attestation");
 
     $dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
+
     //retourner uniquement le tableau contenant les info du user connecté
     $tabUsers = array();
     
@@ -86,8 +87,7 @@
         }
     }else{
     	$conference = false;
-    }
-    //var_dump( $dataUserEvents ); 
+    } 
 ?>
 
 <style type="text/css">
@@ -320,7 +320,10 @@
             <?php 
                 if($conference){
                 	foreach ($tabUsers as $tabDataUser) {
-                		if( $tabDataUser["dateDebut"] > date("d/m/y") ){
+						$date1 = date_create_from_format('d/m/Y', $tabDataUser["dateDebut"]);
+						$date2 = date_create_from_format('d/m/Y', date('d/m/Y'));
+	
+                		if ($date1 > $date2) {
                 			$titre = $tabDataUser["titre"];
                 		    $lieu = $tabDataUser["villeEvt"];
                 		    $dateEvt = $tabDataUser["dateDebut"];
@@ -758,23 +761,24 @@
 				                <div><input type="text" name="adresse" id="adresse" value="<?=$adresse?>" required></div>
 				            </div>
 
-				            <div class="form-group col-sm-3">
+				            <div class="form-group col-sm-4">
 				            	<div class="text-left">Ville</div>
 				                <div><input type="text" name="ville" id="ville" value="<?=$ville?>" required></div>
 				            </div>
 
-				            <div class="form-group col-sm-2">
+				            <div class="form-group col-sm-3">
 				            	<div class="text-left">Code Postal</div>
 				                <div><input type="text" name="codepostal" id="codepostal" value="<?=$codePostal?>" required></div>
 				            </div>
 
-				            <div class="form-group col-sm-2">
-				            	<div class="text-left">Pays</div>
-				                <div><input type='text' name='pays' id='pays' value='<?=$pays?>' required></div>
-				            </div>
 				        </div>
 				        
 				        <div class="row">
+				        	<div class="form-group col-sm-4">
+				            	<div class="text-left">Pays</div>
+				                <div><input type='text' name='pays' id='pays' value='<?=$pays?>' required></div>
+				            </div>
+
 				            <div class="form-group col-sm-4">
 				            	<div class="text-left">Tel. Professionnel</div>
 				                <div><input type="text" name="telephone_professionnel" id="telephone_professionnel" value="<?=$telephone_professionnel?>" required></div>

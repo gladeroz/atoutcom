@@ -177,7 +177,7 @@ function updateUserInfo() {
     $ville = $params["ville"];
     $pays = $params["pays"];
     $codePostal = $params["codepostal"];
-    $telephone_mobile = $params["telephone_professionnel"];
+    $telephone_professionnel = $params["telephone_professionnel"];
     $specialite = $params["specialite"];
 
     $organismeFact = $params["organismeFact"];
@@ -1056,8 +1056,9 @@ function exportExcel() {
         $from = "A1";
         $to = "L1";
         $dataExport = $identifiants;
+        $tabEnteteOrdonnee[] = $colonneVisible;
         for($i=0; $i < sizeof($dataExport); $i++ ){
-            unset($dataExport[$i][0], $dataExport[$i][11], $dataExport[$i][12]);
+            unset($dataExport[$i][0], $dataExport[$i][12], $dataExport[$i][13]);
         }
 
     }else{
@@ -1109,7 +1110,7 @@ function exportExcel() {
         }  
     }
 
-    
+    //var_dump($tabEnteteOrdonnee);die();
  
     if ( defined('CBXPHPSPREADSHEET_PLUGIN_NAME') && file_exists( CBXPHPSPREADSHEET_ROOT_PATH . 'lib/vendor/autoload.php' ) ) {
         //Include PHPExcel
@@ -1126,7 +1127,7 @@ function exportExcel() {
         ->setSubject($type)
         ->setDescription('Facture '.$type);
 
-
+        
         // Entête du fichier excel
         $spreadsheet->setActiveSheetIndex(0)->fromArray($tabEnteteOrdonnee);
         // On met en gras l'entête

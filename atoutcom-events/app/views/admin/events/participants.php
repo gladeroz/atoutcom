@@ -90,8 +90,8 @@
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
-            <th>Téléphone Professionnel</th>
             <th>Pays</th>
+            <th>Téléphone Professionnel</th>
             <th>Transaction ID</th>
             <th>Statut Paiement</th>
             <th style="display: none;">Entry ID</th>
