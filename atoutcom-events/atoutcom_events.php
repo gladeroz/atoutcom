@@ -354,12 +354,13 @@ function updateUserStatus() {
 						// Traitement des retours
 						if( $genererFacture === "success" ){
 							// On insère les données de la facture dans la table user_file
+							$numFact = str_replace ("/", "_",  $numeroFacture);
 							$insertDataUsersFile =  $wpdb->insert( 
 								$wpdb->base_prefix."atoutcom_users_file",
 								array( 
 									'email'  => $userEmail,
-									'fichier' => 'Facture_'.$numeroFacture,
-									'chemin' => 'Facture_'.$numeroFacture.'.pdf',
+									'fichier' => 'Facture_'.$numFact,
+									'chemin' => 'Facture_'.$numFact.'.pdf',
 									'date_enregistrement' => date("Y-m-d H:i:s"),
 									'type_doc' => 'facture',
 								), 

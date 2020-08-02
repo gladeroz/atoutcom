@@ -62,6 +62,7 @@ add_action('wp_enqueue_scripts', 'users_js_scripts');
 
 function registration() {
     global $wpdb;
+    session_start();
     $params = array();
     parse_str($_POST['data'], $params);
     $categorie = $params["categorie"];
@@ -108,6 +109,8 @@ function registration() {
         );
 
         if($insertDataUsers){
+        	$_SESSION["loginEmail"] = $email;
+        	$_SESSION["categorie"]  = $categorie;
             wp_die(json_encode("success".$redirection));
         }else{
             wp_die(json_encode("errorDB"));

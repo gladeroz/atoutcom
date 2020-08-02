@@ -899,9 +899,9 @@ jQuery( document ).ready(function() {
     });
 });
 
-// Affichage du tableau supplémentaire lors du dépliage
+// Affichage du tableau  miniature d'un user
 function user_format(d){
-	var data_file = JSON.parse(d[12]);
+	var data_file = JSON.parse(d[11]);
 
 	if (data_file.length != 0) {
 		var href = window.location.href;
@@ -949,7 +949,7 @@ function user_format(d){
     return data;
 }
 
-// Dérouler du tableau affichage miniature evement
+// Dérouler du tableau affichage miniature d'un evement
 function event_format(d){
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         '<tr>' +
@@ -964,13 +964,13 @@ function event_format(d){
 }
 
 
-// Dérouler du tableau affichage miniature participants
+// Dérouler du tableau affichage miniature d'un participant
 function user_event_format(d){
     //if( d[9] ==="" || d[10] === ""){
 	//	var optionDisable = "disabled";
 	//}
-    var status = d[11];
-	if( status === "Validé" && d[10] ==="" ){
+    var status = d[14];
+	if( status === "Validé" && d[10] === "" ){
 		var optionDisable = "none";
 	}else{
 		var optionDisable = "block";
@@ -979,22 +979,22 @@ function user_event_format(d){
     var chemin = window.location.origin+"/wordpress/wp-admin/images/loading.gif";
 
     
-	if(status ==="En attente"){
+	if(status === "En attente"){
 		var optionData =       
         '<option value="En attente" selected>En attente</option>'+
         '<option value="Annulé">Annulé</option>'+
         '<option value="Validé">Validé</option>';
 	}
-	else if(status ==="Validé"){
+	else if(status === "Validé"){
 		var optionData =       
-        '<option value="En attente">En attente</option>'+
+        '<option value="Validé" selected>Validé</option>'+
         '<option value="Annulé">Annulé</option>'+
-        '<option value="Validé" selected>Validé</option>';
+        '<option value="En attente">En attente</option>';
 	}
-	else if(status ==="Annulé"){
+	else if(status === "Annulé"){
 		var optionData =       
-        '<option value="En attente">En attente</option>'+
         '<option value="Annulé" selected>Annulé</option>'+
+        '<option value="En attente">En attente</option>'+
         '<option value="Validé">Validé</option>';
 	}else {
 		var optionData =       

@@ -3,17 +3,17 @@
     session_start();
     
     wp_enqueue_style( 'portail', plugins_url().'/atoutcom-users/app/public/css/portail.css');
-    if( $_SESSION["loginEmail"] ==="disconnect" ) {
+    if($_SESSION["loginEmail"] === "disconnect") {
       //redirection vers la page de login
         echo '<script language="Javascript">document.location.replace("login/"); </script>';
     }else{
         
-        if($_COOKIE["LOGIN"] !=NULL){
+        if($_COOKIE["LOGIN"] != NULL){
             $email = $_COOKIE["LOGIN"];
             $_SESSION["loginEmail"] = $email;
         }else{
           
-            if( $_SESSION["loginEmail"] === NULL ){
+            if($_SESSION["loginEmail"] === NULL){
                 //redirection
                 echo '<script language="Javascript">document.location.replace("login/"); </script>';
             }else{
@@ -21,6 +21,7 @@
             }
         }
     }
+    
     $userInfo = atoutcomUser::dataUser($email, $_SESSION["categorie"]);
     $idUser = $userInfo->id;
     $nom = $userInfo->nom;
@@ -406,7 +407,7 @@
 							<span class="document_list_comment">'.$dateFr.'</span>
 							<span class="document_list_version"></span>
 						</div>
-						<a href="" class="bt_dl_file cms_fix" onclick="window.open(\''.$urlFichier.'\')" style="float:right;">
+						<a href="'.$urlFichier.'" class="bt_dl_file cms_fix" download="'.$nomFichier.'" style="float:right;">
 							<span class="glyphicon glyphicon-download-alt"></span>
 							<div class="bt_dl_text">
 								Télécharger
@@ -579,7 +580,7 @@
                 <div class="download_cms">
                 ';
             	foreach ($userFactures as $key => $value) {
-	                $urlFichier = plugins_url()."/atoutcom-users/app/public/uploads/".$email."/".$value["chemin"];
+	                $urlFichier = plugins_url()."/atoutcom-users/app/public/uploads/Factures/".$value["chemin"];
 	                $nomFichier = $value["fichier"];
 	                $dataDel = $value["chemin"].",".$value["id"];
 	                $dateFichier = substr($value["date_enregistrement"], 0, 10);
@@ -591,7 +592,7 @@
 							<span class="document_list_comment">'.$dateFr.'</span>
 							<span class="document_list_version"></span>
 						</div>
-						<a href="" class="bt_dl_file cms_fix" onclick="window.open(\''.$urlFichier.'\')">
+						<a href="'.$urlFichier.'" class="bt_dl_file cms_fix" download="'.$nomFichier.'">
 							<span class="glyphicon glyphicon-download-alt"></span>
 							<div class="bt_dl_text">
 								Télécharger
@@ -638,7 +639,7 @@
 							<span class="document_list_comment">'.$dateFr.'</span>
 							<span class="document_list_version"></span>
 						</div>
-						<a href="" class="bt_dl_file cms_fix" onclick="window.open(\''.$urlFichier.'\')" style="float:right;">
+						<a href="'.$urlFichier.'" class="bt_dl_file cms_fix" download="'.$nomFichier.'" style="float:right;">
 							<span class="glyphicon glyphicon-download-alt"></span>
 							<div class="bt_dl_text">
 								Télécharger
@@ -686,7 +687,7 @@
 							<span class="document_list_comment">'.$dateFr.'</span>
 							<span class="document_list_version"></span>
 						</div>
-						<a href="" class="bt_dl_file cms_fix" onclick="window.open(\''.$urlFichier.'\')">
+						<a href="'.$urlFichier.'" class="bt_dl_file cms_fix" download="'.$nomFichier.'">
 							<span class="glyphicon glyphicon-download-alt"></span>
 							<div class="bt_dl_text">
 								Télécharger
