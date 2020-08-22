@@ -1164,7 +1164,7 @@ function sendFileToUser(){
         	var response = JSON.parse(response);
             jQuery('#loadingFileUser').hide();
             if(response==="success"){
-                jQuery('.successUserFile').html("Statut mis à jour avec success").show().delay(5000).fadeOut();
+                jQuery('.successUserFile').html("Le fichier a été uploadé avec success").show().delay(5000).fadeOut();
                 setTimeout(document.location.reload(),5000);
             }
 
