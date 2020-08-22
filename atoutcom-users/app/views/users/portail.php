@@ -53,7 +53,6 @@
     $userAttestations = atoutcomUser::dataUserFile($email, "attestation");
 
     $dataUserEvents = atoutcomUser::formsEvents("listeEventsForUsers");
-
     //retourner uniquement le tableau contenant les info du user connecté
     $tabUsers = array();
     

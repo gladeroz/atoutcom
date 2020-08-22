@@ -712,9 +712,9 @@ function createSponsor() {
     $quantite = "1";
     $montant = str_replace ( "," , "." , $params["participation"] );
     $patricipation = (int)$montant;
-    $montantHT = round($patricipation/1.2, 2, PHP_ROUND_HALF_DOWN);
     $aka_tauxTVA = 20;
     $montantTVA = round($patricipation*0.2, 2, PHP_ROUND_HALF_DOWN);
+    $montantHT = round($patricipation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
     $montantTTC = $patricipation;
     $montantNET = $patricipation;
     $total = $patricipation;
@@ -918,9 +918,9 @@ function createFactureViaBC() {
         $quantite = "1";
         $montant = str_replace ( "," , "." , $params["montant"] );
         $patricipation = (int)$montant;
-        $montantHT = round($patricipation/1.2, 2, PHP_ROUND_HALF_DOWN);
         $aka_tauxTVA = 10;
         $montantTVA = round($patricipation*0.1, 2, PHP_ROUND_HALF_DOWN);
+        $montantHT = round($patricipation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
         $montantTTC = $patricipation;
         $montantNET = $patricipation;
         $total = $patricipation;
@@ -1170,8 +1170,9 @@ add_filter( 'gform_field_value_nom', 'setNom' );
 function setNom( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->nom;
 }
 
@@ -1179,8 +1180,9 @@ add_filter( 'gform_field_value_prenom', 'setPrenom' );
 function setPrenom( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->prenom;
 }
 
@@ -1188,8 +1190,9 @@ add_filter( 'gform_field_value_email', 'setEmail' );
 function setEmail( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->email;
 }
 
@@ -1197,8 +1200,9 @@ add_filter( 'gform_field_value_adresse', 'setAdresse' );
 function setAdresse( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->adresse;
 }
 
@@ -1206,8 +1210,9 @@ add_filter( 'gform_field_value_codepostal', 'setCodepostal' );
 function setCodepostal( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->codepostal;
 }
 
@@ -1215,8 +1220,9 @@ add_filter( 'gform_field_value_ville', 'setVille' );
 function setVille( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->ville;
 }
 
@@ -1224,8 +1230,9 @@ add_filter( 'gform_field_value_pays', 'setPays' );
 function setPays( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->pays;
 }
 
@@ -1233,8 +1240,9 @@ add_filter( 'gform_field_value_telephone_professionnel', 'setTelephoneProfession
 function setTelephoneProfessionnel( $value ) {
     global $wpdb;
     session_start();
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $email     = $_SESSION["loginEmail"];
+    $categorie = $_SESSION["categorie"];
+    $dataUserInfo = atoutcomUser::dataUser($email, $categorie);
     return $dataUserInfo->telephone_professionnel;
 }
 
@@ -1372,9 +1380,7 @@ function genererFacture(
                         <span class="">Le Tertia 1</span><br>
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">Personne à contacter:</span><br>
-                        <span class="">'.$contact_nom.'</span><br>
-                        <span class="">'.$contact_adresse.'</span>
+                        <span class="adresseGras">+33 (0)4 42 54 42 60</span><br>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
@@ -1517,9 +1523,7 @@ function genererFacture(
                         <span class="">Le Tertia 1</span><br>
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">Personne à contacter:</span><br>
-                        <span class="">'.$contact_nom.'</span><br>
-                        <span class="">'.$contact_adresse.'</span>
+                        <span class="adresseGras">+33 (0)4 42 54 42 60</span><br>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
