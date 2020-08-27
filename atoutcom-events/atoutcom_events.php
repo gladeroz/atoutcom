@@ -223,9 +223,9 @@ function updateUserStatus() {
 				    $periode = substr($tabUser["dateDebut"], 6);
 				    $numeroFacture = $numero."".$periode."/".$jourEvenement."".$moisEvenement;
                     $quantite = "1";
-				    $montantHT = round($participation/1.2, 2, PHP_ROUND_HALF_DOWN);
 				    $aka_tauxTVA = 10;
 				    $montantTVA = round($participation*0.1, 2, PHP_ROUND_HALF_DOWN);
+                    $montantHT = round($participation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
 				    $montantTTC = $participation;
 				    $montantNET = $participation;
 				    $total = $participation;

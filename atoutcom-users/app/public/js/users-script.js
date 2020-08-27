@@ -19,17 +19,20 @@ jQuery( document ).ready(function() {
 		        jQuery( "#loading" ).hide();
 		        switch (response) { 
 		        	case 'errorDB':
-		        	    jQuery( ".error" ).html("Une erreur s'est produite lors de l'insertion des données en base. Veuillez ressayer ou contacter votre administrateur").show().delay(5000).fadeOut();
+		        	    jQuery( ".error" ).html("Une erreur s'est produite lors de l'insertion des données en base. Veuillez ressayer ou contacter votre administrateur").show().delay(10000).fadeOut();
 
 		        	    break;
 		        	case 'errorPwd':
-		        	    jQuery( ".error" ).html("Les mots de passe saisis ne sont pas identiques, veuillez ressayer.").show().delay(5000).fadeOut();
+		        	    jQuery( ".error" ).html("Les mots de passe saisis ne sont pas identiques, veuillez ressayer.").show().delay(10000).fadeOut();
 		        	    break;
+                    case 'errorPwdCheck':
+                        jQuery( ".error" ).html("Le mot de passe doit comporter au moins 8 caractères et doit inclure au moins une lettre majuscule, un chiffre et un caractère spécial").show().delay(10000).fadeOut();
+                        break;
 		        	case 'errorMail':
-		        	    jQuery( ".info" ).html("L'adresse email que vous avez saisie a existe déjà.").show().delay(5000).fadeOut();
+		        	    jQuery( ".info" ).html("L'adresse email que vous avez saisie a existe déjà.").show().delay(10000).fadeOut();
 		        	    break;
 		        	default:
-		        	    jQuery( ".success" ).html("Votre compte a bien été crééé. Vous serez redirigés vers la page de connexion").show().delay(8000).fadeOut();
+		        	    jQuery( ".success" ).html("Votre compte a bien été crééé. Vous serez redirigés vers la page de connexion").show().delay(10000).fadeOut();
 		        	    jQuery( "#target-registration" )[0].reset();
 		        	    var redirection = response.substr(7);
 

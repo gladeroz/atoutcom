@@ -92,13 +92,13 @@
             <div class="row">
 				<div class="form-group col-sm-5">
 			        <div class="text-left">Mot de passe</div>
-			        <div><input type="password" name="password" id="password" class="form-control" required/></div>
+			        <div><input type="password" name="password" id="password" class="form-control" required title="Le mot de passe doit comporter au moins 8 caractères et doit inclure au moins une lettre majuscule, un chiffre et un caractère spécial"/></div>
 			    </div>
 
 
 			    <div class="form-group col-sm-5">
 			        <div class="text-left">Confirmer mot de passe</div>
-			        <div><input type="password" name="repeat-password" id="repeat-password" class="form-control" required/></div>
+			        <div><input type="password" name="repeat-password" id="repeat-password" class="form-control" required title="Le mot de passe doit comporter au moins 8 caractères et doit inclure au moins une lettre majuscule, un chiffre et un caractère spécial"/></div>
 			    </div>
 		    </div>
 

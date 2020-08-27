@@ -74,46 +74,53 @@ function registration() {
     $redirection = $params["redirection"];
     $date = date("d/m/Y");
 
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number    = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
 
-    $dataUser = $wpdb->get_row( "SELECT email FROM ".$wpdb->base_prefix."atoutcom_users WHERE email ='".$email."' AND categorie = '".$categorie."' ");
-
-    //Si les mots de passe ne sont pas identique
-    if($password != $repeatPassword){
-        wp_die(json_encode("errorPwd"));
+    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        wp_die(json_encode('errorPwdCheck'));
     }else{
-        $passwordEncrypt = password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    //Si l'email existe
-    if( $email === $dataUser->email ){
-        wp_die(json_encode("errorMail"));
-    }else{
-        $insertDataUsers =  $wpdb->insert( 
-            $wpdb->base_prefix."atoutcom_users",
-            array( 
-                'nom'  => $nom,
-                'prenom' => $prenom,
-                'email' => $email,
-                'password'  => $passwordEncrypt,
-                'dateinscription' => $date,
-                'categorie' => $categorie,
-            ), 
-            array( 
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-            ) 
-        );
-
-        if($insertDataUsers){
-        	$_SESSION["loginEmail"] = $email;
-        	$_SESSION["categorie"]  = $categorie;
-            wp_die(json_encode("success".$redirection));
+        //Si les mots de passe ne sont pas identique
+        if($password != $repeatPassword){
+            wp_die(json_encode("errorPwd"));
         }else{
-            wp_die(json_encode("errorDB"));
+            $passwordEncrypt = password_hash($password, PASSWORD_DEFAULT);
+        }
+        
+        $dataUser = $wpdb->get_row( "SELECT email FROM ".$wpdb->base_prefix."atoutcom_users WHERE email ='".$email."' AND categorie = '".$categorie."' ");
+        //Si l'email existe
+        if( $email === $dataUser->email ){
+            wp_die(json_encode("errorMail"));
+        }else{
+            $insertDataUsers =  $wpdb->insert( 
+                $wpdb->base_prefix."atoutcom_users",
+                array( 
+                    'nom'  => $nom,
+                    'prenom' => $prenom,
+                    'email' => $email,
+                    'password'  => $passwordEncrypt,
+                    'dateinscription' => $date,
+                    'categorie' => $categorie,
+                ), 
+                array( 
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                ) 
+            );
+
+            if($insertDataUsers){
+                $_SESSION["loginEmail"] = $email;
+                $_SESSION["categorie"]  = $categorie;
+                wp_die(json_encode("success".$redirection));
+            }else{
+                wp_die(json_encode("errorDB"));
+            }
         }
     }
 }
@@ -711,17 +718,17 @@ function createSponsor() {
     $annee = $periode;
     $quantite = "1";
     $montant = str_replace ( "," , "." , $params["participation"] );
-    $patricipation = (int)$montant;
+    $participation = (int)$montant;
     $aka_tauxTVA = 20;
-    $montantTVA = round($patricipation*0.2, 2, PHP_ROUND_HALF_DOWN);
-    $montantHT = round($patricipation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
-    $montantTTC = $patricipation;
-    $montantNET = $patricipation;
-    $total = $patricipation;
+    $montantTVA = round($participation*0.2, 2, PHP_ROUND_HALF_DOWN);
+    $montantHT = round($participation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
+    $montantTTC = $participation;
+    $montantNET = $participation;
+    $total = $participation;
     $accompte = 0;
     $restedu = 0;
-    $paye = $patricipation;
-    $encaisse = $patricipation;
+    $paye = $participation;
+    $encaisse = $participation;
     $date_reglement = $datePaiement;
     $commentaire = "";
     $concerne = "sponsor";
@@ -917,17 +924,17 @@ function createFactureViaBC() {
         $annee = $periode;
         $quantite = "1";
         $montant = str_replace ( "," , "." , $params["montant"] );
-        $patricipation = (int)$montant;
+        $participation = (int)$montant;
         $aka_tauxTVA = 10;
-        $montantTVA = round($patricipation*0.1, 2, PHP_ROUND_HALF_DOWN);
-        $montantHT = round($patricipation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
-        $montantTTC = $patricipation;
-        $montantNET = $patricipation;
-        $total = $patricipation;
+        $montantTVA = round($participation*0.1, 2, PHP_ROUND_HALF_DOWN);
+        $montantHT = round($participation-$montantTVA, 2, PHP_ROUND_HALF_DOWN);
+        $montantTTC = $participation;
+        $montantNET = $participation;
+        $total = $participation;
         $accompte = 0;
         $restedu = 0;
-        $paye = $patricipation;
-        $encaisse = $patricipation;
+        $paye = $participation;
+        $encaisse = $participation;
         $date_reglement = $datePaiement;
         $commentaire = "";
         $concerne = "participant BC N° : ".$numBonDeCommande;
