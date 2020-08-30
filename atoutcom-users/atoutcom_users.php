@@ -733,7 +733,8 @@ function createSponsor() {
     $commentaire = "";
     $concerne = "sponsor";
     $emailContact = $params["emailContact"];
-    $numBonDeCommande = "/"; 
+    $numBonDeCommande = "/";
+    $facture_acq = "";
     
     $insertDataFacture =  $wpdb->insert( 
         $wpdb->base_prefix."atoutcom_users_events_facture",
@@ -770,14 +771,14 @@ function createSponsor() {
             '%s',
             '%f',
             '%d',
-            '%f',
-            '%f',
-            '%f',
-            '%f',
-            '%f',
-            '%f',
-            '%f',
-            '%f',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
             '%s',
             '%s',
             '%s',
@@ -794,7 +795,7 @@ function createSponsor() {
             $numeroFacture,
             $date_facture,
             $intitule,
-            $dateEvenement."<br>".$adresseEvenement." à ".$villeEvenement,
+            $dateEvenement."<br>".$villeEvenement,
             $descriptionDetail,
             $quantite,
             $montantHT,
@@ -805,7 +806,8 @@ function createSponsor() {
             $contact_nom,
             $contact_adresse,
             $aka_tauxTVA,
-            $numBonDeCommande
+            $numBonDeCommande,
+            $facture_acq
         );
         
         wp_die(json_encode($retour));
@@ -939,6 +941,7 @@ function createFactureViaBC() {
         $commentaire = "";
         $concerne = "participant BC N° : ".$numBonDeCommande;
         $emailContact = $params["email"];
+        $facture_acq = 'acquittée';
 
         // On insère la donnée dans la facture 
         $insertDataFacture =  $wpdb->insert( 
@@ -966,26 +969,26 @@ function createFactureViaBC() {
                 'concerne' => $concerne,
             ), 
             array( 
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%s',
-                '%f',
-                '%d',
-                '%f',
-                '%f',
-                '%f',
-                '%f',
-                '%f',
-                '%f',
-                '%f',
-                '%f',
-                '%s',
-                '%s',
-                '%s',
+	            '%s',
+	            '%s',
+	            '%s',
+	            '%s',
+	            '%s',
+	            '%s',
+	            '%s',
+	            '%f',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%d',
+	            '%s',
+	            '%s',
+	            '%s',
             ) 
         );
         if($insertDataFacture){
@@ -998,7 +1001,7 @@ function createFactureViaBC() {
                 $numeroFacture,
                 $date_facture,
                 $intitule,
-                $dateEvenement."<br>".$adresseEvenement." à ".$villeEvenement,
+                $dateEvenement."<br>".$villeEvenement,
                 $descriptionDetail,
                 $quantite,
                 $montantHT,
@@ -1009,7 +1012,8 @@ function createFactureViaBC() {
                 $contact_nom,
                 $contact_adresse,
                 $aka_tauxTVA,
-                $numBonDeCommande
+                $numBonDeCommande,
+                $facture_acq
             );
             
             wp_die(json_encode($retour));
@@ -1361,7 +1365,8 @@ function genererFacture(
     $contact_nom,
     $contact_adresse,
     $aka_tauxTVA,
-    $numBonDeCommande
+    $numBonDeCommande,
+    $facture_acq
 )
 {
     $numFact = str_replace ("/", "_",  $numeroFacture);
@@ -1383,14 +1388,15 @@ function genererFacture(
             <div class="factureEntete">
                 <div class="adresse">
                     <div class="adresseAtoutcom">
-                        <span class="adresseGras">Agence ATouT.Com</span><br>
-                        <span class="">Le Tertia 1</span><br>
+                        <span class="adresseGras">Agence ATouT.Com</span>
+                        <br><br>
+                        <span class="adresseGras">Le Tertia 1</span><br>
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">+33 (0)4 42 54 42 60</span><br>
-                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+                        <span class="adresseGras">+33 (0)4 42 54 42 60</span>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
-                    
+
                     <div class="adresseFacturation">
                         <span class="adresseSouligneTitre">Adresse de Facturation</span>
                         <br><br>
@@ -1401,8 +1407,19 @@ function genererFacture(
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                 </div>
-
-                <div class="factureDetail">
+                ';
+                if($facture_acq === 'acquittée'){
+                    $htmlFR .= '
+                    <div class = "logo_facture_acq">
+                      <img src="'.ABSPATH.'wp-content/plugins/atoutcom-users/app/public/images/facture_acq.png">
+                    </div>';
+                    $classFactureDetail = "factureDetail_aqu";
+                }else{
+                	$classFactureDetail = "factureDetail";
+                }
+                
+                $htmlFR .= '
+                <div class = '.$classFactureDetail.'>
                     <span class="adresseGras factNum">FACTURE N° : </span>
                     <span class="espace">Espa</span>
                     <span class="factNumSouligne"><b>'.$numeroFacture.'</b></span>
@@ -1431,10 +1448,9 @@ function genererFacture(
                             <span class="adresseGras">'.$numBonDeCommande.'</span>
                         </td>
                         <td class="withBorder" width="100%" style="border-right: none;">
-                            <span>'.$titreAdresse.'</span><br>
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
-                            <span class="adresseGras detailCongres">'.$descriptionDetail.'</span>
+                            <span class="adresseGras detailCongres">'.$titreAdresse.'</span>
                         </td>
                         <td class="withBorder" style="border-right: none;">
                             <span class="adresseGras quantite">'.$quantite.'</span>
@@ -1526,12 +1542,13 @@ function genererFacture(
             <div class="factureEntete">
                 <div class="adresse">
                     <div class="adresseAtoutcom">
-                        <span class="adresseGras">Agence ATouT.Com</span><br>
-                        <span class="">Le Tertia 1</span><br>
+                        <span class="adresseGras">Agence ATouT.Com</span>
+                        <br><br>
+                        <span class="adresseGras">Le Tertia 1</span><br>
                         <span class="">5, Rue Charles Duchesne</span><br>
                         <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">+33 (0)4 42 54 42 60</span><br>
-                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+                        <span class="adresseGras">+33 (0)4 42 54 42 60</span>
+                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
                     <div class="adresseFacturation">
@@ -1543,9 +1560,21 @@ function genererFacture(
                         <span class="adresseSouligneTVA">N° TVA Intracommunautaire</span><br>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
-                </div>
+                </div>';
+                
+                if($facture_acq === 'acquittée'){
+                    $htmlEN .= '
+                    <div class = "logo_invoice_acq">
+                      <img src="'.ABSPATH.'wp-content/plugins/atoutcom-users/app/public/images/invoice_acq.png">
+                    </div>';
+                    $classFactureDetail = "factureDetail_aqu";
+                }else{
+                	$classFactureDetail = "factureDetail";
+                }
+                
+                $htmlEN .= '
 
-                <div class="factureDetail">
+                <div class = '.$classFactureDetail.'>
                     <span class="adresseGras factNum">INVOICE N° : </span>
                     <span class="espace">Espa</span>
                     <span class="factNumSouligne"><b>'.$numeroFacture.'</b></span>
@@ -1574,10 +1603,9 @@ function genererFacture(
                             <span class="adresseGras">'.$numBonDeCommande.'</span>
                         </td>
                         <td class="withBorder" width="100%" style="border-right: none;">
-                            <span>'.$titreAdresse.'</span><br>
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
-                            <span class="adresseGras detailCongres">'.$descriptionDetail.'</span>
+                            <span class="adresseGras detailCongres">'.$titreAdresse.'</span>
                         </td>
                         <td class="withBorder" style="border-right: none;">
                             <span class="adresseGras quantite">'.$quantite.'</span>
@@ -1654,13 +1682,88 @@ function genererFacture(
     //Selection du template en fonction de la langue
     if($langue === "fr"){
         $fichierPDF = ABSPATH.'wp-content/plugins/atoutcom-users/app/public/uploads/Factures/Facture_'.$numFact.'.pdf';
-        $subject = 'Facture';
-        $body = 'Nous vous remercions pour votre participation.<br>Vous trouverez ci-joint la facture';
+        $subject = 'Agence Atoutcom - Facture';
+        if($facture_acq === "acquittée"){
+            $body = '
+            <p>Chère Madame, Cher Monsieur,</p>
+
+            Vous trouverez ci-joint la facture acquittée pour votre inscription.<br><br>
+
+            Nous restons à votre disposition pour toute information complémentaire,<br><br>
+
+            Bien à vous,<br>
+            Agence ATouT.Com<br>
+            Tel : 04 42 54 42 60<br>
+            www.atoutcom.com<br><br>
+            <img src="https://atoutcom.com/wp-content/plugins/atoutcom-users/app/public/images/logoAtoutcom.png">
+            ';
+        }else{
+            $body = '
+            <p>Chère Madame, Cher Monsieur,</p>
+
+            Vous trouverez ci-joint la facture pour votre inscription.<br><br>
+
+            Nous vous remercions de procéder au règlement votre inscription par :<br>
+
+            - Par <b>Virement bancaire</b> (RIB ci-joint) <br>
+
+            - Par <b>Carte Bancaire</b> : https://www.atoutcom.com/paiement-en-ligne/paiement-en-ligne/ <br>
+
+            - Par <b>Chèque</b> : (à l\'Ordre de l\'Agence ATouT.Com) à envoyer à l\'adresse suivante :<br>
+
+            Agence ATouT.Com<br>
+
+            Le Tertia 1<br>
+
+            5, Rue Charles Duchesne<br>
+
+            13290 AIX EN PROVENCE<br><br>
+
+             
+            Nous restons à votre disposition pour toute information complémentaire,<br><br>
+
+            Bien à vous,<br>
+            Agence ATouT.Com<br>
+            Tel : 04 42 54 42 60<br>
+            www.atoutcom.com<br><br>
+            <img src="https://atoutcom.com/wp-content/plugins/atoutcom-users/app/public/images/logoAtoutcom.png">
+            ';
+        }
+        
         $dompdf->loadHtml($htmlFR);
     }else{
         $fichierPDF = ABSPATH.'wp-content/plugins/atoutcom-users/app/public/uploads/Factures/Invoice_'.$numFact.'.pdf';
-        $subject = 'Invoice';
-        $body = 'Thank you for your parthnership.';
+        $subject = 'Invoice - Atoucom Agency';
+        if($facture_acq === 'acquittée'){
+            $body = '
+            <p>Dear Madam, Dear Sir,</p>
+            Please find attached your paid invoice.<br><br>
+
+            We stay at your disposal for any information you may require,<br><br>
+
+            Best regards,<br>
+            Tel : 04 42 54 42 60<br>
+            www.atoutcom.com<br><br>
+            <img src="https://atoutcom.com/wp-content/plugins/atoutcom-users/app/public/images/logoAtoutcom.png">
+            ';
+        }else{
+            $body = '
+            <p>Dear Madam, Dear Sir,</p>
+            Please find attached the invoice for your register.<br><br>
+
+            You can make the payment by :<br>
+                - Bank Transfer : attached file <br>
+                - Credit Card : http://www.atoutcom.com/paiement-en/php/pages/paiement_inscr.htm <br><br>
+
+            We stay at your disposal for any information you may require,<br>br>
+
+            Best regards,<br>
+            Tel : 04 42 54 42 60<br>
+            www.atoutcom.com<br><br>
+            <img src="https://atoutcom.com/wp-content/plugins/atoutcom-users/app/public/images/logoAtoutcom.png">
+            ';
+        }
+        
         $dompdf->loadHtml($htmlEN);
     }
     

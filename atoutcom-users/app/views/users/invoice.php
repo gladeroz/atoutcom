@@ -1,8 +1,50 @@
 <?php 
     global $wpdb;
+    
+    /*$alter = $wpdb->get_var( "ALTER TABLE ".$wpdb->base_prefix."atoutcom_users_events_facture MODIFY COLUMN montantTVA decimal(10,2)", ARRAY_A);*/
+    var_dump(atoutcomUser::getCategorie('harouguindja@gmail.com'));die();
 
-    $email = $_SESSION["loginEmail"];
-    $dataUserInfo = atoutcomUser::dataUser($email, "participant");
+    $updateUser = $wpdb->update( 
+	    $wpdb->base_prefix."atoutcom_users_events_facture",
+	    array( 
+	        'montantTVA'  => 3.50,
+			'concerne' => 'participant'
+	    ), 
+	    array(
+	        'destinataire' => 'Giga Florent',
+	    )
+	);
+    
+    //var_dump($updateUser);die();
+
+	$dataUsersEventsFacture = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users_events_facture WHERE destinataire = 'Giga Florent'", ARRAY_A);
+    var_dump($dataUsersEventsFacture);die();
+
+    $genererFacture = genererFacture(
+	    'en',
+	    'Harou Guindja', 
+	    '510 Avenue de Bagatelle',
+	    '13090, Aix en Procence, France',
+	    '207099',
+	    date("d/m/Y"),
+	    'Nidcap',
+	    '25 Septembre 2020<br>Marseille',
+	    'Test',
+	    '1',
+	    '31,5',
+	    '3,5',
+	    '35',
+	    date("d/m/Y"),
+	    'harouguindja@gmail.com',
+	    'Harou',
+	    '510 Avenue de Bagatelle',
+	    '10',
+	    '',
+	    'acquittée'
+	);
+	var_dump($genererFacture);
+	die();
+    /*$dataUserInfo = atoutcomUser::dataUser($email, "participant");
     var_dump($dataUserInfo->nom);die();
 	$wpsite = get_sites();
 
@@ -71,6 +113,6 @@
 		restore_current_blog();
 	}
 
-	var_dump($tabForms);
+	var_dump($tabForms);*/
 ?>
 

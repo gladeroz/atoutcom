@@ -22,13 +22,14 @@
 	
 }
 .adresseAtoutcom{
-    text-align: center;
-    margin-bottom: 5px;
-    padding: 20px;
+    border-bottom: none
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-top: 20px;
 }
 
 .adresseFacturation{
-    padding-right: 73px;
+    padding-right: 20px;
     padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -49,11 +50,29 @@
 	margin-top: 20px;
 }
 
+.logo_facture_acq{
+    padding-top: 40px;
+    padding-left: 120px;
+}
+
+.logo_invoice_acq{
+    padding-top: 40px;
+    padding-left: 100px;
+    margin-bottom: 30px;
+}
+
+.factureDetail_aqu{
+    border: 1px solid #832202;
+    width: 270px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
 .factureDetail{
-	border: 1px solid #832202;
-	width: 270px;
-	padding: 15px;
-	margin-top: 120px;
+    border: 1px solid #832202;
+    width: 270px;
+    padding: 15px;
+    margin-top: 100px;
 }
 
 .factNumSouligne{
@@ -80,16 +99,16 @@ td {
 td.noBorder {
     border: none;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 td.withBorder {
-    padding-top: 15px;
+    /*padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 7px;
-    padding-right: 7px;
-    font-size: 15px;
+    padding-right: 7px;*/
+    font-size: 13px;
 }
 
 tr,

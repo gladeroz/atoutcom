@@ -1018,17 +1018,26 @@ function user_event_format(d){
 			        '<select class="form-control statut">'+
 			            optionData+
 			        '</select>'+
-
+			        
 			    '</div>'+
 			    
-			    '<div class="col-sm-2">'+
-			        '<input type="submit" value="Ok" style="cursor:pointer;">'+
-			    '</div>'+
-			    '<div class="col-sm-1">'+
-	                '<img id="loading" src="'+chemin+'" style="display: none;">'+
-			    '</div>'+
 			    '<div class="col-sm-6" style="margin-top:5px; display :'+optionDisable+'">'+
 			        '<input type="number" class="form-control" placeholder="montant reçu" id="montantRecu">'+
+			    '</div>'+
+
+			    '<br><div class="col-sm-6">'+
+			        '<select class="form-control langue">'+
+			            '<option value="" selected>Langue</option>'+
+			            '<option value="fr">Français</option>'+
+			            '<option value="en">Anglais</option>'+
+			        '</select>'+
+			    '</div>'+
+
+			    '<div class="col-sm-2" style="margin-top:5px;">'+
+			        '<input type="submit" value="Ok" style="cursor:pointer;">'+
+			    '</div>'+
+			    '<div class="col-sm-1" style="margin-top:5px;">'+
+	                '<img id="loading" src="'+chemin+'" style="display: none;">'+
 			    '</div>'+
 	        '</div>'+
         '</div>'+
@@ -1087,8 +1096,10 @@ function changeStatus(){
 	var dataStatus = jQuery('.statut').val();
 	var userId = jQuery('.userId').val();
 	var transactionID = jQuery('.transactionID').val();
+	var langue = jQuery('.langue').val();
 	var formId = jQuery('.formID').val();
 	var montantRecu = jQuery('#montantRecu').val();
+
 
 	jQuery.ajax({
         type: 'POST',
@@ -1100,6 +1111,7 @@ function changeStatus(){
             "formId": formId,
             "transactionID": transactionID,
             "participation" : montantRecu,
+            "langue": langue,
         },
         success: function(response){
         	//console.log(response)

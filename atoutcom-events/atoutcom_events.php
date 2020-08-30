@@ -142,10 +142,12 @@ function updateUserStatus() {
     $data = array();
     
     $userEmail = $_POST["userId"];
+    $categorie = atoutcomUser::getCategorie($userEmail);
     $statut = $_POST["dataStatus"];
     $form_id = $_POST["formId"];
     $transactionID = $_POST["transactionID"];
     $participation = (int)$_POST["participation"];
+    $langue = ($_POST["langue"] == "") ? "fr" : $_POST["langue"];
     //var_dump($transactionID, $statut);wp_die();
 
 	$rowcount = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->base_prefix."atoutcom_users_events_status WHERE id_event = '".$form_id."' AND email = '".$userEmail."'");
@@ -256,7 +258,7 @@ function updateUserStatus() {
 				            'encaisse' => $encaisse,
 				            'date_reglement' => date("d/m/Y"),
 				            'commentaire' => '',
-				            'concerne' => 'participant',
+				            'concerne' => $categorie,
 				        ), 
 				        array( 
 				            '%s',
@@ -268,14 +270,14 @@ function updateUserStatus() {
 				            '%s',
 				            '%f',
 				            '%d',
-				            '%f',
-				            '%f',
-				            '%f',
-				            '%f',
-				            '%f',
-				            '%f',
-				            '%f',
-				            '%f',
+				            '%d',
+				            '%d',
+				            '%d',
+				            '%d',
+				            '%d',
+				            '%d',
+				            '%d',
+				            '%d',
 				            '%s',
 				            '%s',
 				            '%s',
@@ -284,7 +286,7 @@ function updateUserStatus() {
 				    // Si données insérées dans la table facture
 				    if($insertDataFacture){
 				    	//participant & adresse facturation
-				    	$userInfo = atoutcomUser::adresseFacturation($userEmail, "participant");
+				    	$userInfo = atoutcomUser::adresseFacturation($userEmail, $categorie);
 
 						if($userInfo->organisme_facturation === "" || $userInfo->organisme_facturation === NULL){
 							$emailContact = $userEmail;
@@ -325,10 +327,10 @@ function updateUserStatus() {
 				                $dateEvenement = atoutcomUser::dateFr($tabUser["dateDebut"], "")." - ".atoutcomUser::dateFr($tabUser["dateFin"], "");
 				            }
 				        }
-				    	// On génère la facture en Fr
-				    	$langue = "fr";
+				    	// On génère la facture
 				    	$numBonDeCommande = "/"; 
 				    	$descriptionDetail = "";
+				    	$facture_acq = 'acquittée';
 				    	$genererFacture = genererFacture(
 						    $langue,
 						    $destinataire, 
@@ -337,7 +339,7 @@ function updateUserStatus() {
 						    $numeroFacture,
 						    date("d/m/Y"),
 						    $tabUser["evenement"],
-						    $dateEvenement."<br>".$tabUser["adresseEvt"]." à ".$tabUser["villeEvt"],
+						    $dateEvenement."<br>".$tabUser["villeEvt"],
 						    $descriptionDetail,
 						    $quantite,
 						    $montantHT,
@@ -348,7 +350,8 @@ function updateUserStatus() {
 						    $tabUser["contact_nom"],
 						    $tabUser["contact_adresse"],
 						    $aka_tauxTVA,
-						    $numBonDeCommande
+						    $numBonDeCommande,
+						    $facture_acq
 						);
 
 						// Traitement des retours

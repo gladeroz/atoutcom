@@ -12,6 +12,15 @@
 	    	$dataUserInfo = $wpdb->get_row( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users WHERE email ='".$email."' and categorie='".$categorie."' ");
 	    	return $dataUserInfo;
 	    }
+
+	    // Retourner la catégorie d'un utilisateur
+	    public function getCategorie($email)
+	    {
+	    	global $wpdb;
+	    	$categorie = $wpdb->get_var("SELECT categorie FROM ".$wpdb->base_prefix."atoutcom_users WHERE email ='".$email."'");
+	    	return $categorie;
+	    }
+
         // Récupérer l'adresse de facturation
         public function adresseFacturation($email, $categorie)
 	    {
