@@ -85,15 +85,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-sm-8 text-left">Selectionner votre catégorie <span class="mandatory">*</span> :</div>
                     <div class="form-group col-sm-8 text-left">
-                        <input type="radio" id="participant" name="categorie" value="participant" required>
+                        <input type="radio" id="participant" name="categorie" value="Participant" checked="checked" required>
                         <label for="participant">Participant</label>
-                    </div>
-
-                    <div class="form-group col-sm-8 text-left" style="margin-bottom: 15px;">
-                        <input type="radio" id="intervenant" name="categorie" value="intervenant">
-                        <label for="intervenant">Intervenant</label>
                     </div>
                 </div>
             </div>
@@ -110,9 +104,9 @@
 
                 <div class="row">
                     <div class="form-group col-sm-8">
-                        <div class="text-left">Password</div>
+                        <div class="text-left">Mot de passe</div>
                         <div>
-                             <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="">
+                             <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required="">
                         </div>
                     </div>
                 </div>
@@ -120,7 +114,7 @@
                 <div class="row">
                     <div class="form-group col-sm-8">
                         <input type="checkbox" name="remember" id="remember" class="remember">
-                        <label for="remember">Resté connecter</label>
+                        <label for="remember">Restez connecter</label>
                     </div>
                 </div>
 
@@ -128,7 +122,7 @@
                     <div class="form-group col-sm-8">
                         
                         <div class="form-group">
-                            <input type="submit" id="submit-login" class="form-control btn btn-primary btn-lg" value="Login" style="width: 100px;" />
+                            <input type="submit" id="submit-login" class="form-control btn btn-primary btn-lg" value="Connexion" style="width: 200px; height: 43px;" />
                             <input id="redirection" type="hidden" name="redirection" value="<?=$cond?>"/>
                         </div>
 
@@ -141,7 +135,7 @@
                 <div class="row">
                     <div class="form-group col-sm-8">
                         <div>Vous n'avez pas de compte ? <a href="../registration/<?=$cond?>">Créer</a></div>
-                        <div>Mot de passe oublié ? <a href="../reset-password/">Recréer</a></div>
+                        <div>Mot de passe oublié ? <a href="../reset-password/">Réinitialiser</a></div>
                     </div>
                 </div>
             </div>

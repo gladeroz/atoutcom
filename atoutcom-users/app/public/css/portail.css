@@ -63,17 +63,13 @@
 	.nom{
 		display: block;
         margin-top: 10px;
-        font-family: Roboto-Regular;
-        font-size: 16px;
         line-height: 20px;
 	}
 
 	.statut{
 		display: block;
 	    margin-top: 5px;
-	    font-family: Roboto-Light;
-	    font-size: 14px;
-	    line-height: 18px;
+	    line-height: 20px;
 	}
 
 	.profil_info, .doc_info{
@@ -90,14 +86,12 @@
         display: inline-block;
         vertical-align: top;
         width: 100px;
-        font-family: Roboto-Light;
     }
     
     .profil_value, .doc_value{
     	display: inline-block;
 	    vertical-align: top;
 	    /*width: calc(100% - 150px);*/
-	    font-family: Roboto-Regular;
 	    font-weight: bold;
 	    word-break: break-word;
     }
@@ -122,9 +116,8 @@
 
     .profil_title, .doc_title{
     	margin-bottom: 25px;
-        font-size: 24px;
-        line-height: 28px;
-        font-family: Roboto-Light;
+        line-height: 20px;
+        font-weight: bold;
     }
 
     .documents_content, .info_user_content_w, .doc_user_content_w{
@@ -146,13 +139,11 @@
     	display: inline-block;
         vertical-align: top;
         width: 150px;
-        font-family: Roboto-Light;
     }
 
     .info_user_value, .doc_user_value{
     	display: inline-block;
         vertical-align: top;
-        font-family: Roboto-Regular;
         word-break: break-word;
     }
 
@@ -164,9 +155,8 @@
 
     .documents_title{
     	margin-bottom: 25px;
-        font-size: 24px;
-        line-height: 28px;
-        font-family: Roboto-Light;
+        line-height: 20px;
+        font-weight: bold;
     }
 
     .documents_row{
@@ -180,9 +170,8 @@
 	    vertical-align: middle;
 	    width: calc(100% - 200px - 200px - 70px - 70px);
 	    padding: 0 5px;
-	    font-family: Roboto-Light;
-	    font-size: 25px;
-	    line-height: 29px;
+	    font-weight: bold;
+	    line-height: 20px;
     }
 
     .documents_dl{
@@ -232,8 +221,6 @@
 	    vertical-align: middle;
 	    width: calc(100% - 155px);
 	    padding-right: 20px;
-	    font-family: Roboto-Light;
-	    font-size: 17px;
 	    line-height: 21px;
     }
 
@@ -242,8 +229,6 @@
 	    vertical-align: middle;
 	    width: calc(100% - 299px);
 	    padding-right: 20px;
-	    font-family: Roboto-Light;
-	    font-size: 17px;
 	    line-height: 21px;
     }
 
@@ -252,15 +237,12 @@
 	    vertical-align: middle;
 	    width: calc(100% - 200px);
 	    padding-right: 20px;
-	    font-family: Roboto-Light;
-	    font-size: 17px;
 	    line-height: 21px;
     }
 
     .document_list_comment{
     	display: inline-block;
 	    margin-left: 10px;
-	    font-family: Roboto-Light;
     }
     
     .download_cms .text SPAN {
@@ -270,7 +252,6 @@
     .document_list_version{
     	display: inline-block;
 	    margin-left: 10px;
-	    font-family: Roboto-Light;
     }
 
     .bt_dl_file.cms_fix, .bt_dl_file_w.cms_fix_w {
@@ -348,8 +329,7 @@
 	    vertical-align: middle;
 	    width: calc(90% - 200px - 200px - 200px - 70px);
 	    padding: 0 5px;
-	    font-family: Roboto-Light;
-	    font-size: 25px;
+	    font-weight: bold;
 	    line-height: 29px;
 	}
 
@@ -368,16 +348,12 @@
 	}
 	.conf_detail_lieu SPAN, .conf_detail_theme SPAN {
 	    display: block;
-	    font-family: Roboto-Light;
-	    font-size: 14px;
-	    line-height: 18px;
+	    line-height: 20px;
 	}
 
 	.conf_detail_lieu SPAN+SPAN, .conf_detail_theme SPAN+SPAN {
 	    margin-top: 5px;
-	    font-family: Roboto-Regular;
-	    font-size: 24px;
-	    line-height: 28px;
+	    line-height: 20px;
     }
 	.conf_row_w .conf_row .conf_dl {
 	    display: inline-block;

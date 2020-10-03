@@ -221,7 +221,7 @@
 					        </div>
 					    </div>
                 <?php 
-                    if($profil==="intervenant"){
+                    if($profil==="Intervenant"){
                         echo "
                         <div class='profil_info_row'>
 					        <div class='profil_label'>
@@ -446,11 +446,11 @@
 						'.$tabDataUser["moisAnneeTexte"].'
 					</div>
 					<div class="conf_detail_theme">
-						<span>Thème :</span>
+						<span style="font-weight: bold;">Nom de l\'événement :</span>
 						<span>'.$tabDataUser["titre"].'</span>
 					</div>
 					<div class="conf_detail_lieu">
-						<span>Lieu :</span>
+						<span style="font-weight: bold;">Lieu :</span>
 						<span>'.$tabDataUser["villeEvt"].'</span>
 					</div>
 
@@ -478,7 +478,7 @@
 												Organisateur
 											</th>
 											<th>
-												Titre
+												Nom de l\'événement
 											</th>
 
 											<th>

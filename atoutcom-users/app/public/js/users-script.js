@@ -29,10 +29,10 @@ jQuery( document ).ready(function() {
                         jQuery( ".error" ).html("Le mot de passe doit comporter au moins 8 caractères et doit inclure au moins une lettre majuscule, un chiffre et un caractère spécial").show().delay(10000).fadeOut();
                         break;
 		        	case 'errorMail':
-		        	    jQuery( ".info" ).html("L'adresse email que vous avez saisie a existe déjà.").show().delay(10000).fadeOut();
+		        	    jQuery( ".info" ).html("L'adresse email que vous avez saisie existe déjà.").show().delay(10000).fadeOut();
 		        	    break;
 		        	default:
-		        	    jQuery( ".success" ).html("Votre compte a bien été crééé. Vous serez redirigés vers la page de connexion").show().delay(10000).fadeOut();
+		        	    jQuery( ".success" ).html("Votre compte a bien été créé. Vous serez redirigés vers la page de connexion").show().delay(10000).fadeOut();
 		        	    jQuery( "#target-registration" )[0].reset();
 		        	    var redirection = response.substr(7);
 
@@ -76,7 +76,7 @@ jQuery( document ).ready(function() {
 		        	    jQuery( ".info" ).html("L'adresse email que vous avez saisie n'existe pas.").show().delay(8000).fadeOut();
 		        	    break;
 		        	default:
-		        	    jQuery( ".success" ).html("Connexion réussie. Vous serez redirigé sur le portail!").show().delay(8000).fadeOut();
+		        	    jQuery( ".success" ).html("Connexion réussie. Vous serez redirigés sur le portail!").show().delay(8000).fadeOut();
 		        	    jQuery( "#target-login" )[0].reset();
 		        	    var redirection = response.substr(7);
 		        	    if (redirection ==="") {

@@ -34,7 +34,7 @@
 		<div class="container">
 			<div class="row">
 		        <div class="form-group col-sm-10 titreInscription">
-		        	<h2>Inscription</h2>
+		        	<h2>Création de compte</h2>
 		        </div>
 	        </div>
 
@@ -51,19 +51,11 @@
 			</div>
 
         	<div class="row">
-        		<div class="form-group col-sm-10 text-left">Selectionner votre catégorie <span class="mandatory">*</span> :</div>
 	        	<div class="form-group col-sm-10 text-left">
-			        <input type="radio" id="participant" name="categorie" value="participant" required>
+			        <input type="radio" id="participant" name="categorie" value="Participant" checked="checked" required>
 			        <label for="participant">Participant</label>
 			    </div>
-
-			    <div class="form-group col-sm-10 text-left" style="margin-bottom: 25px; margin-top: 10px;">
-			        <input type="radio" id="intervenant" name="categorie" value="intervenant">
-			        <label for="intervenant">Intervenant</label>
-			    </div>
         	</div>
-
-
         </div>
         
 
@@ -102,8 +94,22 @@
 			    </div>
 		    </div>
 
+		    <div class="row">
+		    	<div class="form-group col-sm-10 text-left">
+			        <div>Règles pour le mot de passe :</div>
+			        <div style="color: red">
+			        	<ul>
+			        		<li>8 caractères minimum</li>
+			        		<li>Au moins une lettre majuscule</li>
+			        		<li>Au moins un chiffre</li>
+			        		<li>Au moins un caractère spécial</li>
+			        	</ul>
+			        </div>
+			    </div>
+		    </div>
+
             <div class="row">
-			    <div class="form-group col-sm-10" style="margin-top: 15px; margin-bottom: 15px;">
+			    <div class="form-group col-sm-10" style="margin-top: 5px; margin-bottom: 15px;">
 				    <div class="form-group"><input id="submit-registration" type="submit" value="Valider" style="width: 200px; height: 43px;"/></div>
 				    <div class="form-group" style="vertical-align: middle;">
 				        <img id="loading" src="<?php echo admin_url().'/images/loading.gif';?>">
