@@ -48,8 +48,7 @@ jQuery( document ).ready(function() {
     });
 
     // Login function
-    jQuery( "#target-login" ).submit(function( event ) {
-        
+    jQuery('#target-login').submit(function(event){
         jQuery( "#submit-login" ).prop('disabled', true).css({"background-color": "grey", "cursor": "default"});
     	jQuery( "#loading" ).show();
         var data = jQuery( "#target-login" ).serialize();

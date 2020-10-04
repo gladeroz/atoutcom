@@ -288,13 +288,20 @@ function updateUserStatus() {
 				    	//participant & adresse facturation
 				    	$userInfo = atoutcomUser::adresseFacturation($userEmail, $categorie);
 
+				    	$participant = $tabUser["participant"];
+						$adresseParticiant = $tabUser["adresse"];
+						$codePostalParticipant = $tabUser["codepostal"];
+						$villeParticipant = $tabUser["ville"];
+						$paysParticipant = $userInfo->pays;
+						$emailParticipant = $userEmail;
+
 						if($userInfo->organisme_facturation === "" || $userInfo->organisme_facturation === NULL){
-							$emailContact = $userEmail;
-							$destinataire = $tabUser["participant"];
-							$adresseFacturation = $tabUser["adresse"];
-							$codepostalFacturation = $tabUser["codepostal"];
-							$villeFacturation = $tabUser["ville"];
-							$paysFacturation =  $userInfo->pays;
+							$emailContact = $emailParticipant;
+							$destinataire = $participant;
+							$adresseFacturation = $adresseParticiant;
+							$codepostalFacturation = $codePostalParticipant;
+							$villeFacturation = $villeParticipant;
+							$paysFacturation =  $paysParticipant;
 						}else{
 					        $emailContact = $userInfo->email_facturation;
 							$destinataire = $userInfo->organisme_facturation;
@@ -351,7 +358,13 @@ function updateUserStatus() {
 						    $tabUser["contact_adresse"],
 						    $aka_tauxTVA,
 						    $numBonDeCommande,
-						    $facture_acq
+						    $facture_acq,
+						    $participant,
+						    $adresseParticiant,
+						    $codePostalParticipant,
+						    $villeParticipant,
+						    $paysParticipant,
+						    $emailParticipant
 						);
 
 						// Traitement des retours

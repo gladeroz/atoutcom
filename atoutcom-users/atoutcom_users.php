@@ -808,6 +808,12 @@ function createSponsor() {
             $aka_tauxTVA,
             $numBonDeCommande,
             $facture_acq
+            // $participant,
+            // $adresseParticiant,
+            // $codePostalParticipant,
+            // $villeParticipant,
+            // $paysParticipant,
+            // $emailParticipant
         );
         
         wp_die(json_encode($retour));
@@ -1366,7 +1372,13 @@ function genererFacture(
     $contact_adresse,
     $aka_tauxTVA,
     $numBonDeCommande,
-    $facture_acq
+    $facture_acq,
+    $participant,
+    $adresseParticiant,
+    $codePostalParticipant,
+    $villeParticipant,
+    $paysParticipant,
+    $emailParticipant
 )
 {
     $numFact = str_replace ("/", "_",  $numeroFacture);
@@ -1388,12 +1400,10 @@ function genererFacture(
             <div class="factureEntete">
                 <div class="adresse">
                     <div class="adresseAtoutcom">
-                        <span class="adresseGras">Agence ATouT.Com</span>
-                        <br><br>
-                        <span class="adresseGras">Le Tertia 1</span><br>
-                        <span class="">5, Rue Charles Duchesne</span><br>
-                        <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">+33 (0)4 42 54 42 60</span>
+                        <span class="adresseGras">'.$participant.'</span><br>
+                        <span>'.$adresseParticiant.'</span><br>
+                        <span>'.$codePostalParticipant.' '.$codePostalParticipant.'</span><br>
+                        <span class="adresseGras">'.$emailParticipant.'</span>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
 
@@ -1449,6 +1459,7 @@ function genererFacture(
                         </td>
                         <td class="withBorder" width="100%" style="border-right: none;">
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
+                            <span class="adresseGras titreCongres">'.$descriptionDetail.'</span><br>
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
                             <span class="adresseGras detailCongres">'.$titreAdresse.'</span>
                         </td>
