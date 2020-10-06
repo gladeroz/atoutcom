@@ -61,7 +61,7 @@
     <thead>
         <tr>
             <th></th>
-            <th>Evenement</th>
+            <th>Evénement</th>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Email</th>
@@ -74,7 +74,9 @@
             <th>Statut Paiement</th>
             <th style="display: none;">Entry ID</th>
             <th style="display: none;">Form ID</th>
-            <th>Statut</th>
+            <th>Etat du règlement</th>
+            <th>Mode de règlement</th>
+            <th>Date du paiement</th>
         </tr>
     </thead>
     <tbody id="bodyUserEvent">
@@ -83,7 +85,7 @@
     <tfoot>
         <tr>
             <th></th>
-            <th>Evenement</th>
+            <th>Evénement</th>
             <th>Nom</th>
             <th>Prénom</th>
             <th>Email</th>
@@ -96,7 +98,9 @@
             <th>Statut Paiement</th>
             <th style="display: none;">Entry ID</th>
             <th style="display: none;">Form ID</th>
-            <th>Statut</th>
+            <th>Etat du règlement</th>
+            <th>Mode de règlement</th>
+            <th>Date du paiement</th>
         </tr>
     </tfoot>
 </table>

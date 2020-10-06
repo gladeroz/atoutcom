@@ -1399,10 +1399,10 @@ function genererFacture(
             </div>
             <div class="factureEntete">
                 <div class="adresse">
-                    <div class="adresseAtoutcom">
+                    <div class="adresseParticipant">
                         <span class="adresseGras">'.$participant.'</span><br>
                         <span>'.$adresseParticiant.'</span><br>
-                        <span>'.$codePostalParticipant.' '.$codePostalParticipant.'</span><br>
+                        <span>'.$codePostalParticipant.', '.$villeParticipant.', '.$paysParticipant.'</span><br>
                         <span class="adresseGras">'.$emailParticipant.'</span>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
@@ -1459,7 +1459,11 @@ function genererFacture(
                         </td>
                         <td class="withBorder" width="100%" style="border-right: none;">
                             <span class="adresseGras titreCongres">'.$evenement.'</span><br>
-                            <span class="adresseGras titreCongres">'.$descriptionDetail.'</span><br>
+                            ';
+                            if($descriptionDetail != ""){
+                                $htmlFR .= '<span class="adresseGras titreCongres">'.$descriptionDetail.'</span><br>';
+                            }
+                            $htmlFR .= '
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
                             <span class="adresseGras detailCongres">'.$titreAdresse.'</span>
                         </td>
@@ -1552,13 +1556,11 @@ function genererFacture(
             </div>
             <div class="factureEntete">
                 <div class="adresse">
-                    <div class="adresseAtoutcom">
-                        <span class="adresseGras">Agence ATouT.Com</span>
-                        <br><br>
-                        <span class="adresseGras">Le Tertia 1</span><br>
-                        <span class="">5, Rue Charles Duchesne</span><br>
-                        <span class="">13290 Aix en Provence</span><br>
-                        <span class="adresseGras">+33 (0)4 42 54 42 60</span>
+                    <div class="adresseParticipant">
+                        <span class="adresseGras">'.$participant.'</span><br>
+                        <span>'.$adresseParticiant.'</span><br>
+                        <span>'.$codePostalParticipant.', '.$villeParticipant.', '.$paysParticipant.'</span><br>
+                        <span class="adresseGras">'.$emailParticipant.'</span>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
                     </div>
                     
@@ -1614,7 +1616,11 @@ function genererFacture(
                             <span class="adresseGras">'.$numBonDeCommande.'</span>
                         </td>
                         <td class="withBorder" width="100%" style="border-right: none;">
-                            <span class="adresseGras titreCongres">'.$evenement.'</span><br>
+                            <span class="adresseGras titreCongres">'.$evenement.'</span><br>';
+                            if($descriptionDetail != ""){
+                                $htmlEN .= '<span class="adresseGras titreCongres">'.$descriptionDetail.'</span><br>';
+                            }
+                            $htmlEN .= '
                             <span class="adresseGras dateAdresseCongres">'.$dateAdresse.'</span><br>
                             <span class="adresseGras detailCongres">'.$titreAdresse.'</span>
                         </td>

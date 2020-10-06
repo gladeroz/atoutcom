@@ -274,6 +274,11 @@
 									$payment_status = $entry["payment_status"];  
 									$transaction_id = $entry["transaction_id"];        									
 								}
+								
+								// Paiement
+								if($entry["Paiement"] != NULL){
+									$paiement = $entry["Paiement"];
+								}
 
                                 // Organisateur
 								if($entry["Organisateur"] != NULL){
@@ -389,7 +394,8 @@
 									"Pays" => $paysUser,
 									"payment_status" => $payment_status,
 									"transaction_id" => $transaction_id,
-									"form_id" => $form_id
+									"form_id" => $form_id,
+									"paiement" => $paiement
 								);
 								
 								// Distinguer sponsor (Jquery) et user (php). Les tableaux ne réagissent pas de la même façon

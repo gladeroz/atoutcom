@@ -127,14 +127,14 @@ jQuery( document ).ready(function() {
 
             		"<tr>"
 					+   "<td class='details-control'><i class='fa fa-plus-square' aria-hidden='true'></i></td>"
-					+   "<td>"+organisateur+"</td>"
 					+   "<td>"+titre+"</td>"
 					+   "<td>"+specialite+"</td>"
+					+   "<td>"+date_evenement+"</td>"
+					+   "<td>"+ville+"</td>"
 					+   "<td>"+adresse+"</td>"
 					+   "<td>"+codepostal+"</td>"
 					+   "<td>"+ville+"</td>"
 					+   "<td>"+pays+"</td>"
-					+   "<td>"+date_evenement+"</td>"
 					+"</tr>";
             		jQuery('#bodyEvent').append(data);
             	}
@@ -217,6 +217,8 @@ jQuery( document ).ready(function() {
             		var entry_id = data_ret[i]['entry_id'];
             		var form_id = data_ret[i]['form_id'];
             		var status = (data_ret[i]['status'] ===null) ? "" : data_ret[i]['status'];
+            		var modeReglement = ""; //todo
+            		var datePaiement = ""; //todo
 
             		var data =
 
@@ -236,6 +238,8 @@ jQuery( document ).ready(function() {
 					+   "<td style='display:none;'>"+entry_id+"</td>" 
 					+   "<td style='display:none;'>"+form_id+"</td>"
 					+   "<td>"+status+"</td>"
+					+   "<td>"+modeReglement+"</td>"
+					+   "<td>"+datePaiement+"</td>"
 					+"</tr>";
             		jQuery('#bodyUserEvent').append(data);
             	}
@@ -953,11 +957,11 @@ function user_format(d){
 function event_format(d){
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         '<tr>' +
-            '<td><strong>Organisateur</strong></td>' +
+            '<td><strong>Nom de l\événement</strong></td>' +
             '<td>' + d[1] + '</td>' +
         '</tr>' +
         '<tr>' +
-            '<td><strong>Titre</strong></td>' +
+            '<td><strong>Spécialité</strong></td>' +
             '<td>' + d[2] + '</td>' +
         '</tr>' +
      '</table>';  

@@ -38,14 +38,14 @@
     <thead>
         <tr>
             <th></th>
-            <th>Organisateur</th>
-            <th>Titre</th>
+            <th>Nom de l'événement</th>
             <th>Spécialité</th>
+            <th>Date de l'événement</th>
+            <th>Lieu de l'événement</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Date evenement</th>
         </tr>
     </thead>
     <tbody id="bodyEvent">
@@ -54,14 +54,14 @@
     <tfoot>
         <tr>
             <th></th>
-            <th>Organisateur</th>
-            <th>Titre</th>
+            <th>Nom de l'événement</th>
             <th>Spécialité</th>
+            <th>Date de l'événement</th>
+            <th>Lieu de l'événement</th>
             <th>Adresse</th>
             <th>Code postal</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Date evenement</th>
         </tr>
     </tfoot>
 </table>
