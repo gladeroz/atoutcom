@@ -124,7 +124,9 @@ function user_events() {
             $data["telephone"] = $dataUsr["Telephone Professionnel"];
             $data["payment_status"] = $dataUsr["payment_status"];
             $data["transaction_id"] = $dataUsr["transaction_id"];
+            $data["payment_mode"] = $dataUsr["paiement"];
             $data["status"] = events::getUsersEventsStatus($data["form_id"],  $data["email"]);
+            $data["payment_date"] = events::getUsersEventsDatePayment($data["form_id"],  $data["email"]);
             $datas[]=$data;
         }
         
@@ -144,6 +146,7 @@ function updateUserStatus() {
     $userEmail = $_POST["userId"];
     $categorie = atoutcomUser::getCategorie($userEmail);
     $statut = $_POST["dataStatus"];
+    $date_paiement = $_POST["date_paiement"];
     $form_id = $_POST["formId"];
     $transactionID = $_POST["transactionID"];
     $participation = (int)$_POST["participation"];
@@ -159,8 +162,10 @@ function updateUserStatus() {
                 'email'  => $userEmail,
                 'id_event' => $form_id,
                 'status'  => $statut,
+                'date_paiement' => $date_paiement,
             ), 
             array( 
+                '%s',
                 '%s',
                 '%s',
                 '%s',
@@ -171,6 +176,7 @@ function updateUserStatus() {
 	        $wpdb->base_prefix."atoutcom_users_events_status",
 	        array( 
 	            'status'  => $statut,
+	            'date_paiement' => $date_paiement,
 	        ), 
 	        array(
 	            'id_event' => $form_id,

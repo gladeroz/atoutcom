@@ -1,6 +1,6 @@
 <?php 
     global $wpdb;
-    
+    var_dump(events::getUsersEventsDatePayment(4, 'harouguindja@gmail.com'));die();
     /*$alter = $wpdb->get_var( "ALTER TABLE ".$wpdb->base_prefix."atoutcom_users_events_facture MODIFY COLUMN montantTVA decimal(10,2)", ARRAY_A);*/
     $wpdb->prefix = 'atoa_105_';
 	//$forms = GFAPI::get_forms(4);

@@ -190,7 +190,8 @@ class AtoutcomUsersLoader extends MvcPluginLoader
                 PRIMARY KEY (id),
                 email VARCHAR(320) NOT NULL,
                 id_event int(11) NOT NULL,
-                status VARCHAR(50) NOT NULL
+                status VARCHAR(50) NOT NULL,
+                date_paiement CHAR (20)
                 
         )';
 

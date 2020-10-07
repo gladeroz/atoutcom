@@ -1074,7 +1074,7 @@ function exportExcel() {
     // Distinguer les listes classiques des exports facture
     if($type==="Liste_Participant"){
         $from = "A1";
-        $to = "L1";
+        $to = "N1";
         $dataExport = $identifiants;
         $tabEnteteOrdonnee[] = $colonneVisible;
         for($i=0; $i < sizeof($dataExport); $i++ ){

@@ -217,8 +217,8 @@ jQuery( document ).ready(function() {
             		var entry_id = data_ret[i]['entry_id'];
             		var form_id = data_ret[i]['form_id'];
             		var status = (data_ret[i]['status'] ===null) ? "" : data_ret[i]['status'];
-            		var modeReglement = ""; //todo
-            		var datePaiement = ""; //todo
+            		var modeReglement = (data_ret[i]['payment_mode'] ===null) ? "" : data_ret[i]['payment_mode']; //todo
+            		var datePaiement = (data_ret[i]['payment_date'] ===null) ? "" : data_ret[i]['payment_date']; //todo
 
             		var data =
 
@@ -1024,18 +1024,24 @@ function user_event_format(d){
 			        '</select>'+
 			        
 			    '</div>'+
-			    
-			    '<div class="col-sm-6" style="margin-top:5px; display :'+optionDisable+'">'+
-			        '<input type="number" class="form-control" placeholder="montant reçu" id="montantRecu">'+
-			    '</div>'+
 
-			    '<br><div class="col-sm-6">'+
+			    '<div class="col-sm-6">'+
 			        '<select class="form-control langue">'+
 			            '<option value="" selected>Langue</option>'+
 			            '<option value="fr">Français</option>'+
 			            '<option value="en">Anglais</option>'+
 			        '</select>'+
 			    '</div>'+
+			    
+			    '<div class="col-sm-6" style="margin-top:5px;">'+
+			        '<input type="number" class="form-control" placeholder="montant reçu" id="montantRecu" style="width:250px; font-size: inherit;">'+
+			    '</div>'+
+
+			    '<div class="col-sm-6" style="margin-top:5px;">'+
+			        '<input type="date" class="form-control" placeholder="Date" id="date_paiement" style="width:250px; font-size: inherit;">'+
+			    '</div>'+
+
+			    
 
 			    '<div class="col-sm-2" style="margin-top:5px;">'+
 			        '<input type="submit" value="Ok" style="cursor:pointer;">'+
@@ -1098,6 +1104,7 @@ function user_event_format(d){
 function changeStatus(){
 	jQuery('#loading').show();
 	var dataStatus = jQuery('.statut').val();
+	var date_paiement = jQuery('.date_paiement').val();
 	var userId = jQuery('.userId').val();
 	var transactionID = jQuery('.transactionID').val();
 	var langue = jQuery('.langue').val();
@@ -1111,6 +1118,7 @@ function changeStatus(){
         data: {
             "action": "updateUserStatus",
             "dataStatus": dataStatus,
+            "date_paiement": date_paiement,
             "userId": userId,
             "formId": formId,
             "transactionID": transactionID,
@@ -1251,7 +1259,7 @@ function exportDataExcel(param, tab, id){
 	// Distinguer les listes classiques des exports facture
 	if(typeFacture ==="Liste_Participant"){
 		var tabId = JSON.parse(tab);
-		var colonneVisible =["Evenement", "Nom", "Prenom", "Email", "Adresse", "Code Postal", "Ville", "Pays", "Téléphone Professionnel", "TransactionID", "Statut Paiement", "Statut"];
+		var colonneVisible =["Evénement", "Nom", "Prénom", "Email", "Adresse", "Code Postal", "Ville", "Pays", "Téléphone Professionnel", "TransactionID", "Statut Paiement", "Etat du règlement", "Mode de règlement", "Date du paiement"];
 	}else{
 		var idChecked = jQuery('.checkForExport:checked');
 		var colonneVisible = JSON.parse(jQuery('#'+param).val());

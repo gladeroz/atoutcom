@@ -18,4 +18,11 @@
             $dataUsersEventsStatus = $wpdb->get_var( "SELECT status FROM ".$wpdb->base_prefix."atoutcom_users_events_status WHERE id_event=".$formid." AND email='".$email."' ");
             return $dataUsersEventsStatus;
 	    }
+
+	    // Récuperer la date de paiement saisie manuellement lors du changement d'état de reglement d'un participant
+	    public function getUsersEventsDatePayment($formid, $email){
+	    	global $wpdb;
+            $dataUsersEventsDatePayment = $wpdb->get_var( "SELECT date_paiement FROM ".$wpdb->base_prefix."atoutcom_users_events_status WHERE id_event=".$formid." AND email='".$email."' ");
+            return $dataUsersEventsDatePayment;
+	    }
 	}
