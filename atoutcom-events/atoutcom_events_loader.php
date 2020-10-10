@@ -26,7 +26,10 @@ class AtoutcomEventsLoader extends MvcPluginLoader
     public function init()
     {
 		global $wpdb;
-		$this -> tables = ['events_intervenants' => $wpdb->prefix.'atoutcom_events_intervenants'];
+		$this -> tables = [
+            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
+            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'
+        ];
     }
 
     public function activate($network_wide = false)
@@ -136,25 +139,46 @@ class AtoutcomEventsLoader extends MvcPluginLoader
     {
         global $wpdb;
 
-        /* http://wiip.fr/content/choisir-le-type-de-colonne-de-ses-tables-mysql */
         $sql = '
-            CREATE TABLE IF NOT EXISTS '.$this->tables['events_intervenants'].'(
+        CREATE TABLE IF NOT EXISTS '.$this->tables['users_events_status'].'(
             id int(11) NOT NULL auto_increment,
             PRIMARY KEY (id),
-            evenement VARCHAR(255),
-            date_evenement VARCHAR(20),
-            nom VARCHAR(50),
-            prenom VARCHAR(50),
-            email VARCHAR(50),
-            telephone VARCHAR(20),
-            adresse VARCHAR(50),
-            code_postal VARCHAR(50),
-            ville VARCHAR(100),
-            pays VARCHAR(50)       
+            email VARCHAR(320) NOT NULL,
+            id_event int(11) NOT NULL,
+            status VARCHAR(50) NOT NULL,
+            date_paiement DATE  
         )';
 
         dbDelta($sql);
 
+        $sql = '
+        CREATE TABLE IF NOT EXISTS '.$this->tables['users_events_facture'].'(
+            id int(11) NOT NULL auto_increment,
+            PRIMARY KEY (id),
+            periode CHAR(50),
+            numero CHAR(50),
+            date_facture CHAR(20),
+            destinataire CHAR(100),
+            intitule CHAR(250),
+            specialite CHAR(20),
+            annee CHAR(10),
+            montantHT DECIMAL(10,2),
+            aka_tauxTVA DECIMAL(10,2),
+            montantTVA DECIMAL(10,2),
+            montantTTC DECIMAL(10,2),
+            montantNET DECIMAL(10,2),
+            total DECIMAL(10,2),
+            accompte DECIMAL(10,2),
+            restedu DECIMAL(10,2),
+            paye DECIMAL(10,2),
+            encaisse DECIMAL(10,2),
+            date_reglement CHAR(20),
+            commentaire CHAR(250),
+            concerne CHAR(50)
+                
+        )';
+
+        dbDelta($sql);
     }
 
     /**
@@ -172,45 +196,6 @@ class AtoutcomEventsLoader extends MvcPluginLoader
         foreach ($this->tables as $tablename) {
             $sql = 'DROP TABLE IF EXISTS ' . $tablename;
            $wpdb->query($sql);
-        }
-    }
-    /**
-     * insert_example_data()
-     *
-     * Insert some dummy data
-     *
-     * @return void
-     */
-    private function insert_example_data()
-    {
-        
-        // Only insert the example data if no data already exists
-        $sql = '
-          SELECT
-              id
-          FROM
-              ' . $this->tables['events'] . '
-          LIMIT
-              1';
-        $data_exists = $this->wpdb->get_var($sql);
-        if ($data_exists) {
-            return false;
-        }
-
-        // Insert example data
-
-        $events = [
-          [
-              'titre' => 'events1',
-              'organisateur' => 'org1',
-          ],
-          [
-              'titre' => 'event2',
-              'organisateur' => 'org2',
-          ]
-      ];
-        foreach ($events as $row) {
-            $this->wpdb->insert($this->tables['events'], $row);
         }
     }
 }

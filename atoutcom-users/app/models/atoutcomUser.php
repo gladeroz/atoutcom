@@ -47,7 +47,7 @@
         public function getAllUsers()
         {
         	global $wpdb;
-        	$dataUser = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users", ARRAY_A);
+        	$dataUser = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users WHERE categorie IN('Participant', 'Intervenant')", ARRAY_A);
         	return $dataUser;
         }
 	    public function dataUserFile($email, $type)
@@ -80,11 +80,11 @@
 	    }
         
         // Selectionner tous les évenements  
-	    public function getUsersEvents(){
+	    /*public function getUsersEvents(){
 	    	global $wpdb;
             $dataUsersEvents = $wpdb->get_results( "SELECT meta_value FROM ".$wpdb->prefix."gf_entry_meta WHERE form_id IN (2, 12, 13)", ARRAY_A);
             return $dataUsersEvents;
-	    }
+	    }*/
 
 	    // Selectionner toutes les factures
 	    public function getUsersEventsFacture($parametre){
@@ -111,9 +111,9 @@
 	    }
 
 	    // Chercher l'intervenant avec l'evenement
-	    public function checkEventIntervenant($event, $email){
+	    public function checkExistIntervenant($event, $email, $categorie){
 	    	global $wpdb;
-            $dataCheck = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_events_intervenants WHERE email='".$email."' AND evenement='".$event."' ", ARRAY_A);
+            $dataCheck = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_users WHERE email='".$email."' AND evenement='".$event."' AND categorie='".$categorie."' ", ARRAY_A);
             return $dataCheck;
 	    }
 
@@ -121,7 +121,7 @@
 	    public function getAllIntervenants(){
 	    	global $wpdb;
 
-            $dataGetIntervenants = $wpdb->get_results( "SELECT * FROM ".$wpdb->base_prefix."atoutcom_events_intervenants", ARRAY_A);
+            $dataGetIntervenants = $wpdb->get_results( "SELECT nom, prenom, email, telephone_professionnel, adresse, codepostal, ville, pays, evenement, DATE_FORMAT(date_evenement, '%d/%m/%Y') AS date_evenement FROM ".$wpdb->base_prefix."atoutcom_users WHERE categorie = 'Intervenant'", ARRAY_A);
 
             return $dataGetIntervenants;
 	    }

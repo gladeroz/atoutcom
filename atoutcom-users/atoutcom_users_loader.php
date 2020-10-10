@@ -26,10 +26,10 @@ class AtoutcomUsersLoader extends MvcPluginLoader
     public function init()
     {
 		global $wpdb;
-		$this -> tables = ['users' => $wpdb->base_prefix .'atoutcom_users',
+		$this -> tables = [
+			'users' => $wpdb->base_prefix .'atoutcom_users',
             'users_file' => $wpdb->base_prefix .'atoutcom_users_file',
-            'users_events_status' => $wpdb->base_prefix .'atoutcom_users_events_status',
-            'users_events_facture' => $wpdb->base_prefix .'atoutcom_users_events_facture'];
+        ];
     }
 
     public function activate($network_wide = false)
@@ -155,6 +155,8 @@ class AtoutcomUsersLoader extends MvcPluginLoader
                 telephone_professionnel CHAR(20),
                 dateinscription CHAR(20) NOT NULL,
                 statut VARCHAR(15),
+                evenement VARCHAR(255),
+                date_evenement DATE,
                 specialite VARCHAR(100),
                 categorie VARCHAR(20),
                 isUpdate VARCHAR(10),
@@ -163,7 +165,8 @@ class AtoutcomUsersLoader extends MvcPluginLoader
                 adresse_facturation CHAR(255),
                 ville_facturation CHAR(60),
                 codepostal_facturation CHAR(10),
-                pays_facturation CHAR(50)
+                pays_facturation CHAR(50),
+                contacts TEXT
                 
 
         )';
@@ -179,48 +182,6 @@ class AtoutcomUsersLoader extends MvcPluginLoader
                 chemin VARCHAR(500) NOT NULL,
                 date_enregistrement VARCHAR(500) NOT NULL,
                 type_doc VARCHAR(100) NOT NULL
-                
-        )';
-
-        dbDelta($sql);
-
-        $sql = '
-            CREATE TABLE IF NOT EXISTS '.$this->tables['users_events_status'].'(
-                id int(11) NOT NULL auto_increment,
-                PRIMARY KEY (id),
-                email VARCHAR(320) NOT NULL,
-                id_event int(11) NOT NULL,
-                status VARCHAR(50) NOT NULL,
-                date_paiement CHAR (20)
-                
-        )';
-
-        dbDelta($sql);
-
-        $sql = '
-        CREATE TABLE IF NOT EXISTS '.$this->tables['users_events_facture'].'(
-            id int(11) NOT NULL auto_increment,
-            PRIMARY KEY (id),
-            periode CHAR(50),
-            numero CHAR(50),
-            date_facture CHAR(20),
-            destinataire CHAR(100),
-            intitule CHAR(250),
-            specialite CHAR(20),
-            annee CHAR(10),
-            montantHT DECIMAL(10,2),
-            aka_tauxTVA DECIMAL(10,2),
-            montantTVA DECIMAL(10,2),
-            montantTTC DECIMAL(10,2),
-            montantNET DECIMAL(10,2),
-            total DECIMAL(10,2),
-            accompte DECIMAL(10,2),
-            restedu DECIMAL(10,2),
-            paye DECIMAL(10,2),
-            encaisse DECIMAL(10,2),
-            date_reglement CHAR(20),
-            commentaire CHAR(250),
-            concerne CHAR(50)
                 
         )';
 

@@ -126,7 +126,8 @@ function user_events() {
             $data["transaction_id"] = $dataUsr["transaction_id"];
             $data["payment_mode"] = $dataUsr["paiement"];
             $data["status"] = events::getUsersEventsStatus($data["form_id"],  $data["email"]);
-            $data["payment_date"] = events::getUsersEventsDatePayment($data["form_id"],  $data["email"]);
+            $date = new DateTime(events::getUsersEventsDatePayment($data["form_id"],  $data["email"]));
+            $data["payment_date"] = $date->format('d/m/Y');
             $datas[]=$data;
         }
         
@@ -146,7 +147,7 @@ function updateUserStatus() {
     $userEmail = $_POST["userId"];
     $categorie = atoutcomUser::getCategorie($userEmail);
     $statut = $_POST["dataStatus"];
-    $date_paiement = $_POST["date_paiement"];
+    $date_paiement = date('Y-m-d', strtotime(str_replace('-', '/', esc_sql($_POST["date_paiement"]))));
     $form_id = $_POST["formId"];
     $transactionID = $_POST["transactionID"];
     $participation = (int)$_POST["participation"];

@@ -172,6 +172,15 @@ function login() {
 add_action( 'wp_ajax_login', 'login' );
 add_action( 'wp_ajax_nopriv_login', 'login' );
 
+// Random password for intervenant
+function randomPassword() 
+{ 
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%*_-=+?"; 
+    $length = rand(8, 12); 
+    $password = substr( str_shuffle(sha1(rand() . time()) . $chars ), 0, $length );
+    return $password;
+}
+
 // Mise à jour des données utilisateur
 function updateUserInfo() {
     session_start();
@@ -561,27 +570,40 @@ function createIntervenant() {
     global $wpdb;
     $data = array();
     $params = array();
+
+    $password = randomPassword();
+    $passwordEncrypt = password_hash($password, PASSWORD_DEFAULT);
     parse_str($_POST['data'], $params);
+    
+    $date = explode('/', $params["dateEvenement"]);
+    $date = $date[2].'-'.$date[1].'-'.$date[0];
+    $date = new DateTime($date);
+    $date_evenement = $date->format('Y-m-d');
     $evenement = substr($params["evenement"], 0, strpos($params["evenement"],","));
+    $categorie = 'Intervenant';
 
     // Vérifier si l'intervenant existe avec la même conférence
-    $checkEventIntervenant = atoutcomUser::checkEventIntervenant($params["evenement"], $params["email"]);
-    if( sizeof($checkEventIntervenant)===1 ){
+    $checkEventIntervenant = atoutcomUser::checkExistIntervenant($params["evenement"], $params["email"], $categorie);
+    if(sizeof($checkEventIntervenant) === 1){
         wp_die(json_encode("exist"));
     }else{
         $insertDataIntervenant =  $wpdb->insert( 
-            $wpdb->base_prefix."atoutcom_events_intervenants",
+            $wpdb->base_prefix."atoutcom_users",
             array( 
-                'evenement'  => $evenement,
-                'date_evenement' => $params["dateEvenement"],
-                'nom' => $params["nom"],
-                'prenom' => $params["prenom"],
-                'email' => $params["email"],
-                'telephone' => $params["telephone"],
-                'adresse' => $params["adresse"],
-                'code_postal' => $params["codePostal"],
-                'ville' => $params["ville"],
-                'pays' => $params["pays"],
+                'nom'                     => $params["nom"],
+                'prenom'                  => $params["prenom"],
+                'email'                   => $params["email"],
+                'password'                => $passwordEncrypt,
+                'adresse'                 => $params["adresse"],
+                'codepostal'              => $params["codePostal"],
+                'ville'                   => $params["ville"],
+                'pays'                    => $params["pays"],
+                'telephone_professionnel' => $params["telephone"],
+                'dateinscription'         => date("d/m/Y"),
+                'evenement'               => $evenement,
+                'date_evenement'          => $date_evenement,
+                'categorie'               => $categorie,
+                'categorie'               => 'yes',
             ), 
             array( 
                 '%s',
@@ -593,12 +615,16 @@ function createIntervenant() {
                 '%s',
                 '%s',
                 '%s',
-                '%s',        
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',            
             ) 
         );
-        
+
         if($insertDataIntervenant != false){
-            wp_die(json_encode("success"));
+            wp_die(json_encode("success".$password));
         }else{
             wp_die(json_encode("errorDB"));
         }

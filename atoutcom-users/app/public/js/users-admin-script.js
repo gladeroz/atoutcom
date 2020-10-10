@@ -714,17 +714,16 @@ jQuery( document ).ready(function() {
 		    	jQuery( "#enregistrerIntervenant" ).attr("disabled", false);
 		    	jQuery( "#enregistrerIntervenant" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
 		    	
-                if(response==="success"){
-                    jQuery(".success").html("Intervenant créé avec succès").show().delay(8000).fadeOut();
-                    setTimeout(document.location.reload(),5000);
-
+                if(response.substring(0, 7) === "success"){
+                    jQuery(".success").html("Intervenant créé avec succès. Mot de passe : " + response.substring(7)).show();
+                    //setTimeout(document.location.reload(),5000);
                 }
 
-                if(response==="errorDB"){
+                if(response === "errorDB"){
                     jQuery(".erreur").html("Erreur lors de la création de l'intervenant.").show().delay(8000).fadeOut();
                 }
 
-                if(response==="exist"){
+                if(response === "exist"){
                     jQuery(".erreur").html("L'intervenant a déjà été créé.").show().delay(8000).fadeOut();
                 }
 		    }
@@ -753,9 +752,9 @@ jQuery( document ).ready(function() {
 					+   "<td>"+fromIntervenant[i]['nom']+"</td>"
 					+   "<td>"+fromIntervenant[i]['prenom']+"</td>"
 					+   "<td>"+fromIntervenant[i]['email']+"</td>"
-					+   "<td>"+fromIntervenant[i]['telephone']+"</td>"
+					+   "<td>"+fromIntervenant[i]['telephone_professionnel']+"</td>"
 					+   "<td>"+fromIntervenant[i]['adresse']+"</td>"
-					+   "<td>"+fromIntervenant[i]['code_postal']+"</td>"
+					+   "<td>"+fromIntervenant[i]['codepostal']+"</td>"
 					+   "<td>"+fromIntervenant[i]['ville']+"</td>"
 					+   "<td>"+fromIntervenant[i]['pays']+"</td>"
 					+"</tr>";
@@ -1104,7 +1103,7 @@ function user_event_format(d){
 function changeStatus(){
 	jQuery('#loading').show();
 	var dataStatus = jQuery('.statut').val();
-	var date_paiement = jQuery('.date_paiement').val();
+	var date_paiement = jQuery('#date_paiement').val();
 	var userId = jQuery('.userId').val();
 	var transactionID = jQuery('.transactionID').val();
 	var langue = jQuery('.langue').val();

@@ -129,7 +129,7 @@
     </button>
 
     <button type="button" id="bonDeCommande" class="btn btn-outline-success btn" data-toggle="modal" data-target="#modalBonDeCommande">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une facture à partir bon de commande
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une facture à partir d'un bon de commande
     </button>
     
 </div>

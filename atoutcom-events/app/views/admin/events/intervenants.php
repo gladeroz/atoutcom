@@ -123,12 +123,12 @@
 
                 <div class="col-sm-3 alignement">
                     <label for="email" class="col-form-label-lg labelIntervenant">E-mail</label>
-                    <input type="text" name="email" class="form-control form-control-lg inputIntervenant" placeholder="E-mail" required>
+                    <input type="email" name="email" class="form-control form-control-lg inputIntervenant" placeholder="E-mail" required>
                 </div>
 
                 <div class="col-sm-3 alignement">
                     <label for="telephone" class="col-form-label-lg labelIntervenant">Téléphone</label>
-                    <input type="text" name="telephone" class="form-control form-control-lg inputIntervenant"  placeholder="Téléphone" required>
+                    <input type="number" name="telephone" class="form-control form-control-lg inputIntervenant"  placeholder="Téléphone" required>
                 </div>
 
                 <div class="col-sm-3 alignement">
@@ -138,7 +138,7 @@
 
                 <div class="col-sm-3 alignement">
                     <label for="codePostal" class="col-form-label-lg labelIntervenant">Code Postal</label>
-                    <input type="text" name="codePostal" class="form-control form-control-lg inputIntervenant" placeholder="Code Postal">
+                    <input type="number" name="codePostal" class="form-control form-control-lg inputIntervenant" placeholder="Code Postal">
                 </div>
                 
                 <div class="col-sm-3 alignement">
