@@ -226,6 +226,16 @@
                             </select>
                             <input type="hidden" name="specialiteEvent" id="specialiteEvent">
                         </div>
+
+                        <div class="col-sm-4">
+                            <label for="modePaiement" class="col-form-label">Mode de paiement</label>
+                            <select name="modePaiement" id="modePaiement" class="form-control sizeBC" required style="max-width: none!important; height: 37px;">
+                                <option value="">Choisir un mode</option>
+                                <option value="Carte Bancaire">Carte Bancaire</option>
+                                <option value="Chèque">Chèque</option>      
+                                <option value="Virement Bancaire">Virement Bancaire</option>
+                            </select>
+                        </div>
                         
                         <div class="col-sm-4">
                             <label class="col-form-label">Adresse</label>
@@ -237,12 +247,12 @@
                             <input type="text" name="codepostalEvent" class="form-control sizeBC" id="codepostalEvent" readonly="">
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <label for="villeEvent" class="col-form-label">Ville</label>
                             <input type="text" name="villeEvent" class="form-control sizeBC" id="villeEvent" readonly="">
                         </div>
                         
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <label for="paysEvent" class="col-form-label">Pays</label>
                             <input type="text" name="paysEvent" class="form-control sizeBC" id="paysEvent" readonly="">
                         </div>
@@ -257,7 +267,7 @@
                             <input type="text" name="dateFin" class="form-control sizeBC" id="dateFin" readonly="">
                         </div>
 
-                        <div class="col-sm-3">
+                        <!--<div class="col-sm-3">
                             <label for="contactNom" class="col-form-label">Personne à contacter</label>
                             <input type="text" name="contactNom" class="form-control sizeBC" id="contactNom" readonly="">
                         </div>
@@ -265,7 +275,7 @@
                         <div class="col-sm-3">
                             <label for="contactAdresse" class="col-form-label">Adresse Contact</label>
                             <input type="text" name="contactAdresse" class="form-control sizeBC" id="contactAdresse" readonly="">
-                        </div>
+                        </div>-->
 
                     </div>
                     <div class="row">

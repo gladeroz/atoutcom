@@ -118,17 +118,23 @@ try {
 	$dateFacture = date('d/m/Y');    
 	$datePaiement = $dateFacture;
 	
-	$nom = $params["Nom"];
-	$prenom = $params["Prenom"];
+	// $nom = $params["Nom"];
+	// $prenom = $params["Prenom"];
+	$participant = $params["Nom"]." ".$params["Prenom"];
+	$adresseParticiant = $params["Adresse"];
+	$codePostalParticipant = $params["Code postal"];
+	$villeParticipant = $params["Ville"];
+	$paysParticipant = $userInfo->pays;
+	$emailParticipant = $params["Email Professionnel"];
 	
 	//participant & adresse facturation
 	if($userInfo->organisme_facturation === "" || $userInfo->organisme_facturation == NULL){
         $email = $params["Email Professionnel"];
-		$destinataire = $nom." ".$prenom;
-		$adresseFacturation = $params["Adresse"];
-		$codepostalFacturation = $params["Code postal"];
-		$villeFacturation = $params["Ville"];
-		$paysFacturation =  $userInfo->pays;
+		$destinataire = $participant;
+		$adresseFacturation = $adresseParticiant;
+		$codepostalFacturation = $codePostalParticipant;
+		$villeFacturation = $villeParticipant;
+		$paysFacturation =  $paysParticipant;
 		$codepostalVille = $codepostalFacturation.", ".$villeFacturation.", ".$paysFacturation;
 	}else{
         $email = $userInfo->email_facturation;
@@ -146,9 +152,9 @@ try {
 	$contact_nom = $params["Contact Nom"];
 
 	$participation = number_format($_POST["vads_amount"]/100, 2);
-	$montantHT = number_format($participation*0.9, 2);
 	$aka_tauxTVA = "10%";
 	$montantTVA = number_format($participation*0.1, 2);
+	$montantHT = number_format($participation-$montantTVA, 2);
 	$montantTTC = number_format($participation, 2);
 	$montantNET = number_format($participation, 2);
 	$total = number_format($participation, 2);
@@ -158,7 +164,8 @@ try {
 	$encaisse = $participation;
 	$quantite = "1";
 	$commentaire = "";
-	$concerne = "participant";
+	$concerne = "Participant";
+	$modePaiement = $params["paiement"];
 	
 	// On insère les donnée de la facture dans la table 
 	$insertDataFacture =  $wpdb->insert( 
@@ -182,29 +189,32 @@ try {
 			'paye' => $paye,
 			'encaisse' => $encaisse,
 			'date_reglement' => $dateFacture,
+			'modePaiement' = $modePaiement,
 			'commentaire' => $commentaire,
 			'concerne' => $concerne,
 		), 
 		array( 
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%s',
-			'%d',
-			'%f',
-			'%f',
-			'%f',
-			'%f',
-			'%f',
-			'%f',
-			'%f',
-			'%f',
-			'%s',
-			'%s',
-			'%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%d',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
 		) 
 	);
 
@@ -229,15 +239,12 @@ try {
 				<div class="factureEntete">
 					<div class="adresse">
 						<div class="adresseAtoutcom">
-							<span class="adresseGras">Agence ATouT.Com</span><br>
-							<span class="">Le Tertia 1</span><br>
-							<span class="">5, Rue Charles Duchesne</span><br>
-							<span class="">13290 Aix en Provence</span><br>
-							<span class="adresseGras">Personne à contacter:</span><br>
-							<span class="">'.$contact_nom.'</span><br>
-							<span class="">'.$contact_adresse.'</span><br>
-							<span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
-						</div>
+	                        <span class="adresseGras">'.$participant.'</span><br>
+	                        <span>'.$adresseParticiant.'</span><br>
+	                        <span>'.$codepostalVille.'</span><br>
+	                        <span class="adresseGras">'.$emailParticipant.'</span>
+	                        <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+	                    </div>
 						
 						<div class="adresseFacturation">
 							<span class="adresseSouligneTitre">Adresse de Facturation</span>
@@ -249,6 +256,10 @@ try {
 							<span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
 						</div>
 					</div>
+
+					<div class = "logo_facture_acq">
+	                    <img src="'.ABSPATH.'wp-content/plugins/atoutcom-users/app/public/images/facture_acq.png">
+	                </div>
 
 					<div class="factureDetail">
 						<span class="adresseGras factNum">FACTURE N° : </span>
@@ -279,9 +290,9 @@ try {
 								<span class="adresseGras">/</span>
 							</td>
 							<td class="withBorder" width="100%" style="border-right: none;">
-							    <span>'.$nom.' '.$prenom.'</span><br>
 								<span class="adresseGras titreCongres">'.$intitule.'</span><br>
-								<span class="adresseGras dateAdresseCongres">'.$dateEvenement.' '.$adresseEvt.' à '.$villeEvt.'</span><br>
+								<span class="adresseGras dateAdresseCongres">'.$dateEvenement.'<br>'.$villeEvt.'</span><br>
+								<span>'.$nom.' '.$prenom.'</span>
 							</td>
 							<td class="withBorder" style="border-right: none;">
 								<span class="adresseGras quantite">'.$quantite.'</span>
@@ -312,7 +323,13 @@ try {
 								<br><br>
 
 								<span class="adresseGras">Mode de règlement : </span>
-								<span class="adresseGras">Chèque Ou Virement Bancaire</span>
+								';
+	                            if($modePaiement == ""){
+	                                $html .= '<span class="adresseGras">Chèque ou Virement Bancaire</span>';
+	                            }else{
+	                                $html .= '<span class="adresseGras">'.$modePaiement.'</span>';
+	                            }
+	                            $html .= '
 								<br><br>
 
 								<span class="adresseGras">Modalités :</span>
@@ -374,7 +391,19 @@ try {
 			}else{
 				$attachments = array( $fichierPDF );
 				$subject = 'Facture';
-				$body = 'Nous vous remercions pour votre participation.<br>Vous trouverez ci-joint la facture associée à votre paiement.';
+				$body = '
+		        <p>Chère Madame, Cher Monsieur,</p>
+
+		        Vous trouverez ci-joint la facture acquittée pour votre inscription.<br><br>
+
+		        Nous restons à votre disposition pour toute information complémentaire,<br><br>
+
+		        Bien à vous,<br>
+		        Agence ATouT.Com<br>
+		        Tel : 04 42 54 42 60<br>
+		        www.atoutcom.com<br><br>
+		        <img src="https://atoutcom.com/wp-content/plugins/atoutcom-users/app/public/images/logoAtoutcom.png">
+		        ';
 				$headers = array('Content-Type: text/html; charset=UTF-8');
 				if(wp_mail( $email, $subject, $body, $headers, $attachments )){
 					
@@ -432,3 +461,6 @@ try {
 	fwrite($fichierRetour, $error);
 	fclose($fichierRetour);
 }
+
+
+

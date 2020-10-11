@@ -11,9 +11,12 @@ echo '<br/><br/><br/>';
 
 global $wpdb;
 
-define("IDBOUTIQUE", "XXXX"); //Identifiant de la boutique
-define("IDCERTIFICAT", "XXXX"); //Certificat de test ou de production
+define("IDBOUTIQUE", "39471254");
+define("IDCERTIIFICAT", "4065093722917442");
 define("MODEBOUTIQUE", "TEST"); //VALEUR TEST OU PRODUCTION
+
+//CERTIFICAT DE TEST : 2917009021404670
+//CERTIFICAT DE PRODUCTION : 6052760238278563
 
 $form_id = sanitize_text_field($_GET['form_id']);
 $entry_id = sanitize_text_field($_GET['entry_id']);
@@ -32,14 +35,22 @@ function generateRandomString($length = 6) {
 
 $transaction_id = generateRandomString();
 
+//require_once($_SERVER['DOCUMENT_ROOT'].'/wp-blog-header.php');
+//include $_SERVER['DOCUMENT_ROOT']."/wp-content/themes/".$theme."/header.php";
+ 
+//Modification de la table en 2018 car rg_lead_detail ne renvoie plus rien
+//$sql = "SELECT value FROM 39d7a6pc_rg_lead_detail WHERE form_id=".$form_id." AND lead_id=".$entry_id." AND field_number=".$field_id;
+
 $sql = "SELECT meta_value FROM " . $prefix . "gf_entry_meta WHERE form_id=".$form_id." AND entry_id=".$entry_id." AND meta_key = '".$field_id."'";
 $inscr = $wpdb->get_var( $sql );
 $total = number_format($inscr,2);
 $total = $total * 100;
 
+
 $trans_date = date('YmdHis');
 
-$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIFICAT));
+
+$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIIFICAT));
 
 $signature = hash('sha1', $concat, false);
 

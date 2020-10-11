@@ -553,6 +553,15 @@ function getFacture() {
             $data["date_reglement"] = $value["date_reglement"];
             $data["commentaire"] = $value["commentaire"];
             $data["concerne"] = $value["concerne"];
+            //contacts
+            /*$contacts = "";
+            $contacts_tab = unserialize($value["concerne"]);
+            if(sizeof($contacts_tab) > 0){
+                foreach ($contacts_tab as $val) {
+                    # code...
+                }
+            }
+            $data["contacts"] = $contacts;*/
             $datas[]=$data;
         }
         echo wp_json_encode($datas);
@@ -661,6 +670,19 @@ function createSponsor() {
     $data = array();
     $params = array();
     parse_str($_POST['data'], $params);
+    // Json contacts
+    $contacts = array();
+    $contact_size = (int)$params["contact_id"];
+    for($i = 0; $i <= $contact_size; $i++){
+        $contact_nom = $params['contact_nom_'.$i];
+        $contact_prenom = $params['contact_prenom_'.$i];
+        $contact_email = $params['contact_email_'.$i];
+        $contact_telephone = $params['contact_telephone_'.$i];
+
+        $contact = '{"nom":'.$contact_nom.', "prenom": "'.$contact_prenom.'", "email": "'.$contact_email.'", "telephone": "'.$contact_telephone.'"}';
+        $contacts[$i] = $contact;
+    }
+    //var_dump(serialize($contacts)); die();
     $maxID = atoutcomUser::getMaxIdFacture();
     if($maxID === NULL || $maxID === ""){
         $maxID = 0;
@@ -677,6 +699,7 @@ function createSponsor() {
 
     $intitule = substr($params["evenement"], 0, strpos($params["evenement"],","));
     $specialite = $params["specialite"];
+    $modePaiement = "";
     
     //Date de l'evenement en fonction de la langue
     if($langue==="fr"){
@@ -731,8 +754,6 @@ function createSponsor() {
     $codepostalEvenement = $params["codepostalEvent"];
     $villeEvenement = $params["villeEvent"];
     $paysEvenement = $params["paysEvent"];
-    $contact_nom = $params["contactNom"];
-    $contact_adresse = $params["contactAdresse"];
     $descriptionDetail = $params["detailDesc"];
 
     
@@ -757,7 +778,7 @@ function createSponsor() {
     $encaisse = $participation;
     $date_reglement = $datePaiement;
     $commentaire = "";
-    $concerne = "sponsor";
+    $concerne = "Sponsor";
     $emailContact = $params["emailContact"];
     $numBonDeCommande = "/";
     $facture_acq = "";
@@ -783,8 +804,10 @@ function createSponsor() {
             'paye' => $paye,
             'encaisse' => $encaisse,
             'date_reglement' => $date_reglement,
+            'mode_paiement' => $modePaiement,
             'commentaire' => $commentaire,
             'concerne' => $concerne,
+            'contacts' => serialize($contacts),
 
         ), 
         array( 
@@ -805,6 +828,8 @@ function createSponsor() {
             '%d',
             '%d',
             '%d',
+            '%s',
+            '%s',
             '%s',
             '%s',
             '%s',
@@ -829,17 +854,16 @@ function createSponsor() {
             $montantTTC,
             $datePaiement,
             $emailContact,
-            $contact_nom,
-            $contact_adresse,
             $aka_tauxTVA,
             $numBonDeCommande,
-            $facture_acq
-            // $participant,
-            // $adresseParticiant,
-            // $codePostalParticipant,
-            // $villeParticipant,
-            // $paysParticipant,
-            // $emailParticipant
+            $facture_acq,
+            $destinataire,
+            $adresseFacturation,
+            $codepostalFacturation,
+            $villeFacturation,
+            $paysFacturation,
+            $emailContact,
+            $modePaiement
         );
         
         wp_die(json_encode($retour));
@@ -946,8 +970,8 @@ function createFactureViaBC() {
         $codepostalEvenement = $params["codepostalEvent"];
         $villeEvenement = $params["villeEvent"];
         $paysEvenement = $params["paysEvent"];
-        $contact_nom = $params["contactNom"];
-        $contact_adresse = $params["contactAdresse"];
+        //$contact_nom = $params["contactNom"];
+        //$contact_adresse = $params["contactAdresse"];
         $descriptionDetail = $params["detailDesc"];
  
         $jourEvenement = substr($params["dateDebut"], 0, 2);
@@ -974,6 +998,7 @@ function createFactureViaBC() {
         $concerne = "participant BC N° : ".$numBonDeCommande;
         $emailContact = $params["email"];
         $facture_acq = 'acquittée';
+        $modePaiement = $params["modePaiement"];
 
         // On insère la donnée dans la facture 
         $insertDataFacture =  $wpdb->insert( 
@@ -997,6 +1022,7 @@ function createFactureViaBC() {
                 'paye' => $paye,
                 'encaisse' => $encaisse,
                 'date_reglement' => $date_reglement,
+                'mode_paiement' => $modePaiement,
                 'commentaire' => $commentaire,
                 'concerne' => $concerne,
             ), 
@@ -1021,6 +1047,7 @@ function createFactureViaBC() {
 	            '%s',
 	            '%s',
 	            '%s',
+                '%s',
             ) 
         );
         if($insertDataFacture){
@@ -1041,11 +1068,16 @@ function createFactureViaBC() {
                 $montantTTC,
                 $datePaiement,
                 $emailContact,
-                $contact_nom,
-                $contact_adresse,
                 $aka_tauxTVA,
                 $numBonDeCommande,
-                $facture_acq
+                $facture_acq,
+                $destinataire,
+                $adresseFacturation,
+                $codepostalFacturation,
+                $villeFacturation,
+                $paysFacturation,
+                $emailContact,
+                $modePaiement
             );
             
             wp_die(json_encode($retour));
@@ -1394,17 +1426,16 @@ function genererFacture(
     $montantTTC,
     $datePaiement,
     $emailContact,
-    $contact_nom,
-    $contact_adresse,
     $aka_tauxTVA,
     $numBonDeCommande,
     $facture_acq,
     $participant,
-    $adresseParticiant,
+    $adresseParticipant,
     $codePostalParticipant,
     $villeParticipant,
     $paysParticipant,
-    $emailParticipant
+    $emailParticipant,
+    $modePaiement
 )
 {
     $numFact = str_replace ("/", "_",  $numeroFacture);
@@ -1427,7 +1458,7 @@ function genererFacture(
                 <div class="adresse">
                     <div class="adresseParticipant">
                         <span class="adresseGras">'.$participant.'</span><br>
-                        <span>'.$adresseParticiant.'</span><br>
+                        <span>'.$adresseParticipant.'</span><br>
                         <span>'.$codePostalParticipant.', '.$villeParticipant.', '.$paysParticipant.'</span><br>
                         <span class="adresseGras">'.$emailParticipant.'</span>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
@@ -1522,7 +1553,13 @@ function genererFacture(
                             <br><br>
 
                             <span class="adresseGras">Mode de règlement : </span>
-                            <span class="adresseGras">Chèque Ou Virement Bancaire</span>
+                            ';
+                            if($modePaiement == ""){
+                                $htmlFR .= '<span class="adresseGras">Chèque ou Virement Bancaire</span>';
+                            }else{
+                                $htmlFR .= '<span class="adresseGras">'.$modePaiement.'</span>';
+                            }
+                            $htmlFR .= '
                             <br><br>
 
                             <span class="adresseGras">Modalités :</span>
@@ -1584,7 +1621,7 @@ function genererFacture(
                 <div class="adresse">
                     <div class="adresseParticipant">
                         <span class="adresseGras">'.$participant.'</span><br>
-                        <span>'.$adresseParticiant.'</span><br>
+                        <span>'.$adresseParticipant.'</span><br>
                         <span>'.$codePostalParticipant.', '.$villeParticipant.', '.$paysParticipant.'</span><br>
                         <span class="adresseGras">'.$emailParticipant.'</span>
                         <span class="espace">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
@@ -1679,7 +1716,13 @@ function genererFacture(
                             <br><br>
 
                             <span class="adresseGras">Mode of payment : </span>
-                            <span class="adresseGras">Check Or Bank Transfer</span>
+                            ';
+                            if($modePaiement == ""){
+                                $htmlEN .= '<span class="adresseGras">Check or Bank Transfer</span>';
+                            }else{
+                                $htmlEN .= '<span class="adresseGras">'.$modePaiement.'</span>';
+                            }
+                            $htmlEN .= '
                             <br><br>
 
                             <span class="adresseGras">Modality of payment :</span>

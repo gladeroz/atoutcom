@@ -34,12 +34,18 @@ $transaction_id = generateRandomString();
 
 $sql = "SELECT meta_value FROM " . $prefix . "gf_entry_meta WHERE form_id=".$form_id." AND entry_id=".$entry_id." AND meta_key = '".$field_id."'";
 $inscr = $wpdb->get_var( $sql );
-$total = number_format($inscr,2);
-$total = $total * 100;
+//$total = number_format($inscr,2);
+$total = number_format($inscr * 1.0175,2,".","") * 100;
+
+$sql = "SELECT meta_value FROM " . $prefix . "gf_entry_meta WHERE form_id=".$form_id." AND entry_id=".$entry_id." AND meta_key = '".$_GET['prenom']."'";
+$prenom = $wpdb->get_var( $sql );
+
+$sql = "SELECT meta_value FROM " . $prefix . "gf_entry_meta WHERE form_id=".$form_id." AND entry_id=".$entry_id." AND meta_key = '".$_GET['nom']."'";
+$nom = $wpdb->get_var( $sql );
 
 $trans_date = date('YmdHis');
 
-$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIFICAT));
+$concat = utf8_encode (sanitize_text_field('INTERACTIVE+'.$total.'+'.MODEBOUTIQUE.'+978+'.$prenom.'+'.$nom.'+'.$siteid.'+PAYMENT+SINGLE+'.IDBOUTIQUE.'+'.$trans_date.'+'.$transaction_id.'+V2+'.IDCERTIFICAT));
 
 $signature = hash('sha1', $concat, false);
 
@@ -49,12 +55,15 @@ $formulaire = "
 <input type='hidden' name='vads_amount' value='".$total."' />
 <input type='hidden' name='vads_ctx_mode' value='".MODEBOUTIQUE."' />
 <input type='hidden' name='vads_currency' value='978' />
+<input type='hidden' name='vads_cust_first_name' value='".utf8_encode (sanitize_text_field($prenom))."' />
+<input type='hidden' name='vads_cust_last_name' value='".utf8_encode (sanitize_text_field($nom))."' />
 <input type='hidden' name='vads_page_action' value='PAYMENT' />
 <input type='hidden' name='vads_payment_config' value='SINGLE' />
 <input type='hidden' name='vads_site_id' value='".IDBOUTIQUE."' />
 <input type='hidden' name='vads_trans_date' value='".$trans_date."' />
 <input type='hidden' name='vads_trans_id' value='".$transaction_id."' />
 <input type='hidden' name='vads_version' value='V2' />
+
 <input type='hidden' name='vads_ext_info_site_id' value='".$siteid."' />
 <input type='hidden' name='signature' value='".$signature."' />
 <input type='submit' id='bouton_payer' name='payer' value='Effectuer le réglement'/>

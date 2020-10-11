@@ -39,7 +39,7 @@
         display: none;
 	}
 
-	input.form-control, #evenementList, #sponsorLangue, #evenementSpecialite, #participation{
+	input.form-control, #evenementList, #sponsorLangue, #evenementSpecialite, #participation, #modePaiement{
 		font-size: 20px!important;
 		height: 50px!important;
 	}
@@ -79,6 +79,11 @@
         color: #3174c7!important;
         text-decoration: none!important;
         font-size: smaller;
+    }
+
+    .contacts{
+    	text-align: center;
+    	font-weight: bold;
     }
     
 </style>
@@ -153,7 +158,7 @@
 	                <input type="hidden" name="specialiteEvent" id="specialiteEvent">
 			    </div>
                 
-                <div class="col-sm-4">
+                <div class="col-sm-8">
 			        <label for="adresseEvent" class="col-form-label-lg labelSponsor">Adresse</label>
 			        <input type="text" name="adresseEvent" class="form-control form-control-lg" id="adresseEvent" readonly="">
 			    </div>
@@ -163,12 +168,12 @@
 			        <input type="text" name="codepostalEvent" class="form-control form-control-lg" id="codepostalEvent" readonly="">
 			    </div>
 
-			    <div class="col-sm-2">
+			    <div class="col-sm-3">
 			        <label for="villeEvent" class="col-form-label-lg labelSponsor">Ville</label>
 			        <input type="text" name="villeEvent" class="form-control form-control-lg" id="villeEvent" readonly="">
 			    </div>
                 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
 			        <label for="paysEvent" class="col-form-label-lg labelSponsor">Pays</label>
 			        <input type="text" name="paysEvent" class="form-control form-control-lg" id="paysEvent" readonly="">
 			    </div>
@@ -182,17 +187,6 @@
 			        <label for="dateFin" class="col-form-label-lg labelSponsor">Date fin</label>
 			        <input type="text" name="dateFin" class="form-control form-control-lg" id="dateFin" readonly="">
 			    </div>
-
-                <div class="col-sm-3">
-			        <label for="contactNom" class="col-form-label-lg labelSponsor">Personne à contacter</label>
-			        <input type="text" name="contactNom" class="form-control form-control-lg" id="contactNom" readonly="">
-			    </div>
-
-			    <div class="col-sm-3">
-			        <label for="contactAdresse" class="col-form-label-lg labelSponsor">Adresse Contact</label>
-			        <input type="text" name="contactAdresse" class="form-control form-control-lg" id="contactAdresse" readonly="">
-			    </div>
-
 			</div>
             <br><br>
 
@@ -223,6 +217,16 @@
 			        <input type="number" name="participation" class="form-control form-control-lg" id="participation" placeholder="Participation" required>
 			    </div>
 
+			    <!--<div class="col-sm-3">
+			        <label for="modePaiement" class="col-form-label-lg labelSponsor">Mode de paiement</label>
+			        <select name="modePaiement" id="modePaiement" class="form-control form-control-lg" required style="max-width: none!important;">
+	                    <option value="">Choisir un mode</option>
+	                    <option value="Carte Bancaire">Carte Bancaire</option>
+	                    <option value="Chèque">Chèque</option>		
+						<option value="Virement Bancaire">Virement Bancaire</option>
+	                </select>
+			    </div>-->
+
 			    <div class="col-sm-3">
 			        <label for="adresseFact" class="col-form-label-lg labelSponsor">Adresse de facturation</label>
 			        <input type="text" name="adresseFact" class="form-control form-control-lg" placeholder="Adresse de facturation" id="adresseFact" required>
@@ -235,7 +239,7 @@
 
 			    <div class="col-sm-2">
 			        <label for="codepostalFact" class="col-form-label-lg labelSponsor">Code postal</label>
-			        <input type="text" name="codepostalFact" class="form-control form-control-lg" id="codepostalFact" placeholder="Ex : 13090" required>
+			        <input type="number" name="codepostalFact" class="form-control form-control-lg" id="codepostalFact" placeholder="Ex : 13090" required>
 			    </div>
 
 			    <div class="col-sm-2">
@@ -249,12 +253,55 @@
 			    </div>
 
 			</div>
+
+			<br><br>
+			<div class="row">
+				<div class="col-sm-12 contacts">
+			        <label for="contacts" class="col-form-label-lg labelSponsor">Contacts</label>
+			        <input type="hidden" name="contact_id" class="form-control form-control-lg" id="contact_id" value="0">
+			    </div>
+			</div>
+
+		    <div class="row indice_0">
+			    <div class="col-sm-3">
+			        <label for="contact_nom_0" class="col-form-label-lg labelSponsor">Nom</label>
+			        <input type="text" name="contact_nom_0" class="form-control form-control-lg" id="contact_nom_0" placeholder="Nom">
+			    </div>
+
+			    <div class="col-sm-3">
+			        <label for="contact_prenom_0" class="col-form-label-lg labelSponsor">Prénom</label>
+			        <input type="text" name="contact_prenom_0" class="form-control form-control-lg" id="contact_prenom_0" placeholder="Prénom">
+			    </div>
+
+			    <div class="col-sm-3">
+			        <label for="contact_email_0" class="col-form-label-lg labelSponsor">Email</label>
+			        <input type="text" name="contact_email_0" class="form-control form-control-lg" id="contact_email_0" placeholder="Email">
+			    </div>
+
+			    <div class="col-sm-3">
+			        <label for="contact_telephone_0" class="col-form-label-lg labelSponsor">Téléphone</label>
+			        <input type="number" name="contact_telephone_0" class="form-control form-control-lg" id="contact_telephone_0" placeholder="Téléphone">
+			    </div>
+			</div>
+			
             <br><br>
 
 			<div class="row" style="margin-top: 15px;">
 				<div class="col-sm-3">
 					<button type="submit" id="enregistrerSponsor" class="btn btn-success btn-lg" style="width: 250px;">
 					    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer
+					</button>
+				</div>
+
+				<div class="col-sm-3">
+					<button type="button" id="addContactSoponsor" class="btn btn-success btn-lg" style="width: 250px;">
+					    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un contact
+					</button>
+				</div>
+
+				<div class="col-sm-3">
+					<button type="button" id="deleteContactSponsor" class="btn btn-danger btn-lg" style="width: 250px;">
+					    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Supprimer un contact
 					</button>
 				</div>
 			</div>
@@ -285,6 +332,7 @@
 		<a class="toggle-vis-sponsor" data-column="18">Ak_DateReglement</a> -
 		<a class="toggle-vis-sponsor" data-column="19">COMMENTAIRE</a> -
 		<a class="toggle-vis-sponsor" data-column="20">CONCERNE</a>
+		<!--<a class="toggle-vis-sponsor" data-column="20">CONTACTS</a>-->
 	</div>
 
     <div class="row facture_sponsor" style="margin-bottom: 10px;">
@@ -319,6 +367,7 @@
 	            <th>Ak_DateReglement</th>
 	            <th>COMMENTAIRE</th>
 	            <th>CONCERNE</th>
+	            <!--<th>CONTACTS</th>-->
 	        </tr>
 	    </thead>
 	    <tbody id="bodyFactureSponsor">

@@ -496,11 +496,62 @@ jQuery( document ).ready(function() {
     	jQuery('.createSponsor').show();
     });
 
+    // Ajouter un contact sponsor
+    jQuery('#addContactSoponsor').click( function(event) {
+    	var old_indice = parseInt(jQuery('#contact_id').val());
+    	var indice = old_indice + 1;
+    	//add new contact
+    	addContactSoponsor(old_indice, indice);
+    });
+
+    // Supprimer un contact sponsor
+    jQuery('#deleteContactSponsor').click( function(event) {
+    	var indice = parseInt(jQuery('#contact_id').val());
+    	//Don't hide contact number 0
+    	if(indice > 0){
+    		jQuery(".div_"+indice).remove();
+    		//update contact_id with the new indice
+    		var new_indice = indice - 1;
+	    	jQuery("#contact_id").val(new_indice);
+    	}
+    });
+
+    // Fonction d'ajour d'une nouvelle ligne de contact
+    function addContactSoponsor(old_indice, indice){
+    	var divContactSponsor =
+
+		'<div class="col-sm-3 div_'+indice+'">'+
+	        '<label for="contact_nom_'+indice+'" class="col-form-label-lg labelSponsor">Nom</label>'+
+	        '<input type="text" name="contact_nom_'+indice+'" class="form-control form-control-lg" id="contact_nom_'+indice+'" placeholder="Nom">'+
+	    '</div>'+
+
+	    '<div class="col-sm-3 div_'+indice+'">'+
+	        '<label for="contact_prenom_'+indice+'" class="col-form-label-lg labelSponsor">Prénom</label>'+
+	        '<input type="text" name="contact_prenom_'+indice+'" class="form-control form-control-lg" id="contact_prenom_'+indice+'" placeholder="Prénom">'+
+	    '</div>'+
+
+	    '<div class="col-sm-3 div_'+indice+'">'+
+	        '<label for="contact_email_'+indice+'" class="col-form-label-lg labelSponsor">Email</label>'+
+	        '<input type="text" name="contact_email_'+indice+'" class="form-control form-control-lg" id="contact_email_'+indice+'" placeholder="Email">'+
+	    '</div>'+
+
+	    '<div class="col-sm-3 div_'+indice+'">'+
+	        '<label for="contact_telephone_'+indice+'" class="col-form-label-lg labelSponsor">Téléphone</label>'+
+	        '<input type="number" name="contact_telephone_'+indice+'" class="form-control form-control-lg" id="contact_telephone_'+indice+'" placeholder="Téléphone">'+
+	    '</div>';
+	    //append new contact to the laste
+	    jQuery(".indice_0").append(divContactSponsor);
+	    //update new indice
+	    jQuery("#contact_id").val(indice);
+    }
+
     // Appel ajax pour la création du sponsor
-    jQuery( "#target-createSponsor" ).submit(function( event ) {
+    jQuery("#target-createSponsor").submit(function( event ) {
+    	event.preventDefault();
     	jQuery( "#enregistrerSponsor" ).attr("disabled", true);
     	jQuery( "#enregistrerSponsor" ).html(" <i class='fa fa-circle-o-notch fa-spin'></i> Création sponsor ");
     	var data = jQuery( "#target-createSponsor" ).serialize();
+    	console.log(data);
     	jQuery.post(
 		    ajaxurl,
 		    {
@@ -508,7 +559,6 @@ jQuery( document ).ready(function() {
 		        'data': data
 		    },
 		    function(response){
-		    	//console.log(response);
 		    	var response = JSON.parse(response);
 		    	jQuery( "#enregistrerSponsor" ).attr("disabled", false);
 		    	jQuery( "#enregistrerSponsor" ).html(' <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enregistrer ');
@@ -532,7 +582,7 @@ jQuery( document ).ready(function() {
                 }
 		    }
 		);
-        event.preventDefault();
+        
     });
 
     /****************************CHARGEMENT LISTE DES EVENEMENTS*****************
@@ -571,7 +621,7 @@ jQuery( document ).ready(function() {
         ajaxurl,
 	    {
 	        'action': 'getFacture',
-	        'data': 'sponsor',
+	        'data': 'Sponsor',
 	    },
 	    function(response){
 	    	var response = JSON.parse(response);
@@ -600,6 +650,7 @@ jQuery( document ).ready(function() {
 	            		var date_reglement = data[i]['date_reglement'];
 	            		var commentaire = data[i]['commentaire'];
 	            		var concerne = data[i]['concerne'];
+	            		var contacts = data[i]['contacts'];
 
 	            		var dataTable =
 

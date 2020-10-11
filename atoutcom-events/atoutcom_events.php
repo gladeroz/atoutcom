@@ -214,7 +214,8 @@ function updateUserStatus() {
 			                "dateDebut"=>$tab["Date Debut Evenement"],
 			                "dateFin"=>$tab["Date Fin Evenement"],
 			                "contact_nom"=>$tab["Contact Nom"],
-			                "contact_adresse"=>$tab["Contact Adresse"]
+			                "contact_adresse"=>$tab["Contact Adresse"],
+			                "paiement"=>$tab["paiement"]
 			            );
 			            break; 
 		            } 
@@ -242,6 +243,7 @@ function updateUserStatus() {
 				    $restedu = 0;
 				    $paye = $participation;
 				    $encaisse = $participation;
+				    $modePaiement = $tabUser["paiement"];
 
                 	$insertDataFacture =  $wpdb->insert( 
 			        $wpdb->base_prefix."atoutcom_users_events_facture",
@@ -264,6 +266,7 @@ function updateUserStatus() {
 				            'paye' => $paye,
 				            'encaisse' => $encaisse,
 				            'date_reglement' => date("d/m/Y"),
+				            'mode_paiement' => $modePaiement,
 				            'commentaire' => '',
 				            'concerne' => $categorie,
 				        ), 
@@ -288,6 +291,7 @@ function updateUserStatus() {
 				            '%s',
 				            '%s',
 				            '%s',
+				            '%s',
 				        )
 				    );
 				    // Si données insérées dans la table facture
@@ -296,7 +300,7 @@ function updateUserStatus() {
 				    	$userInfo = atoutcomUser::adresseFacturation($userEmail, $categorie);
 
 				    	$participant = $tabUser["participant"];
-						$adresseParticiant = $tabUser["adresse"];
+						$adresseParticipant = $tabUser["adresse"];
 						$codePostalParticipant = $tabUser["codepostal"];
 						$villeParticipant = $tabUser["ville"];
 						$paysParticipant = $userInfo->pays;
@@ -305,7 +309,7 @@ function updateUserStatus() {
 						if($userInfo->organisme_facturation === "" || $userInfo->organisme_facturation === NULL){
 							$emailContact = $emailParticipant;
 							$destinataire = $participant;
-							$adresseFacturation = $adresseParticiant;
+							$adresseFacturation = $adresseParticipant;
 							$codepostalFacturation = $codePostalParticipant;
 							$villeFacturation = $villeParticipant;
 							$paysFacturation =  $paysParticipant;
@@ -361,17 +365,16 @@ function updateUserStatus() {
 						    $montantTTC,
 						    date("d/m/Y"),
 						    $emailContact,
-						    $tabUser["contact_nom"],
-						    $tabUser["contact_adresse"],
 						    $aka_tauxTVA,
 						    $numBonDeCommande,
 						    $facture_acq,
 						    $participant,
-						    $adresseParticiant,
+						    $adresseParticipant,
 						    $codePostalParticipant,
 						    $villeParticipant,
 						    $paysParticipant,
-						    $emailParticipant
+						    $emailParticipant,
+						    $modePaiement
 						);
 
 						// Traitement des retours

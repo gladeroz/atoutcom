@@ -173,8 +173,10 @@ class AtoutcomEventsLoader extends MvcPluginLoader
             paye DECIMAL(10,2),
             encaisse DECIMAL(10,2),
             date_reglement CHAR(20),
+            mode_reglement CHAR(20),
             commentaire CHAR(250),
-            concerne CHAR(50)
+            concerne CHAR(50),
+            contacts TEXT
                 
         )';
 
